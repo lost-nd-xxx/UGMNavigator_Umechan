@@ -1,0 +1,207 @@
+// あやりりすEX　ゴーストテンプレート
+// メニュー処理辞書
+//******************************************************************************
+
+MenuComment
+{
+	_script = '\![quicksection,0]'
+	if (STRLEN(MenuCommentForce) > 0) {
+		_script += MenuCommentForce
+		ERASEVAR('MenuCommentForce')
+	}
+	else {
+		_script += _argv[0]
+	}
+	_script
+}
+
+MenuBreadCrumbs
+{
+	_script = ''
+	for _i=0; _i<ARRAYSIZE(BreadCrumbs); _i++ {
+		if _i > 0 {
+			_script += ' > '
+		}
+		if _i == ARRAYSIZE(BreadCrumbs) - 1 {
+			_script += '\f[color,disable]\f[underline,1]' + BreadCrumbs[_i][1, '|'] + '\f[default]'
+		}
+		else {
+			_script += '\__q[' + BreadCrumbs[_i][0, '|'] + ']' + BreadCrumbs[_i][1, '|'] + '\__q'
+		}
+	}
+	_script = '\0\_l[0,0]\n[30]' + _script + '\n[-30]\*'
+	_script
+}
+
+MenuHr
+{
+	_multiplier = 140
+	_a0_len = GETSTRBYTES(_argv[0], 127) * (_multiplier / 100)
+	_a0 = _argv[0]
+	if (_a0_len > BalloonCharCnt) {
+		_length = (BalloonValidWidth / (BalloonCharWidth * (_multiplier / 100)))
+		_a0 = SHIORI3FW.MakeJustText(_a0, _length)
+	}
+	_script += '\f[color,disable]'
+	_script += '────────────────────────'
+	_script += '\f[default]'
+	if (STRLEN(_a0) > 0) {
+		_script += '\n[100]'
+		_script += '\f[height,' + _multiplier + '%]\_l[@0,@-0.15em]\f[bold,1]'
+		_script += _a0
+		_script += '\f[default]'
+		_script += '\n[100]'
+		_script += '\f[color,disable]'
+		_script += '────────────────────────'
+		_script += '\f[default]'
+	}
+	_script
+}
+
+CloseMenuButton
+{
+	'\0\_l[0,0]\f[align,right]\f[height,150%]\__q[script:\e]\_u[0x274E]\__q\f[default]\*'
+}
+
+MenuItem
+{
+	_ref = ''
+	for _i=2; _i<_argc; _i++ {
+		if (_i > 2) {
+			_ref += ','
+		}
+		_ref += _argv[_i]
+	}
+	_cnt = TOINT(_argv[0])
+	if (_cnt <= 0) {
+		_cnt++
+	}
+	_cnt = (BalloonCharCnt - _cnt * 2) / _cnt
+	_label = SHIORI3FW.MakeJustText(_argv[1], _cnt)
+
+	'\![*]\__q[' + _ref + ']' + _label + '\__q'
+}
+
+//------------------------------------------------------------------------------
+//メインメニュー展開
+//------------------------------------------------------------------------------
+
+OnMenu
+{
+	BreadCrumbs = (IARRAY, 'OnMenu|メニュー')
+	<<"
+	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
+	＠スクリプト：\![quicksection,1]
+	＠スクリプト：\0\_n
+	＠スクリプト：%(CloseMenuButton)
+	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuHr('ＵＧＭ補助機能'))\n
+	＠スクリプト：%(MenuItem(1,'スクリプト作成＆イベント試行','OnMenu_UgmTools'))\n
+	＠スクリプト：%(MenuItem(1,'きっとわかる！うめちゃん解説','OnMenu_UgmNavi'))\n
+	＠スクリプト：\n[50]%(MenuHr('おしゃべり'))\n
+	＠スクリプト：%(MenuItem(1,'何か話して','Menu_AITALK'))\n
+	＠スクリプト【STRLEN(SHIORI3FW.LastAITalk) > 0】：%(MenuItem(1,'さっきの話は？','Menu_LASTTALK'))\n
+	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[strike,1]さっきの話は？\f[default]\n
+	＠スクリプト：%(MenuItem(1,'おしゃべりの頻度','Menu_TALKINTERVAL'))
+	＠スクリプト：\![quicksection,0]\_n
+	い：%(MenuComment('メニューだよ～'))
+	">>
+}
+
+//------------------------------------------------------------------------------
+//メニュー選択タイムアウト
+//------------------------------------------------------------------------------
+// OnChoiceTimeout
+
+//******************************************************************************
+//各項目の処理内容
+//******************************************************************************
+
+//---- 何か話して
+Menu_AITALK
+{
+	<<"
+	い：（えっと｜ええっと｜ううんと）ね～……
+	＠スクリプト：\w9\w9\![raise,OnAITalk]
+	">>
+}
+
+//---- さっきの話は
+Menu_LASTTALK
+{
+	//前のトークになにかある(＝文字列の長さが0ではない）時はそれを喋る
+	if (STRLEN(SHIORI3FW.LastAITalk) > 0) {
+		SHIORI3FW.LastAITalk
+	}
+	else {
+		MenuCommentForce = 'まだ何も喋ってないよ～'
+		OnMenu
+	}
+}
+
+//---- トーク頻度の調整
+Menu_TALKINTERVAL
+{
+	BreadCrumbs = ('OnMenu|メニュー', 'Menu_TALKINTERVAL|ここ')
+	<<"
+	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
+	＠スクリプト：\![quicksection,1]
+	＠スクリプト：\0\_n
+	＠スクリプト：%(CloseMenuButton)
+	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuHr('おしゃべりの頻度'))\n
+	＠スクリプト【aitalkinterval!=15】：%(MenuItem(1,'にぎやか','OnMenu_TALKINTERVAL_Set','15'))\n
+	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]にぎやか\f[default]\n
+	＠スクリプト【aitalkinterval!=180】：%(MenuItem(1,'ふつう','OnMenu_TALKINTERVAL_Set','180'))\n
+	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]ふつう\f[default]\n
+	＠スクリプト【aitalkinterval!=300】：%(MenuItem(1,'ひそやか','OnMenu_TALKINTERVAL_Set','300'))\n
+	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]ひそやか\f[default]\n
+	＠スクリプト【aitalkinterval!=0】：%(MenuItem(1,'し～','OnMenu_TALKINTERVAL_Set','0'))
+	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]し～\f[default]
+	＠スクリプト：\![quicksection,0]\_n
+	い：%(MenuComment('どのくらいがいいのかな？'))
+	">>
+}
+
+//---- キャンセルされた
+Menu_CANCEL
+{
+	<<"
+	う：キャンセル～
+	">>
+}
+
+//---- トーク頻度
+OnMenu_TALKINTERVAL_Set
+{
+	aitalkinterval = TOINT(reference[0])
+	case aitalkinterval {
+		when 15 {
+			MenuCommentForce = '15秒間隔で放たれるましんがん・とーく！'
+		}
+		when 180 {
+			MenuCommentForce = '３分間隔くらいで喋ってみるね～'
+		}
+		when 300 {
+			MenuCommentForce = '５分間隔くらいで喋ってみるね～'
+		}
+		when 0 {
+			MenuCommentForce = 'し～、だね。'
+		}
+		others {
+			// なにかがおかしいのでとりあえず0をセット
+			aitalkinterval = 0
+			MenuCommentForce = 'し～、だね。'
+		}
+	}
+	Menu_TALKINTERVAL
+}
+
+//---- ヘッドライン
+Menu_HEADLINECANCEL
+{
+	//---- キャンセルされた
+	<<"
+	い：ヘッドライン、キャンセルしたよ～
+	">>
+}

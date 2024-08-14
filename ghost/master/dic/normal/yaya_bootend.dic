@@ -1,0 +1,124 @@
+//******************************************************************************
+// あやりりすEX　ゴーストテンプレート
+// 起動/終了トーク辞書
+//******************************************************************************
+
+//******************************************************************************
+// ロードとアンロードの時に何かする
+//******************************************************************************
+
+OnSystemLoad.Umechan
+{
+	BreadCrumbs = (IARRAY, 'OnMenu')
+}
+
+// OnSystemUnload.Umechan
+
+//******************************************************************************
+//初回起動 OnFirstBoot
+//******************************************************************************
+
+初回起動
+{
+	send_SenderId = 'うめちゃん'
+	send_SenderName = 'うめちゃん@UGMナビ'
+	send_SenderIcon = 'img\\umechan_icon.png'
+	send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerのナビキャラだよ～'
+	send_MessageId = 'test01'
+	send_Enable = 1
+	send_Text = 'ほにょほにょ'
+	send_EventReference = IARRAY
+	send_RunCount = 1
+	send_Late = 0
+	send_Time_After = ''
+	send_Time_Seconds = ''
+	send_Time_DayOfWeek = ''
+	send_Time_During = ''
+	send_Ghost_Booted = ''
+	send_Ghost_Closed = ''
+	send_Ghost_IsBooting = ''
+	send_Ghost_IsNotBooting = ''
+	send_Ghost_Exists = ''
+	send_Ghost_NotExists = ''
+	send_Ghost_IsInAddressBook = ''
+	send_Ghost_Triggered = ''
+	send_Message_Run = ''
+	send_Message_IsRun = ''
+	send_Message_IsNotRun = ''
+	send_Message_Read = ''
+	send_Message_IsRead = ''
+	send_Message_IsNotRead = ''
+	request_Sender = 'UkagakaGhostMessengerナビゲーターうめちゃん'
+	request_SenderId = 'うめちゃん'
+	request_MessageId = 'test01'
+	trigger_TriggerId = 'test_trigger'
+	trigger_TargerSender = 'UkagakaGhostMessengerナビゲーターうめちゃん'
+	trigger_TargetSenderId = 'うめちゃん'
+	cancel_SenderId = 'うめちゃん'
+
+	menu_sendedit_page = 'text'
+
+	// SSPデフォルト+の\b[2]の値
+	BalloonLines = 25
+	BalloonCharCnt = 51
+	BalloonValidWidth = 312
+	BalloonCharWidth = 6
+
+	起動
+}
+
+// Vanish後初回起動
+// {
+// 	_vanish_count = TOINT(reference[0])
+// }
+
+//******************************************************************************
+//通常の起動 OnBoot
+//******************************************************************************
+
+//該当がない時は「起動」でトークします。
+起動
+{
+	// ＠スクリプト：%(一体化)
+	<<"
+	い：UkagakaGhostMessengerのナビ、うめちゃんだよ！
+	改行多めい：なにか用事のときは、うめちゃんをつついてね～★
+	＠スクリプト：%(OnBalloonInfoRequest)
+	">>
+}
+
+// 10月上旬に起動
+// 10月13日に起動
+// 10月第2週土曜に起動
+// 平日の朝に起動
+// 土曜に起動
+// 秋に起動
+// 秋の朝に起動
+// 朝に起動
+// 昼食時に起動
+// 夜に起動
+
+//******************************************************************************
+//終了 OnClose
+//******************************************************************************
+
+終了
+{
+	<<"
+	い：UkagakaGhostMessengerをよろしくね～！
+	">>
+}
+
+//******************************************************************************
+//最小化からの復帰 OnWindowStateRestore
+//******************************************************************************
+
+OnWindowStateRestore
+{
+	<<"
+	い：もう出てきてもいい？
+	">>
+	<<"
+	い：うめちゃんのかわいさを堪能しなおしてね～★
+	">>
+}
