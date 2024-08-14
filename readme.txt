@@ -12,6 +12,9 @@ https://ms.shillest.net/yayame.xhtml
 ＊紺野りりす
 https://ms.shillest.net/yayalilith.xhtml
 
+＊textcopy2.dll
+https://code.google.com/archive/p/csaori/
+
 ＊うめちゃんのイラスト
 ユスラさんがにじジャーニーで生成されたものを加工して使っています。
 ・にじジャーニー
