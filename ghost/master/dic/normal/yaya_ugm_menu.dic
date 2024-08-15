@@ -29,15 +29,18 @@ OnMenu_UgmTools
 OnUkagakaGhostMessenger_SendComplete
 {
 	<<"
+	＠設定：クイックセクション
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
-	う：\f[bold,1]\_a[SendComplete_r0]成功種別\_a\f[bold,0]
+	う：\f[bold,1]\_a[SendComplete]OnUkagakaGhostMessenger_SendComplete\_a\f[bold,0]
+	改多う：\f[bold,1]\_a[SendComplete_r0]成功種別\_a\f[bold,0]
 	う：%(reference[0])
 	改多う：\f[bold,1]メッセージ識別子\f[bold,0]
 	う：%(reference[1])
 	改多う：\f[bold,1]送信者識別子\f[bold,0]
 	う：%(reference[2])
 	＠スクリプト：\![quicksection,0]\_n
+	＠設定：クイックセクション
 	い：送信成功！
 	">>
 }
@@ -45,8 +48,10 @@ OnUkagakaGhostMessenger_SendComplete
 OnUkagakaGhostMessenger_SendFailure
 {
 	<<"
+	＠設定：クイックセクション
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
+	う：\f[bold,1]\_a[SendFailure]OnUkagakaGhostMessenger_SendFailure\_a\f[bold,0]
 	改多う：\f[bold,1]失敗理由\f[bold,0]
 	う：%(reference[0])
 	改多う：\f[bold,1]\_a[SendFailure_r1]メッセージ識別子\_a\f[bold,0]
@@ -54,6 +59,7 @@ OnUkagakaGhostMessenger_SendFailure
 	改多う：\f[bold,1]\_a[SendFailure_r2]送信者識別子\_a\f[bold,0]
 	う：%(reference[2])
 	＠スクリプト：\![quicksection,0]\_n
+	＠設定：クイックセクション
 	い：送信失敗……
 	">>
 }
@@ -65,8 +71,10 @@ OnUkagakaGhostMessenger_Response
 		_loop += "\n[150]\f[bold,1]＊文字列ランダム結果%(HAN2ZEN(_i-5))\f[bold,0]\n%(reference[_i])"
 	}
 	<<"
+	＠設定：クイックセクション
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
+	う：\f[bold,1]\_a[Response]OnUkagakaGhostMessenger_Response\_a\f[bold,0]
 	改多う：\f[bold,1]ゴースト名\f[bold,0]
 	う：%(reference[0])
 	改多う：\f[bold,1]送信者識別子\f[bold,0]
@@ -81,6 +89,7 @@ OnUkagakaGhostMessenger_Response
 	う：%(reference[5])
 	＠スクリプト：%(_loop)
 	＠スクリプト：\![quicksection,0]\_n
+	＠設定：クイックセクション
 	い：メッセージ発動！
 	">>
 }
@@ -89,12 +98,14 @@ OnUkagakaGhostMessenger_Ringing
 {
 	_loop = ''
 	for _i=3; _i<ARRAYSIZE(reference); _i++ {
-		_loop += "\n[150]\f[bold,1]＊追加情報%(HAN2ZEN(_i-2))\f[bold,0]\n%(reference[_i])"
+		_loop += "\n[150]\f[bold,1]追加情報%(HAN2ZEN(_i-2))\f[bold,0]\n%(reference[_i])"
 	}
 
 	<<"
+	＠設定：クイックセクション
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
+	う：\f[bold,1]\_a[Ringing]OnUkagakaGhostMessenger_Ringing\_a\f[bold,0]
 	改多う：\f[bold,1]送信元ゴースト名\f[bold,0]
 	う：%(reference[0])
 	改多う：\f[bold,1]送信者識別子\f[bold,0]
@@ -103,6 +114,7 @@ OnUkagakaGhostMessenger_Ringing
 	う：%(reference[2])
 	＠スクリプト：%(_loop)
 	＠スクリプト：\![quicksection,0]\_n
+	＠設定：クイックセクション
 	い：メッセージ発動！
 	">>
 }
@@ -173,58 +185,58 @@ MakeScript_Send
 		}
 	}
 	if (STRLEN(send_Time_After) > 0) {
-		_script += ',"--Condition:Time_After=' + send_Time_After + '"'
+		_script += ',"--Condition=Time_After:' + send_Time_After + '"'
 	}
 	if (STRLEN(send_Time_Seconds) > 0) {
-		_script += ',--Condition:Time_Seconds=' + send_Time_Seconds
+		_script += ',--Condition=Time_Seconds:' + send_Time_Seconds
 	}
 	if (STRLEN(send_Time_DayOfWeek) > 0) {
-		_script += ',--Condition:Time_DayOfWeek=' + send_Time_DayOfWeek
+		_script += ',--Condition=Time_DayOfWeek:' + send_Time_DayOfWeek
 	}
 	if (STRLEN(send_Time_During) > 0) {
-		_script += ',"--Condition:Time_During=' + send_Time_During + '"'
+		_script += ',"--Condition=Time_During:' + send_Time_During + '"'
 	}
 	if (STRLEN(send_Ghost_Booted) > 0) {
-		_script += ',"--Condition:Ghost_Booted=' + send_Ghost_Booted + '"'
+		_script += ',"--Condition=Ghost_Booted:' + send_Ghost_Booted + '"'
 	}
 	if (STRLEN(send_Ghost_Closed) > 0) {
-		_script += ',"--Condition:Ghost_Closed=' + send_Ghost_Closed + '"'
+		_script += ',"--Condition=Ghost_Closed:' + send_Ghost_Closed + '"'
 	}
 	if (STRLEN(send_Ghost_IsBooting) > 0) {
-		_script += ',"--Condition:Ghost_IsBooting=' + send_Ghost_IsBooting + '"'
+		_script += ',"--Condition=Ghost_IsBooting:' + send_Ghost_IsBooting + '"'
 	}
 	if (STRLEN(send_Ghost_IsNotBooting) > 0) {
-		_script += ',"--Condition:Ghost_IsNotBooting=' + send_Ghost_IsNotBooting + '"'
+		_script += ',"--Condition=Ghost_IsNotBooting:' + send_Ghost_IsNotBooting + '"'
 	}
 	if (STRLEN(send_Ghost_Exists) > 0) {
-		_script += ',"--Condition:Ghost_Exists=' + send_Ghost_Exists + '"'
+		_script += ',"--Condition=Ghost_Exists:' + send_Ghost_Exists + '"'
 	}
 	if (STRLEN(send_Ghost_NotExists) > 0) {
-		_script += ',"--Condition:Ghost_NotExists=' + send_Ghost_NotExists + '"'
+		_script += ',"--Condition=Ghost_NotExists:' + send_Ghost_NotExists + '"'
 	}
 	if (STRLEN(send_Ghost_IsInAddressBook) > 0) {
-		_script += ',"--Condition:Ghost_IsInAddressBook=' + send_Ghost_IsInAddressBook + '"'
+		_script += ',"--Condition=Ghost_IsInAddressBook:' + send_Ghost_IsInAddressBook + '"'
 	}
 	if (STRLEN(send_Ghost_Triggered) > 0) {
-		_script += ',"--Condition:Ghost_Triggered=' + send_Ghost_Triggered + '"'
+		_script += ',"--Condition=Ghost_Triggered:' + send_Ghost_Triggered + '"'
 	}
 	if (STRLEN(send_Message_Run) > 0) {
-		_script += ',"--Condition:Message_Run=' + send_Message_Run + '"'
+		_script += ',"--Condition=Message_Run:' + send_Message_Run + '"'
 	}
 	if (STRLEN(send_Message_IsRun) > 0) {
-		_script += ',"--Condition:Message_IsRun=' + send_Message_IsRun + '"'
+		_script += ',"--Condition=Message_IsRun:' + send_Message_IsRun + '"'
 	}
 	if (STRLEN(send_Message_IsNotRun) > 0) {
-		_script += ',"--Condition:Message_IsNotRun=' + send_Message_IsNotRun + '"'
+		_script += ',"--Condition=Message_IsNotRun:' + send_Message_IsNotRun + '"'
 	}
 	if (STRLEN(send_Message_Read) > 0) {
-		_script += ',"--Condition:Message_Read=' + send_Message_Read + '"'
+		_script += ',"--Condition=Message_Read:' + send_Message_Read + '"'
 	}
 	if (STRLEN(send_Message_IsRead) > 0) {
-		_script += ',"--Condition:Message_IsRead=' + send_Message_IsRead + '"'
+		_script += ',"--Condition=Message_IsRead:' + send_Message_IsRead + '"'
 	}
 	if (STRLEN(send_Message_IsNotRead) > 0) {
-		_script += ',"--Condition:Message_IsNotRead=' + send_Message_IsNotRead + '"'
+		_script += ',"--Condition=Message_IsNotRead:' + send_Message_IsNotRead + '"'
 	}
 	_script += ']'
 
@@ -392,8 +404,9 @@ OnMenu_Send
 
 	＠スクリプト：%(MenuHr('\_a[Send]メッセージ送信と編集\_a'))\n
 
-	＠スクリプト：%(MenuItem(1,'入力済みの内容で送信する','OnMenu_Send_Exec'))\n
-	＠スクリプト：%(MenuItem(1,'スクリプトをコピーする','OnMenu_CopyScript','Send'))\n[150]
+	＠スクリプト：%(MenuItem(1,'入力済みの内容で送信する','OnMenu_Send_Exec',_argv[0]))\n
+	＠スクリプト：%(MenuItem(1,'スクリプトをコピーする','OnMenu_CopyScript','Send'))\n
+	＠スクリプト：%(MenuItem(1,'このページの入力欄を初期化する','OnMenu_Send_Initialize',_argv[0]))\n[150]
 	">>
 	--
 	if (_argv[0] == 'cond') {
@@ -497,6 +510,47 @@ OnMenu_Send
 	">>
 }
 
+OnMenu_Send_Initialize
+{
+	case reference[0] {
+		when 'reference' {
+			send_EventReference = IARRAY
+		}
+		when 'cond' {
+			send_Time_After = ''
+			send_Time_Seconds = ''
+			send_Time_DayOfWeek = ''
+			send_Time_During = ''
+			send_Ghost_Booted = ''
+			send_Ghost_Closed = ''
+			send_Ghost_IsBooting = ''
+			send_Ghost_IsNotBooting = ''
+			send_Ghost_Exists = ''
+			send_Ghost_NotExists = ''
+			send_Ghost_IsInAddressBook = ''
+			send_Ghost_Triggered = ''
+			send_Message_Run = ''
+			send_Message_IsRun = ''
+			send_Message_IsNotRun = ''
+			send_Message_Read = ''
+			send_Message_IsRead = ''
+			send_Message_IsNotRead = ''
+		}
+		others {
+			send_SenderId = ''
+			send_SenderName = ''
+			send_SenderIcon = ''
+			send_SenderProfile = ''
+			send_MessageId = ''
+			send_Enable = 1
+			send_Text = ''
+			send_RunCount = 1
+			send_Late = 0
+		}
+	}
+	OnMenu_Send(reference[0])
+}
+
 OnMenu_Send_PageTurn
 {
 	case reference[0] {
@@ -517,7 +571,7 @@ OnMenu_Send_Exec
 {
 	_script = MakeScript_Send
 	MenuCommentForce = '送信するよ～' + _script
-	OnMenu_Send
+	OnMenu_Send(reference[0])
 }
 
 OnMenu_Send_Edit
@@ -559,8 +613,17 @@ OnMenu_Send_Edit_Entered
 	_r0 = SHIORI3FW.EscapeAllTags(_r0)
 
 	case reference[2] {
+		when 'send_Text' {
+			send_Text = _r0
+		}
+		when 'send_MessageId' {
+			send_MessageId = SHIORI3FW.TranslateSystemChar(_r0)
+		}
 		when 'send_Enable' {
-			if TOINT(_r0) == 1 || TOINT(_r0) == 0 {
+			if STRLEN(_r0)<=0 {
+				send_Enable=1
+			}
+			elseif TOINT(_r0) == 1 || TOINT(_r0) == 0 {
 				send_Enable = TOINT(_r0)
 			}
 			else {
@@ -568,8 +631,20 @@ OnMenu_Send_Edit_Entered
 				MenuCommentForce = '0に戻したよ～'
 			}
 		}
+		when 'send_SenderId' {
+			send_SenderId = SHIORI3FW.TranslateSystemChar(_r0)
+		}
+		when 'send_SenderName' {
+			send_SenderName = _r0
+		}
+		when 'send_SenderIcon' {
+			send_SenderIcon = _r0
+		}
+		when 'send_SenderProfile' {
+			send_SenderProfile = _r0
+		}
 		when 'send_RunCount' {
-			if !(_r0 >= 0) {
+			if !(TOINT(_r0) > 0) {
 				send_RunCount = 1
 				MenuCommentForce = '1に戻したよ～'
 			}
@@ -639,7 +714,7 @@ OnMenu_Send_Edit_Entered
 			}
 		}
 		when 'send_Time_Seconds' {
-			if (STRLEN(_r0)>0) {
+			if (STRLEN(_r0)>0&&TOINT(_r0)>=0) {
 				send_Time_Seconds = TOINT(_r0)
 			} else {
 				send_Time_Seconds = ''
@@ -679,55 +754,55 @@ OnMenu_Send_Edit_Entered
 			send_Ghost_Closed = SHIORI3FW.TranslateSystemChar(_r0)
 		}
 		when 'send_Ghost_IsBooting' {
-			if (STRSTR(_r0, '/', 0) == -1) {
+			if (STRSTR(_r0, ':', 0) == -1) {
 				send_Ghost_IsBooting = SHIORI3FW.TranslateSystemChar(_r0)
 			}
 			else {
-				_arr = SPLITEX(TOSTR(_r0), '/')
+				_arr = SPLITEX(TOSTR(_r0), ':')
 				_result = IARRAY
 				foreach _arr; _ghost {
 					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
 				}
-				send_Ghost_IsBooting = JOIN(_result, '/')
+				send_Ghost_IsBooting = JOIN(_result, ':')
 			}
 		}
 		when 'send_Ghost_IsNotBooting' {
-			if (STRSTR(_r0, '/', 0) == -1) {
+			if (STRSTR(_r0, ':', 0) == -1) {
 				send_Ghost_IsNotBooting = SHIORI3FW.TranslateSystemChar(_r0)
 			}
 			else {
-				_arr = SPLITEX(TOSTR(_r0), '/')
+				_arr = SPLITEX(TOSTR(_r0), ':')
 				_result = IARRAY
 				foreach _arr; _ghost {
 					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
 				}
-				send_Ghost_IsNotBooting = JOIN(_result, '/')
+				send_Ghost_IsNotBooting = JOIN(_result, ':')
 			}
 		}
 		when 'send_Ghost_Exists' {
-			if (STRSTR(_r0, '/', 0) == -1) {
+			if (STRSTR(_r0, ':', 0) == -1) {
 				send_Ghost_Exists = SHIORI3FW.TranslateSystemChar(_r0)
 			}
 			else {
-				_arr = SPLITEX(TOSTR(_r0), '/')
+				_arr = SPLITEX(TOSTR(_r0), ':')
 				_result = IARRAY
 				foreach _arr; _ghost {
 					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
 				}
-				send_Ghost_Exists = JOIN(_result, '/')
+				send_Ghost_Exists = JOIN(_result, ':')
 			}
 		}
 		when 'send_Ghost_NotExists' {
-			if (STRSTR(_r0, '/', 0) == -1) {
+			if (STRSTR(_r0, ':', 0) == -1) {
 				send_Ghost_NotExists = SHIORI3FW.TranslateSystemChar(_r0)
 			}
 			else {
-				_arr = SPLITEX(TOSTR(_r0), '/')
+				_arr = SPLITEX(TOSTR(_r0), ':')
 				_result = IARRAY
 				foreach _arr; _ghost {
 					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
 				}
-				send_Ghost_NotExists = JOIN(_result, '/')
+				send_Ghost_NotExists = JOIN(_result, ':')
 			}
 		}
 		when 'send_Ghost_IsInAddressBook' {
@@ -759,11 +834,8 @@ OnMenu_Send_Edit_Entered
 				send_Ghost_Triggered = SHIORI3FW.TranslateSystemChar(_r0)
 			}
 			else {
-				_result = IARRAY
 				_arr = SPLITEX( _r0, '/' )
-				foreach _arr; _curt {
-					_result ,= SHIORI3FW.TranslateSystemChar(_curt)
-				}
+				_result = (SHIORI3FW.TranslateSystemChar(_arr[0]),SHIORI3FW.TranslateSystemChar(_arr[1]))
 				send_Ghost_Triggered = JOIN(_result,'/')
 				if (STRLEN(send_Ghost_Triggered)<=0) {
 					MenuCommentForce = '未設定に戻したよ～'
@@ -797,8 +869,8 @@ OnMenu_Send_Edit_Entered
 				_arr0 = SPLITEX( _r0, ':' )
 				foreach _arr0; _curt {
 					_arr1 = SPLITEX( _curt, '/' )
-					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0&&STRLEN(_arr1[2])>0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[2])
 					}
 				}
 				send_Message_IsRun = JOIN(_result,':')
@@ -817,8 +889,8 @@ OnMenu_Send_Edit_Entered
 				_arr0 = SPLITEX( _r0, ':' )
 				foreach _arr0; _curt {
 					_arr1 = SPLITEX( _curt, '/' )
-					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0&&STRLEN(_arr1[2])>0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[2])
 					}
 				}
 				send_Message_IsNotRun = JOIN(_result,':')
@@ -854,8 +926,8 @@ OnMenu_Send_Edit_Entered
 				_arr0 = SPLITEX( _r0, ':' )
 				foreach _arr0; _curt {
 					_arr1 = SPLITEX( _curt, '/' )
-					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0&&STRLEN(_arr1[2])>0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[2])
 					}
 				}
 				send_Message_IsRead = JOIN(_result,':')
@@ -866,7 +938,7 @@ OnMenu_Send_Edit_Entered
 		}
 		when 'send_Message_IsNotRead' {
 			if (STRSTR( _r0 , '/', 0 ) == -1) {
-				send_Message_IsRead = ''
+				send_Message_IsNotRead = ''
 				MenuCommentForce = '未設定に戻したよ～'
 			}
 			else {
@@ -874,12 +946,12 @@ OnMenu_Send_Edit_Entered
 				_arr0 = SPLITEX( _r0, ':' )
 				foreach _arr0; _curt {
 					_arr1 = SPLITEX( _curt, '/' )
-					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0&&STRLEN(_arr1[2])>0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[2])
 					}
 				}
-				send_Message_IsRead = JOIN(_result,':')
-				if (STRLEN(send_Message_IsRead)<=0) {
+				send_Message_IsNotRead = JOIN(_result,':')
+				if (STRLEN(send_Message_IsNotRead)<=0) {
 					MenuCommentForce = '未設定に戻したよ～'
 				}
 			}
@@ -1013,7 +1085,7 @@ OnMenu_Trigger
 	＠スクリプト：%(CloseMenuButton)
 	＠スクリプト：%(MenuBreadCrumbs)\n[150]
 	＠スクリプト：%(MenuHr('\_a[Trigger]メッセージのトリガー\_a'))\n
-	＠スクリプト：%(MenuItem(1,'以下の内容で取り消す','OnMenu_Trigger_Exec'))\n
+	＠スクリプト：%(MenuItem(1,'以下の内容で実行する','OnMenu_Trigger_Exec'))\n
 	＠スクリプト：%(MenuItem(1,'スクリプトをコピーする','OnMenu_CopyScript','Trigger'))\n[150]
 	＠スクリプト：\f[bold,1]イベント識別子\f[bold,0]\n
 	＠スクリプト：%(MenuItem(1,GenerateTextLabel(trigger_TriggerId),'OnMenu_Trigger_Edit','trigger_TriggerId'))\n[150]
