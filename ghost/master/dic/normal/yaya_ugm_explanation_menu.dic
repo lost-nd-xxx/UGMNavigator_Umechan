@@ -1,0 +1,104 @@
+// UGM_Navi_Umechan
+// プラグインの解説メニュー
+//******************************************************************************
+
+OnMenu_UgmNavi
+{
+	_BreadCrumbs = IARRAY
+  _items = ''
+
+  if STRLEN(reference[0])>0 {
+    _BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmNavi|UGM 解説', 'dummy|ここ')
+    _curt = OnMenu_UgmNavi_List(reference[0])
+    case reference[0] {
+      when 'メッセージ内容' {MenuCommentForce='送信するメッセージの内容についての項目だよ'}
+      when 'メッセージ発動条件' {MenuCommentForce=OnExplanationCall('Condition')}
+      when 'プラグイン独自の記法' {MenuCommentForce='メッセージの本文と、\nプロフィールの文章などについての\n項目だよ\n[150]タグの中にタグを含めることはできないよ'}
+      when 'イベント' {MenuCommentForce='プラグインが起こしたり、\nプラグインに起こしたりするイベントについての\n項目だよ'}
+    }
+  	_items += MenuHr(reference[0])
+    for _i=0; _i<ARRAYSIZE(_curt); _i++ {
+      _label = _curt[_i]+'題名'
+      _label = EVAL(_label)
+      _items += "\n\![*]\_a[%(_curt[_i])]%(SHIORI3FW.MakeJustText(_label,BalloonCharCnt))\_a"
+    }
+  }
+  else {
+    _BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmNavi|ここ')
+  	_items += MenuHr('ＵＧＭ:うめちゃん解説')+'\n'
+    _items += "\![*]\__q[OnMenu_UgmNavi,メッセージ内容]%(SHIORI3FW.MakeJustText('メッセージ内容',BalloonCharCnt))\__q\n"
+    _items += "\![*]\__q[OnMenu_UgmNavi,メッセージ発動条件]%(SHIORI3FW.MakeJustText('メッセージ発動条件',BalloonCharCnt))\__q\n"
+    _items += "\![*]\__q[OnMenu_UgmNavi,プラグイン独自の記法]%(SHIORI3FW.MakeJustText('プラグイン独自の記法',BalloonCharCnt))\__q\n"
+    _items += "\![*]\__q[OnMenu_UgmNavi,イベント]%(SHIORI3FW.MakeJustText('イベント',BalloonCharCnt))\__q"
+  }
+
+  _script = '\1\s[10]\0\s[0]'
+  _script += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
+  _script += '\![quicksection,1]'
+  _script += '\_n'
+  _script += CloseMenuButton
+	_script += MenuBreadCrumbs(JOIN(_BreadCrumbs,','))+'\n[150]'
+  _script += _items
+  _script += '\_n'
+	_script += '\1'+MenuComment('どんどん聞いてね～')
+
+  _script
+}
+
+OnMenu_UgmNavi_List : array
+{
+	case _argv[0] {
+		when 'メッセージ内容' {
+			'Sender'
+			'SenderId'
+			'SenderName'
+			'SenderIcon'
+			'SenderProfile'
+			'MessageId'
+			'Enable'
+			'Text'
+			'EventReference'
+			'RunCount'
+			'Late'
+		}
+		when 'メッセージ発動条件' {
+			'Time_After'
+			'Time_Seconds'
+			'Time_DayOfWeek'
+			'Time_During'
+			'Ghost_Booted'
+			'Ghost_Closed'
+			'Ghost_IsBooting'
+			'Ghost_IsNotBooting'
+			'Ghost_Exists'
+			'Ghost_NotExists'
+			'Ghost_IsInAddressBook'
+			'Ghost_Triggered'
+			'Message_Run'
+			'Message_IsRun'
+			'Message_IsNotRun'
+			'Message_Read'
+			'Message_IsRead'
+			'Message_IsNotRead'
+		}
+		when 'プラグイン独自の記法' {
+			'任意改行'
+			'文字列ランダム'
+			'条件達成時の時間類'
+			'画像貼り付け'
+			'スタンプ貼り付け'
+			'画像コピーの仕様'
+			'差し替え対象の文字'
+		}
+		when 'イベント' {
+			'Send'
+			'SendComplete'
+			'SendFailure'
+			'Cancel'
+			'Request'
+			'Response'
+			'Ringing'
+			'Trigger'
+		}
+	}
+}

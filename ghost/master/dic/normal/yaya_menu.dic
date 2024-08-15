@@ -18,15 +18,15 @@ MenuComment
 MenuBreadCrumbs
 {
 	_script = ''
-	for _i=0; _i<ARRAYSIZE(BreadCrumbs); _i++ {
+	for _i=0; _i<ARRAYSIZE(_argv[0]); _i++ {
 		if _i > 0 {
 			_script += ' > '
 		}
-		if _i == ARRAYSIZE(BreadCrumbs) - 1 {
-			_script += '\f[color,disable]\f[underline,1]' + BreadCrumbs[_i][1, '|'] + '\f[default]'
+		if _i == ARRAYSIZE(_argv[0]) - 1 {
+			_script += '\f[color,disable]\f[underline,1]' + _argv[0][_i][1, '|'] + '\f[default]'
 		}
 		else {
-			_script += '\__q[' + BreadCrumbs[_i][0, '|'] + ']' + BreadCrumbs[_i][1, '|'] + '\__q'
+			_script += '\__q[' + _argv[0][_i][0, '|'] + ']' + _argv[0][_i][1, '|'] + '\__q'
 		}
 	}
 	_script = '\0\_l[0,0]\n[30]' + _script + '\n[-30]\*'
@@ -88,13 +88,13 @@ MenuItem
 
 OnMenu
 {
-	BreadCrumbs = (IARRAY, 'OnMenu|メニュー')
+	_BreadCrumbs = (IARRAY, 'OnMenu|メニュー')
 	<<"
 	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
 	＠スクリプト：%(CloseMenuButton)
-	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]
 	＠スクリプト：%(MenuHr('ＵＧＭ補助機能'))\n
 	＠スクリプト：%(MenuItem(1,'スクリプト作成＆イベント試行','OnMenu_UgmTools'))\n
 	＠スクリプト：%(MenuItem(1,'きっとわかる！うめちゃん解説','OnMenu_UgmNavi'))\n
@@ -142,13 +142,13 @@ Menu_LASTTALK
 //---- トーク頻度の調整
 Menu_TALKINTERVAL
 {
-	BreadCrumbs = ('OnMenu|メニュー', 'Menu_TALKINTERVAL|ここ')
+	_BreadCrumbs = ('OnMenu|メニュー', 'Menu_TALKINTERVAL|ここ')
 	<<"
 	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
 	＠スクリプト：%(CloseMenuButton)
-	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]
 	＠スクリプト：%(MenuHr('おしゃべりの頻度'))\n
 	＠スクリプト【aitalkinterval!=15】：%(MenuItem(1,'にぎやか','OnMenu_TALKINTERVAL_Set','15'))\n
 	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]にぎやか\f[default]\n

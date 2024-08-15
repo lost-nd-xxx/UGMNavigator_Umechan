@@ -51,7 +51,7 @@ OnExplanationCall
 
 Sender題名
 {
-	'ゴースト名(Sender)'
+	'ゴースト名'
 }
 
 Sender説明
@@ -64,13 +64,13 @@ Sender説明
 
 SenderId題名
 {
-	'送信者識別子(SenderId)'
+	'送信者識別子'
 }
 
 SenderId説明
 {
 	'/
-	・一体のゴーストで\n　複数のアカウントを持ちたい時に使うよ\n[150]/
+	・一体のゴーストで\n複数のアカウントを持ちたい時に使うよ\n[150]/
 	・ゴーストの中では被らないようにしてね\n[150]/
 	・他のゴーストさんとだったら被っても大丈夫だよ/
 	'
@@ -78,7 +78,7 @@ SenderId説明
 
 SenderName題名
 {
-	'表示用送信者名(SenderName)'
+	'表示用送信者名'
 }
 
 SenderName説明
@@ -88,23 +88,23 @@ SenderName説明
 
 SenderIcon題名
 {
-	'アイコン画像(SenderIcon)'
+	'アイコン画像'
 }
 SenderIcon説明
 {
 	'/
-	・アイコン用画像の、\n　ghost\\masterからの相対パスを入れてね\n[150]/
-	・\\は2個連続で入れないと、\n　さくらスクリプトになっちゃうよ\n[150]/
+	・アイコン用画像の、\nghost\\masterからの相対パスを入れてね\n[150]/
+	・\\は2個連続で入れないと、\nさくらスクリプトになっちゃうよ\n[150]/
 	・初期状態に戻したい時は「default」だけを入れてね\n[150]/
 	・画像中央が正円に切り抜かれて表示されるよ\n[150]/
 	・5MB以上のファイルサイズは受け付けないよ\n[150]/
-	・\_a[画像コピーの仕様]演出で画像変更をするなら、\n　ファイル名を変えるのがおすすめだよ\_a/
+	・\_a[画像コピーの仕様]演出で画像変更をするなら、\nファイル名を変えるのがおすすめだよ\_a/
 	'
 }
 
 SenderProfile題名
 {
-	'プロフィール文章(SenderProfile)'
+	'プロフィール文章'
 }
 
 SenderProfile説明
@@ -113,40 +113,40 @@ SenderProfile説明
 	・プロフィール文章だよ\n[150]/
 	・長すぎるとスクロールが発生しちゃうよ\n[150]/
 	・\_a[プラグイン独自の記法]プラグイン独自の記法\_aが使えるよ\n[150]/
-	・見かけ上で空欄にしたい場合は、\n　空白1個などで上書きしてね/
+	・見かけ上で空欄にしたい場合は、\n空白1個などで上書きしてね/
 	'
 }
 
 MessageId題名
 {
-	'メッセージ識別子(MessageId)'
+	'メッセージ識別子'
 }
 
 MessageId説明
 {
 	'/
 	・メッセージを識別するためのIDだよ\n[150]/
-	・メッセージの状態を問い合わせたり、\n　送信予約を取り消したりするときに使うよ/
+	・メッセージの状態を問い合わせたり、\n送信予約を取り消したりするときに使うよ/
 	'
 }
 
 Enable題名
 {
-	'メッセージを有効にするかどうか(Enable)'
+	'メッセージを有効にするかどうか'
 }
 
 Enable説明
 {
 	'/
 	・1で有効、0で無効だよ\n[150]/
-	・設定済みの\_a[MessageId]MessageId\_aで、\n　Enableを0にして再送信すると、\n　送信予約が取り消されるよ\n[150]/
+	・設定済みの\_a[MessageId]MessageId\_aで、\nEnableを0にして再送信すると、\n送信予約が取り消されるよ\n[150]/
 	・メッセージ発動済みの場合は消せないよ/
 	'
 }
 
 Text題名
 {
-	'メッセージ本文(Text)'
+	'メッセージ本文'
 }
 
 Text説明
@@ -159,7 +159,7 @@ Text説明
 
 EventReference題名
 {
-	'発生時に起動中のゴーストへ送信する情報(EventReference)'
+	'発生時に起動中のゴーストへ送信する情報'
 }
 
 EventReference説明
@@ -173,7 +173,7 @@ EventReference説明
 
 RunCount題名
 {
-	'メッセージ実行回数(RunCount)'
+	'メッセージ実行回数'
 }
 
 RunCount説明
@@ -187,7 +187,7 @@ RunCount説明
 
 Late題名
 {
-	'遅延表示秒数(Late)'
+	'遅延表示秒数'
 }
 
 Late説明
@@ -205,7 +205,7 @@ Late説明
 
 Condition題名
 {
-	'メッセージ発動条件(Condition)'
+	'メッセージ発動条件'
 }
 
 Condition説明
@@ -219,7 +219,7 @@ Condition説明
 
 Time_After題名
 {
-	'条件:指定時刻以降(Time_After)'
+	'条件:指定時刻以降'
 }
 
 Time_After説明
@@ -235,7 +235,7 @@ Time_After説明
 
 Time_Seconds題名
 {
-	'条件:今から??秒後(Time_Seconds)'
+	'条件:今から??秒後'
 }
 
 Time_Seconds説明
@@ -245,7 +245,7 @@ Time_Seconds説明
 
 Time_DayOfWeek題名
 {
-	'条件:特定の曜日(Time_DayOfWeek)'
+	'条件:特定の曜日'
 }
 
 Time_DayOfWeek説明
@@ -259,7 +259,7 @@ Time_DayOfWeek説明
 
 Time_During題名
 {
-	'条件:特定の時間帯(Time_During)'
+	'条件:特定の時間帯'
 }
 
 Time_During説明
@@ -274,7 +274,7 @@ Time_During説明
 
 Ghost_Booted題名
 {
-	'条件:特定ゴーストが起動された瞬間(Ghost_Booted)'
+	'条件:特定ゴーストが起動された瞬間'
 }
 
 Ghost_Booted説明
@@ -287,7 +287,7 @@ Ghost_Booted説明
 
 Ghost_Closed題名
 {
-	'条件:特定ゴーストが終了された瞬間(Ghost_Closed)'
+	'条件:特定ゴーストが終了された瞬間'
 }
 
 Ghost_Closed説明
@@ -300,7 +300,7 @@ Ghost_Closed説明
 
 Ghost_IsBooting題名
 {
-	'条件:特定ゴーストが起動している時(Ghost_IsBooting)'
+	'条件:特定ゴーストが起動している時'
 }
 
 Ghost_IsBooting説明
@@ -314,7 +314,7 @@ Ghost_IsBooting説明
 
 Ghost_IsNotBooting題名
 {
-	'条件:特定ゴーストが起動していない時(Ghost_IsNotBooting)'
+	'条件:特定ゴーストが起動していない時'
 }
 
 Ghost_IsNotBooting説明
@@ -328,7 +328,7 @@ Ghost_IsNotBooting説明
 
 Ghost_Exists題名
 {
-	'条件:特定ゴーストがインストールされている(Ghost_Exists)'
+	'条件:特定ゴーストがインストールされている'
 }
 
 Ghost_Exists説明
@@ -342,7 +342,7 @@ Ghost_Exists説明
 
 Ghost_NotExists題名
 {
-	'条件:特定ゴーストがインストールされていない(Ghost_NotExists)'
+	'条件:特定ゴーストがインストールされていない'
 }
 
 Ghost_NotExists説明
@@ -356,7 +356,7 @@ Ghost_NotExists説明
 
 Ghost_IsInAddressBook題名
 {
-	'条件:特定ゴーストがアドレス帳に登録されている(Ghost_IsInAddressBook)'
+	'条件:特定ゴーストがアドレス帳に登録されている'
 }
 
 Ghost_IsInAddressBook説明
@@ -372,7 +372,7 @@ Ghost_IsInAddressBook説明
 
 Ghost_Triggered題名
 {
-	'条件:トリガーを引かれた(Ghost_Triggered)'
+	'条件:トリガーを引かれた'
 }
 
 Ghost_Triggered説明
@@ -389,7 +389,7 @@ Ghost_Triggered説明
 }
 Message_Run題名
 {
-	'条件:メッセージが発動した瞬間(Message_Run)'
+	'条件:メッセージが発動した瞬間'
 }
 Message_Run説明
 {
@@ -402,7 +402,7 @@ Message_Run説明
 }
 Message_IsRun題名
 {
-	'条件:メッセージが発動済み(Message_IsRun)'
+	'条件:メッセージが発動済み'
 }
 Message_IsRun説明
 {
@@ -416,7 +416,7 @@ Message_IsRun説明
 }
 Message_IsNotRun題名
 {
-	'条件:メッセージが未発動(Message_IsNotRun)'
+	'条件:メッセージが未発動'
 }
 Message_IsNotRun説明
 {
@@ -431,7 +431,7 @@ Message_IsNotRun説明
 }
 Message_Read題名
 {
-	'条件:メッセージが既読になった瞬間(Message_Read)'
+	'条件:メッセージが既読になった瞬間'
 }
 Message_Read説明
 {
@@ -443,7 +443,7 @@ Message_Read説明
 }
 Message_IsRead題名
 {
-	'条件:メッセージが既読である(Message_IsRead)'
+	'条件:メッセージが既読である'
 }
 Message_IsRead説明
 {
@@ -456,7 +456,7 @@ Message_IsRead説明
 }
 Message_IsNotRead題名
 {
-	'条件:メッセージが未読である(Message_IsNotRead)'
+	'条件:メッセージが未読である'
 }
 Message_IsNotRead説明
 {
@@ -480,14 +480,16 @@ Message_IsNotRead説明
 	\![*]\_a[文字列ランダム]文字列ランダム\_a\n/
 	\![*]\_a[条件達成時の時間類]条件達成時の時間類\_a\n/
 	\![*]\_a[画像貼り付け]画像貼り付け\_a\n/
-	\![*]\_a[スタンプ貼り付け]スタンプ貼り付け\_a\n[150]/
-	タグの中にタグを含めることはできないよ\nごめんね～/
+	\![*]\_a[スタンプ貼り付け]スタンプ貼り付け\_a\n/
+	\![*]\_a[画像コピーの仕様]画像コピーの仕様\_a\n/
+	\![*]\_a[差し替え対象の文字]差し替え対象の文字\_a\n[150]/
+	タグの中にタグを含めることはできないよ/
 	'
 }
 
 任意改行題名
 {
-	'\_a[プラグイン独自の記法]独自記法\_a > 任意改行'
+	'任意改行'
 }
 任意改行説明
 {
@@ -496,12 +498,12 @@ Message_IsNotRead説明
 	メッセージ本文/送信者プロフィール文\n/
 	\_?[書き方]\_?\n/
 	:nl:\n[150]/
-	・さくらスクリプトの改行ではなく、\n　こちらを使ってね/
+	・さくらスクリプトの改行ではなく、\nこちらを使ってね/
 	'
 }
 文字列ランダム題名
 {
-	'\_a[プラグイン独自の記法]独自記法\_a > 文字列ランダム'
+	'文字列ランダム'
 }
 文字列ランダム説明
 {
@@ -510,12 +512,12 @@ Message_IsNotRead説明
 	メッセージ本文/送信者プロフィール文\n/
 	\_?[書き方]\_?\n/
 	choice_start:単語１:単語２～～:choice_end:\n[150]/
-	・メッセージ本文に使った時のランダム結果は、\n　\_a[Request]Request\_aで取得できるよ/
+	・メッセージ本文に使った時のランダム結果は、\n\_a[Request]Request\_aで取得できるよ/
 	'
 }
 条件達成時の時間類題名
 {
-	'\_a[プラグイン独自の記法]独自記法\_a > 条件達成時の時間類差し替え'
+	'条件達成時の時間類差し替え'
 }
 条件達成時の時間類説明
 {
@@ -523,12 +525,12 @@ Message_IsNotRead説明
 	\_?[反映される枠]\_?\n/
 	メッセージ本文/送信者プロフィール文\n[150]/
 	・メッセージが発動した時の情報に差し替えられるよ\n[150]/
-	・いっぱいあるので、\n　プラグインのマニュアルを見てね/
+	・いっぱいあるので、\nプラグインのマニュアルを見てね/
 	'
 }
 画像貼り付け題名
 {
-	'\_a[プラグイン独自の記法]独自記法\_a > 画像貼り付け'
+	'画像貼り付け'
 }
 画像貼り付け説明
 {
@@ -539,12 +541,12 @@ Message_IsNotRead説明
 	または :image:画像の相対パス:alt=代替テキスト:\n[150]/
 	・画像パスはghost\\master\\からの相対パスだよ\n[150]/
 	・5MB以上のファイルサイズは受け付けないよ\n[150]/
-	・画像パスを「nozoom=画像パス」のようにすると、\n　\_a[スタンプ貼り付け]スタンプ\_aと同じ様式で表示されるよ/
+	・画像パスを「nozoom=画像パス」のようにすると、\n\_a[スタンプ貼り付け]スタンプ\_aと同じ様式で表示されるよ/
 	'
 }
 スタンプ貼り付け題名
 {
-	'\_a[プラグイン独自の記法]独自記法\_a > スタンプ貼り付け'
+	'スタンプ貼り付け'
 }
 スタンプ貼り付け説明
 {
@@ -552,8 +554,8 @@ Message_IsNotRead説明
 	\_?[反映される枠]\_?メッセージ本文\n[150]/
 	\_?[書き方]\_?\n/
 	:stamp番号:\n[150]/
-	・「localweb\\html\\res\\stamp」内の画像を\n　メッセージ内に貼り付けられるよ\n[150]/
-	・番号はファイル名の番号をそのまま\n　stamp001.pngなら:stamp001:/
+	・「localweb\\html\\res\\stamp」内の画像を\nメッセージ内に貼り付けられるよ\n[150]/
+	・番号はファイル名の番号をそのまま\nstamp001.pngなら:stamp001:/
 	'
 }
 画像コピーの仕様題名
@@ -593,9 +595,9 @@ Ringing題名
 Ringing説明
 {
 	'/
-	・メッセージ発動時に立っていたゴーストに送られるイベントだよ\n[150]/
-	・送信元ゴースト名、\_a[SenderId]送信者識別子\_a、\_a[MessageId]メッセージ識別子\_aがＲ〇に入るよ\n[150]/
-	・発動したメッセージに\_a[EventReference]EventReference\_aがあれば、それも通知されるよ/
+	・メッセージ発動時に立っていたゴーストに送られる\nイベントだよ\n[150]/
+	・送信元ゴースト名、\_a[SenderId]送信者識別子\_a、\n\_a[MessageId]メッセージ識別子\_aがReference〇に入るよ\n[150]/
+	・発動したメッセージに\_a[EventReference]EventReference\_aがあれば、\nそれも通知されるよ/
 	'
 }
 Response題名
@@ -634,7 +636,7 @@ SendComplete題名
 SendComplete説明
 {
 	'/
-	・送信予約が成功した時に来るイベントだよ\n[150]/
+	・\_a[Send]送信予約\_aが成功した時に来るイベントだよ\n[150]/
 	・失敗時は\_a[SendFailure]SendFailure\_aが来るよ/
 	'
 }
@@ -652,7 +654,7 @@ SendFailure題名
 SendFailure説明
 {
 	'/
-	・送信予約が失敗した時に来るイベントだよ\n[150]/
+	・\_a[Send]送信予約\_aが失敗した時に来るイベントだよ\n[150]/
 	・成功時は\_a[SendComplete]SendComplete\_aが来るよ/
 	'
 }

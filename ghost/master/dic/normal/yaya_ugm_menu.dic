@@ -4,13 +4,13 @@
 
 OnMenu_UgmTools
 {
-	BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|ここ')
+	_BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|ここ')
 	<<"
 	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
 	＠スクリプト：%(CloseMenuButton)
-	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]
 	＠スクリプト：%(MenuHr('スクリプト作成＆イベント試行'))\n
 	＠スクリプト：%(MenuItem(1,'メッセージ送信・編集','OnMenu_Send','info'))\n
 	＠スクリプト：%(MenuItem(1,'予約済みメッセージの取り消し','OnMenu_Cancel','info'))\n
@@ -315,13 +315,13 @@ GenerateTextLabel
 
 OnMenu_Request
 {
-	BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Request|ここ')
+	_BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Request|ここ')
 	<<"
 	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
 	＠スクリプト：%(CloseMenuButton)
-	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]
 	＠スクリプト：%(MenuHr('\_a[Request]メッセージ状況の取得\_a'))\n
 	＠スクリプト：%(MenuItem(1,'以下の内容で問い合わせる','OnMenu_Request_Exec'))\n
 	＠スクリプト：%(MenuItem(1,'スクリプトをコピーする','OnMenu_CopyScript','Request'))\n[150]
@@ -395,12 +395,12 @@ OnMenu_Send
 {
 	_right = "\_l[%(BalloonValidWidth/2),]"
 
-	BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Send|ここ')
+	_BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Send|ここ')
 	<<"
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n\![set,autoscroll,disable]
 	＠スクリプト：%(CloseMenuButton)
-	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]
 
 	＠スクリプト：%(MenuHr('\_a[Send]メッセージ送信と編集\_a'))\n
 
@@ -1012,13 +1012,13 @@ OnMenu_Send_Edit_Entered_EventReference
 
 OnMenu_Cancel
 {
-	BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Cancel|ここ')
+	_BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Cancel|ここ')
 	<<"
 	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
 	＠スクリプト：%(CloseMenuButton)
-	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]
 	＠スクリプト：%(MenuHr('\_a[Cancel]メッセージの取り消し\_a'))\n
 	＠スクリプト：%(MenuItem(1,'以下の内容で取り消す','OnMenu_Cancel_Exec'))\n
 	＠スクリプト：%(MenuItem(1,'スクリプトをコピーする','OnMenu_CopyScript','Cancel'))\n[150]
@@ -1077,13 +1077,13 @@ OnMenu_Cancel_Edit_Entered
 
 OnMenu_Trigger
 {
-	BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Trigger|ここ')
+	_BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Trigger|ここ')
 	<<"
 	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
 	＠スクリプト：%(CloseMenuButton)
-	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]
 	＠スクリプト：%(MenuHr('\_a[Trigger]メッセージのトリガー\_a'))\n
 	＠スクリプト：%(MenuItem(1,'以下の内容で実行する','OnMenu_Trigger_Exec'))\n
 	＠スクリプト：%(MenuItem(1,'スクリプトをコピーする','OnMenu_CopyScript','Trigger'))\n[150]
