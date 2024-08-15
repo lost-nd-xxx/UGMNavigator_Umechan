@@ -15,10 +15,33 @@ OnAnchorSelectEx
 {
 	_title = reference[1] + '題名'
 	_text = reference[1] + '説明'
-	if (ISFUNC(_title) == 1 && ISFUNC(_text) == 1) {
+	_script = '\C\![quicksection,1]\1\c\![set,autoscroll,disable]'
+	if (ISFUNC(_title) == 1) {
 		_title = EVAL(_title)
-		_text = EVAL(_text)
-		"\C\1\![set,autoscroll,disable]\_q\b[2]\c\f[bold,1]%(_title)\f[bold,0]\n[150]%(_text)"
+		_script += "\f[bold,1]%(_title)\f[bold,0]\n[150]"
+	}
+	if (ISFUNC(_text) == 1) {
+		_script += EVAL(_text)
+	}
+	if (ISFUNC(_title) == 1||ISFUNC(_text) == 1) {
+		_script
+	}
+}
+
+OnExplanationCall
+{
+	_title = _argv[0] + '題名'
+	_text = _argv[0] + '説明'
+	_script = '\C\![quicksection,1]\1\c\![set,autoscroll,disable]'
+	if (ISFUNC(_title) == 1) {
+		_title = EVAL(_title)
+		_script += "\f[bold,1]%(_title)\f[bold,0]\n[150]"
+	}
+	if (ISFUNC(_text) == 1) {
+		_script += EVAL(_text)
+	}
+	if (ISFUNC(_title) == 1||ISFUNC(_text) == 1) {
+		_script
 	}
 }
 
@@ -576,6 +599,24 @@ Response説明
 	・問い合わせは\_a[Request]Request\_aで送るよ/
 	'
 }
+Response_r3説明
+{
+	'・再度の予約でリセットされるよ'
+}
+Response_r4説明
+{
+	'/
+	・2024年7月1日13時1分0秒なら「2024/07/01 13:01:00」\n[150]/
+	・0なら未発生だよ/
+	'
+}
+Response_r5説明
+{
+	'/
+	・2024年7月1日13時1分0秒なら「2024/07/01 13:01:00」\n[150]/
+	・0なら未読だよ(未発生含む)/
+	'
+}
 SendComplete題名
 {
 	'OnUkagakaGhostMessenger_SendComplete'
@@ -585,6 +626,13 @@ SendComplete説明
 	'/
 	・送信予約が成功した時に来るイベントだよ\n[150]/
 	・失敗時は\_a[SendFailure]SendFailure\_aが来るよ/
+	'
+}
+SendComplete_r0説明
+{
+	'/
+	・送信成功の時: send\n[150]/
+	・メッセージ取り消しの時: cancel/
 	'
 }
 SendFailure題名
@@ -598,13 +646,22 @@ SendFailure説明
 	・成功時は\_a[SendComplete]SendComplete\_aが来るよ/
 	'
 }
+SendFailure_r1説明
+{
+	'・不明の場合は空欄になるよ'
+}
+SendFailure_r2説明
+{
+	'・不明の場合は空欄になるよ'
+}
 Trigger題名
 {
 	'OnUkagakaGhostMessenger_Trigger'
 }
 Trigger説明
 {
-	'・メッセージ発動条件の\_a[Ghost_Triggered]Ghost_Triggered\_aに関わるトリガーを引けるよ'
+	'・メッセージ発動条件の\_a[Ghost_Triggered]Ghost_Triggered\_aに関わる\n/
+	トリガーを引けるよ'
 }
 Request題名
 {
@@ -617,6 +674,14 @@ Request説明
 	・結果は\_a[Response]Response\_aで帰ってくるよ/
 	'
 }
+Request_r0説明
+{
+	'・省略した場合、現在のゴースト名が用いられるよ'
+}
+Request_r1説明
+{
+	'・省略した場合、現在のゴースト名が用いられるよ'
+}
 Cancel題名
 {
 	'OnUkagakaGhostMessenger_Cancel'
@@ -624,8 +689,14 @@ Cancel題名
 Cancel説明
 {
 	'/
-	・指定した送信者識別子の送信予約を全て取り消すよ\n[150]/
-	・ほかのゴーストの予約は、ゴーストからは消せないよ/
+	・イベントを送信したゴーストに属する\n/
+	指定された送信者のメッセージが\n/
+	一括取り消しになるよ\n[150]/
+	・送信者識別子が未設定なら、\n/
+	そのゴーストに属する送信者のメッセージが\n/
+	全て取り消されるよ\n[150]/
+	・メッセージを個別に取り消したい時は、\n/
+	\_a[OnMenu_Send]有効状態を0にして再送信してね\_a～/
 	'
 }
 Send題名
@@ -640,3 +711,4 @@ Send説明
 	・失敗時は\_a[SendFailure]SendFailure\_aが来るよ/
 	'
 }
+

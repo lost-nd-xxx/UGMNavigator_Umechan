@@ -13,9 +13,10 @@ OnMenu_UgmTools
 	＠スクリプト：%(MenuBreadCrumbs)\n[150]
 	＠スクリプト：%(MenuHr('スクリプト作成＆イベント試行'))\n
 	＠スクリプト：%(MenuItem(1,'メッセージ送信・編集','OnMenu_Send','info'))\n
+	＠スクリプト：%(MenuItem(1,'予約済みメッセージの取り消し','OnMenu_Cancel','info'))\n
 	＠スクリプト：%(MenuItem(1,'メッセージ状況問い合わせ','OnMenu_Request'))\n
 	＠スクリプト：%(MenuItem(1,'トリガーを引く','OnMenu_Trigger'))
-	＠スクリプト：\![quicksection,0]\_n
+	＠スクリプト：\_n
 	い【isUgm==1】：%(MenuComment('メニューだよ～'))
 	い【それ以外】：プラグインが認識されてないよ～
 	">>
@@ -30,7 +31,7 @@ OnUkagakaGhostMessenger_SendComplete
 	<<"
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n
-	う：\f[bold,1]成功種別\f[bold,0]
+	う：\f[bold,1]\_a[SendComplete_r0]成功種別\_a\f[bold,0]
 	う：%(reference[0])
 	改多う：\f[bold,1]メッセージ識別子\f[bold,0]
 	う：%(reference[1])
@@ -48,9 +49,9 @@ OnUkagakaGhostMessenger_SendFailure
 	＠スクリプト：\0\_n
 	改多う：\f[bold,1]失敗理由\f[bold,0]
 	う：%(reference[0])
-	改多う：\f[bold,1]メッセージ識別子\f[bold,0]
+	改多う：\f[bold,1]\_a[SendFailure_r1]メッセージ識別子\_a\f[bold,0]
 	う：%(reference[1])
-	改多う：\f[bold,1]送信者識別子\f[bold,0]
+	改多う：\f[bold,1]\_a[SendFailure_r2]送信者識別子\_a\f[bold,0]
 	う：%(reference[2])
 	＠スクリプト：\![quicksection,0]\_n
 	い：送信失敗……
@@ -72,12 +73,11 @@ OnUkagakaGhostMessenger_Response
 	う：%(reference[1])
 	改多う：\f[bold,1]メッセージ識別子\f[bold,0]
 	う：%(reference[2])
-	改多う：\f[bold,1]メッセージの発動済み回数\f[bold,0]
-	う：(再度の予約でリセットされる)
+	改多う：\f[bold,1]\_a[Response_r3]メッセージの発動済み回数\_a\f[bold,0]
 	う：%(reference[3])
-	改多う：\f[bold,1]メッセージ発動時刻\f[bold,0]　0なら未発生
+	改多う：\f[bold,1]\_a[Response_r4]メッセージ発動時刻\_a\f[bold,0]
 	う：%(reference[4])
-	改多う：\f[bold,1]メッセージ既読時刻\f[bold,0]　0なら未読(未発生含む)
+	改多う：\f[bold,1]\_a[Response_r5]メッセージ既読時刻\_a\f[bold,0]
 	う：%(reference[5])
 	＠スクリプト：%(_loop)
 	＠スクリプト：\![quicksection,0]\_n
@@ -141,85 +141,90 @@ MakeScript_Send
 {
 	_script = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnUkagakaGhostMessenger_Send'
 	if (STRLEN(send_SenderId) > 0) {
-		_script += ',"' + send_SenderId + '"'
+		_script += ',"--SenderId=' + send_SenderId + '"'
 	}
 	if (STRLEN(send_SenderName) > 0) {
-		_script += ',"' + send_SenderName + '"'
+		_script += ',"--SenderName=' + send_SenderName + '"'
 	}
 	if (STRLEN(send_SenderIcon) > 0) {
-		_script += ',"' + send_SenderIcon + '"'
+		_script += ',"--SenderIcon=' + send_SenderIcon + '"'
 	}
 	if (STRLEN(send_SenderProfile) > 0) {
-		_script += ',"' + send_SenderProfile + '"'
+		_script += ',"--SenderProfile=' + send_SenderProfile + '"'
 	}
 	if (STRLEN(send_MessageId) > 0) {
-		_script += ',"' + send_MessageId + '"'
+		_script += ',"--MessageId=' + send_MessageId + '"'
 	}
 	if (STRLEN(TOSTR(send_Enable)) > 0) {
-		_script += ',' + send_Enable
+		_script += ',--Enable=' + send_Enable
 	}
 	if (STRLEN(send_Text) > 0) {
-		_script += ',"' + send_Text + '"'
+		_script += ',"--Text=' + send_Text + '"'
 	}
 	if (STRLEN(TOSTR(send_RunCount)) > 0) {
-		_script += ',' + send_RunCount
+		_script += ',--RunCount=' + send_RunCount
 	}
 	if (STRLEN(TOSTR(send_Late)) > 0) {
-		_script += ',' + send_Late
+		_script += ',--Late=' + send_Late
+	}
+	foreach send_EventReference; _ev_ref {
+		if (STRLEN(TOSTR(_ev_ref)) > 0) {
+			_script += ',"--EventReference=' + _ev_ref + '"'
+		}
 	}
 	if (STRLEN(send_Time_After) > 0) {
-		_script += ',"' + send_Time_After + '"'
+		_script += ',"--Condition:Time_After=' + send_Time_After + '"'
 	}
 	if (STRLEN(send_Time_Seconds) > 0) {
-		_script += ',' + send_Time_Seconds
+		_script += ',--Condition:Time_Seconds=' + send_Time_Seconds
 	}
 	if (STRLEN(send_Time_DayOfWeek) > 0) {
-		_script += ',' + send_Time_DayOfWeek
+		_script += ',--Condition:Time_DayOfWeek=' + send_Time_DayOfWeek
 	}
 	if (STRLEN(send_Time_During) > 0) {
-		_script += ',"' + send_Time_During + '"'
+		_script += ',"--Condition:Time_During=' + send_Time_During + '"'
 	}
 	if (STRLEN(send_Ghost_Booted) > 0) {
-		_script += ',"' + send_Ghost_Booted + '"'
+		_script += ',"--Condition:Ghost_Booted=' + send_Ghost_Booted + '"'
 	}
 	if (STRLEN(send_Ghost_Closed) > 0) {
-		_script += ',"' + send_Ghost_Closed + '"'
+		_script += ',"--Condition:Ghost_Closed=' + send_Ghost_Closed + '"'
 	}
 	if (STRLEN(send_Ghost_IsBooting) > 0) {
-		_script += ',"' + send_Ghost_IsBooting + '"'
+		_script += ',"--Condition:Ghost_IsBooting=' + send_Ghost_IsBooting + '"'
 	}
 	if (STRLEN(send_Ghost_IsNotBooting) > 0) {
-		_script += ',"' + send_Ghost_IsNotBooting + '"'
+		_script += ',"--Condition:Ghost_IsNotBooting=' + send_Ghost_IsNotBooting + '"'
 	}
 	if (STRLEN(send_Ghost_Exists) > 0) {
-		_script += ',"' + send_Ghost_Exists + '"'
+		_script += ',"--Condition:Ghost_Exists=' + send_Ghost_Exists + '"'
 	}
 	if (STRLEN(send_Ghost_NotExists) > 0) {
-		_script += ',"' + send_Ghost_NotExists + '"'
+		_script += ',"--Condition:Ghost_NotExists=' + send_Ghost_NotExists + '"'
 	}
 	if (STRLEN(send_Ghost_IsInAddressBook) > 0) {
-		_script += ',"' + send_Ghost_IsInAddressBook + '"'
+		_script += ',"--Condition:Ghost_IsInAddressBook=' + send_Ghost_IsInAddressBook + '"'
 	}
 	if (STRLEN(send_Ghost_Triggered) > 0) {
-		_script += ',"' + send_Ghost_Triggered + '"'
+		_script += ',"--Condition:Ghost_Triggered=' + send_Ghost_Triggered + '"'
 	}
 	if (STRLEN(send_Message_Run) > 0) {
-		_script += ',"' + send_Message_Run + '"'
+		_script += ',"--Condition:Message_Run=' + send_Message_Run + '"'
 	}
 	if (STRLEN(send_Message_IsRun) > 0) {
-		_script += ',"' + send_Message_IsRun + '"'
+		_script += ',"--Condition:Message_IsRun=' + send_Message_IsRun + '"'
 	}
 	if (STRLEN(send_Message_IsNotRun) > 0) {
-		_script += ',"' + send_Message_IsNotRun + '"'
+		_script += ',"--Condition:Message_IsNotRun=' + send_Message_IsNotRun + '"'
 	}
 	if (STRLEN(send_Message_Read) > 0) {
-		_script += ',"' + send_Message_Read + '"'
+		_script += ',"--Condition:Message_Read=' + send_Message_Read + '"'
 	}
 	if (STRLEN(send_Message_IsRead) > 0) {
-		_script += ',"' + send_Message_IsRead + '"'
+		_script += ',"--Condition:Message_IsRead=' + send_Message_IsRead + '"'
 	}
 	if (STRLEN(send_Message_IsNotRead) > 0) {
-		_script += ',"' + send_Message_IsNotRead + '"'
+		_script += ',"--Condition:Message_IsNotRead=' + send_Message_IsNotRead + '"'
 	}
 	_script += ']'
 
@@ -308,14 +313,15 @@ OnMenu_Request
 	＠スクリプト：%(MenuHr('\_a[Request]メッセージ状況の取得\_a'))\n
 	＠スクリプト：%(MenuItem(1,'以下の内容で問い合わせる','OnMenu_Request_Exec'))\n
 	＠スクリプト：%(MenuItem(1,'スクリプトをコピーする','OnMenu_CopyScript','Request'))\n[150]
-	＠スクリプト：\f[bold,1]ゴースト名\f[bold,0]\n
+	＠スクリプト：\f[bold,1]\_a[Request_r0]ゴースト名\_a\f[bold,0]\n
 	＠スクリプト：%(MenuItem(1,GenerateTextLabel(request_Sender),'OnMenu_Request_Edit','request_Sender'))\n[150]
-	＠スクリプト：\f[bold,1]送信者識別子\f[bold,0]\n
+	＠スクリプト：\f[bold,1]\_a[Request_r1]送信者識別子\_a\f[bold,0]\n
 	＠スクリプト：%(MenuItem(1,GenerateTextLabel(request_SenderId),'OnMenu_Request_Edit','request_SenderId'))\n[150]
 	＠スクリプト：\f[bold,1]メッセージ識別子\f[bold,0]\n
 	＠スクリプト：%(MenuItem(1,GenerateTextLabel(request_MessageId),'OnMenu_Request_Edit','request_MessageId'))
-	＠スクリプト：\![quicksection,0]\_n
-	い：%(MenuComment('メッセージの状況を問い合わせてみる？'))
+	＠スクリプト：\_n
+	＠設定：クイックセクション
+	待０い：\![quicksection,1]%(MenuComment(OnExplanationCall('Request')))
 	">>
 }
 
@@ -368,13 +374,12 @@ OnMenu_Request_Edit_Entered
 
 OnMenu_Send
 {
-	_script = MakeScript_Send
 	_right = "\_l[%(BalloonValidWidth/2),]"
 
 	BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Send|ここ')
 	<<"
 	＠スクリプト：\![quicksection,1]
-	＠スクリプト：\0\_n
+	＠スクリプト：\0\_n\![set,autoscroll,disable]
 	＠スクリプト：%(CloseMenuButton)
 	＠スクリプト：%(MenuBreadCrumbs)\n[150]
 
@@ -386,26 +391,70 @@ OnMenu_Send
 	--
 	if (_argv[0] == 'cond') {
 		<<"
-		\__q[OnMenu_Send_PageTurn,info]　情報　\__q　\__q[OnMenu_Send_PageTurn,reference]　追加情報　\__q　\f[underline,1]［条件］\f[underline,0]\n[150]
+		\__q[OnMenu_Send_PageTurn,info]［情報］\__q　\__q[OnMenu_Send_PageTurn,reference]［追加情報］\__q　\f[underline,1]【条件】\f[underline,0]\n[150]
+
+		＠スクリプト：\f[bold,1]\_a[Time_After]指定時刻以降\_a\f[bold,0]\n
+		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Time_After),'OnMenu_Send_Edit','send_Time_After'))\n[-100]
+		＠スクリプト：%(_right)\f[bold,1]\_a[Time_Seconds]指定秒数経過後\_a\f[bold,0]\n
+		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Time_Seconds),'OnMenu_Send_Edit','send_Time_Seconds'))\n[150]
+
+		＠スクリプト：\f[bold,1]\_a[Time_DayOfWeek]指定の曜日\_a\f[bold,0]\n
+		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Time_DayOfWeek),'OnMenu_Send_Edit','send_Time_DayOfWeek'))\n[-100]
+		＠スクリプト：%(_right)\f[bold,1]\_a[Time_During]指定の時間帯\_a\f[bold,0]\n
+		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Time_During),'OnMenu_Send_Edit','send_Time_During'))\n[150]
+
+		＠スクリプト：\f[bold,1]\_a[Ghost_Booted]ゴーストが起動した\_a\f[bold,0]\n
+		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Ghost_Booted),'OnMenu_Send_Edit','send_Ghost_Booted'))\n[-100]
+		＠スクリプト：%(_right)\f[bold,1]\_a[Ghost_Closed]ゴーストが終了した\_a\f[bold,0]\n
+		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Ghost_Closed),'OnMenu_Send_Edit','send_Ghost_Closed'))\n[150]
+
+		＠スクリプト：\f[bold,1]\_a[Ghost_IsBooting]ゴーストが起動中\_a\f[bold,0]\n
+		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Ghost_IsBooting),'OnMenu_Send_Edit','send_Ghost_IsBooting'))\n[-100]
+		＠スクリプト：%(_right)\f[bold,1]\_a[Ghost_IsNotBooting]ゴーストが非起動中\_a\f[bold,0]\n
+		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Ghost_IsNotBooting),'OnMenu_Send_Edit','send_Ghost_IsNotBooting'))\n[150]
+
+		＠スクリプト：\f[bold,1]\_a[Ghost_Exists]ゴースト導入済み\_a\f[bold,0]\n
+		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Ghost_Exists),'OnMenu_Send_Edit','send_Ghost_Exists'))\n[-100]
+		＠スクリプト：%(_right)\f[bold,1]\_a[Ghost_NotExists]ゴースト未導入\_a\f[bold,0]\n
+		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Ghost_NotExists),'OnMenu_Send_Edit','send_Ghost_NotExists'))\n[150]
+
+		＠スクリプト：\f[bold,1]\_a[Ghost_IsInAddressBook]ゴースト連絡先登録済\_a\f[bold,0]\n
+		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Ghost_IsInAddressBook),'OnMenu_Send_Edit','send_Ghost_IsInAddressBook'))\n[150]
+
+		＠スクリプト：\f[bold,1]\_a[Message_Run]メッセージが発動した\_a\f[bold,0]\n
+		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Message_Run),'OnMenu_Send_Edit','send_Message_Run'))\n[-100]
+		＠スクリプト：%(_right)\f[bold,1]\_a[Message_Read]メッセージが読まれた瞬間\_a\f[bold,0]\n
+		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Message_Read),'OnMenu_Send_Edit','send_Message_Read'))\n[150]
+
+		＠スクリプト：\f[bold,1]\_a[Message_IsRun]メッセージ発動済み\_a\f[bold,0]\n
+		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Message_IsRun),'OnMenu_Send_Edit','send_Message_IsRun'))\n[-100]
+		＠スクリプト：%(_right)\f[bold,1]\_a[Message_IsNotRun]メッセージ未発動\_a\f[bold,0]\n
+		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Message_IsNotRun),'OnMenu_Send_Edit','send_Message_IsNotRun'))\n[150]
+
+		＠スクリプト：\f[bold,1]\_a[Message_IsRead]メッセージが既読\_a\f[bold,0]\n
+		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Message_IsRead),'OnMenu_Send_Edit','send_Message_IsRead'))\n[-100]
+		＠スクリプト：%(_right)\f[bold,1]\_a[Message_IsNotRead]メッセージが未読\_a\f[bold,0]\n
+		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Message_IsNotRead),'OnMenu_Send_Edit','send_Message_IsNotRead'))
 		">>
-	} elseif (_argv[0] == 'reference') {
+	}
+	elseif (_argv[0] == 'reference') {
 		_loop = ''
 		_count = 0
 		for _i=0; _i<ARRAYSIZE(send_EventReference); _i++ {
-			_loop += "\![*]\__q[OnMenu_Send_Edit_EventReference,%(_count)]%(SHIORI3FW.MakeJustText(send_EventReference[_count],BalloonCharCnt-3))\__q\n[150]"
+			_loop += "Reference%(_i+3): \![*]\__q[OnMenu_Send_Edit_EventReference,%(_count)]%(SHIORI3FW.MakeJustText(send_EventReference[_count],BalloonCharCnt-16))\__q\n[150]"
 			_count = _i + 1
 		}
-		_loop += "\![*]\__q[OnMenu_Send_Edit_EventReference,%(_count)]%(SHIORI3FW.MakeJustText('新規追加',BalloonCharCnt-3))\__q"
+		_loop += "Reference%(_i+3): \![*]\__q[OnMenu_Send_Edit_EventReference,%(_count)]%(SHIORI3FW.MakeJustText('新規追加',BalloonCharCnt-16))\__q"
 		<<"
-		\__q[OnMenu_Send_PageTurn,info]　情報　\__q　\f[underline,1]［追加情報］\f[underline,0]　\__q[OnMenu_Send_PageTurn,cond]　条件　\__q\n[150]
-		
+		\__q[OnMenu_Send_PageTurn,info]［情報］\__q　\f[underline,1]【追加情報】\f[underline,0]　\__q[OnMenu_Send_PageTurn,cond]［条件］\__q\n[150]
+
 		＠スクリプト：\f[bold,1]\_a[EventReference]イベントリファレンス\_a\f[bold,0]\n[150]
 		＠スクリプト：%(_loop)
 		">>
 	}
 	else {
 		<<"
-		\f[underline,1]［情報］\f[underline,0]　\__q[OnMenu_Send_PageTurn,reference]　追加情報　\__q　\__q[OnMenu_Send_PageTurn,cond]　条件　\__q\n[150]
+		\f[underline,1]【情報】\f[underline,0]　\__q[OnMenu_Send_PageTurn,reference]［追加情報］\__q　\__q[OnMenu_Send_PageTurn,cond]［条件］\__q\n[150]
 
 		＠スクリプト：\f[bold,1]\_a[Text]本文\_a\f[bold,0]\n
 		＠スクリプト：%(MenuItem(1,GenerateTextLabel(send_Text),'OnMenu_Send_Edit','send_Text'))\n[150]
@@ -428,60 +477,28 @@ OnMenu_Send
 		＠スクリプト：\f[bold,1]\_a[RunCount]実行回数\_a\f[bold,0]\n
 		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_RunCount),'OnMenu_Send_Edit','send_RunCount'))\n[-100]
 		＠スクリプト：%(_right)\f[bold,1]\_a[Late]遅延秒数\_a\f[bold,0]\n
-		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Late),'OnMenu_Send_Edit','send_Late'))\n[150]
+		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Late),'OnMenu_Send_Edit','send_Late'))
 		">>
 	}
 	--
 	<<"
-	\![quicksection,0]\_n
-	＠スクリプト：\_n
-	い：%(MenuComment('メッセージを送信してみる？'))
+	\_n
+	＠設定：クイックセクション
+	待０い：\![quicksection,1]%(MenuComment(OnExplanationCall('Send')))
 	">>
 }
-
-/*
-send_SenderId
-send_SenderName
-send_SenderIcon
-send_SenderProfile
-send_MessageId
-send_Enable
-// send_Text
-send_EventReference
-send_RunCount
-send_Late
-
-send_Time_After
-send_Time_Seconds
-send_Time_DayOfWeek
-send_Time_During
-send_Ghost_Booted
-send_Ghost_Closed
-send_Ghost_IsBooting
-send_Ghost_IsNotBooting
-send_Ghost_Exists
-send_Ghost_NotExists
-send_Ghost_IsInAddressBook
-send_Ghost_Triggered
-send_Message_Run
-send_Message_IsRun
-send_Message_IsNotRun
-send_Message_Read
-send_Message_IsRead
-send_Message_IsNotRead
-*/
 
 OnMenu_Send_PageTurn
 {
 	case reference[0] {
 		when 'info' {
-			MenuCommentForce = '情報を編集する？'
+			MenuCommentForce = '情報を編集する？\n[150]未設定に戻すときは、空欄で決定してね～'
 		}
 		when 'reference' {
-			MenuCommentForce = '追加情報を編集する？'
+			MenuCommentForce = '追加情報を編集する？\n[150]未設定に戻すときは、空欄で決定してね～'
 		}
 		when 'cond' {
-			MenuCommentForce = '条件を編集する？'
+			MenuCommentForce = '条件を編集する？\n[150]未設定に戻すときは、空欄で決定してね～'
 		}
 	}
 	OnMenu_Send(reference[0])
@@ -506,102 +523,237 @@ OnMenu_Send_Edit
 	_script += ',--reference='
 	_script += reference[0]
 	_script += ']'
-	case reference[0] {
-		when 'send_SenderId' {
-			_script += '送信者識別子'
-		}
-		when 'send_SenderName' {
-			_script += '送信者名'
-		}
-		when 'send_SenderIcon' {
-			_script += 'アイコン画像相対パス'
-		}
-		when 'send_SenderProfile' {
-			_script += 'プロフィール文章'
-		}
-		when 'send_MessageId' {
-			_script += 'メッセージ識別子'
-		}
-		when 'send_Enable' {
-			_script += 'メッセージを有効にするかどうか'
-		}
-		when 'send_Text' {
-			_script += '本文'
-		}
-		when 'send_RunCount' {
-			_script += 'メッセージ実行回数'
-		}
-		when 'send_Late' {
-			_script += '遅延秒数'
-		}
-		when 'send_Time_After' {
-			_script += '指定時刻以降'
-		}
-		when 'send_Time_Seconds' {
-			_script += '指定秒数経過後'
-		}
-		when 'send_Time_DayOfWeek' {
-			_script += '指定の曜日'
-		}
-		when 'send_Time_During' {
-			_script += '指定の時間帯'
-		}
-		when 'send_Ghost_Booted' {
-			_script += 'ゴーストが起動した瞬間'
-		}
-		when 'send_Ghost_Closed' {
-			_script += 'ゴーストが終了した瞬間'
-		}
-		when 'send_Ghost_IsBooting' {
-			_script += 'ゴーストが起動中である'
-		}
-		when 'send_Ghost_IsNotBooting' {
-			_script += 'ゴーストが起動中ではない'
-		}
-		when 'send_Ghost_Exists' {
-			_script += 'ゴーストが導入済みである'
-		}
-		when 'send_Ghost_NotExists' {
-			_script += 'ゴーストが導入済みではない'
-		}
-		when 'send_Ghost_IsInAddressBook' {
-			_script += 'ゴーストがUGMの連絡先にいる'
-		}
-		when 'send_Ghost_Triggered' {
-			_script += 'トリガーを引かれた'
-		}
-		when 'send_Message_Run' {
-			_script += 'メッセージが発動した瞬間'
-		}
-		when 'send_Message_IsRun' {
-			_script += 'メッセージが発動済みである'
-		}
-		when 'send_Message_IsNotRun' {
-			_script += 'メッセージが発動済みではない'
-		}
-		when 'send_Message_Read' {
-			_script += 'メッセージが既読になった瞬間'
-		}
-		when 'send_Message_IsRead' {
-			_script += 'メッセージが既読である'
-		}
-		when 'send_Message_IsNotRead' {
-			_script += 'メッセージが既読ではない'
-		}
-	}
-	_script += '\_aを入力してね～'
+
+	_kaisetsu = SUBSTR(reference[0], 5, 999)
+	_script += OnExplanationCall(_kaisetsu)
 
 	MenuCommentForce = _script
-	OnMenu_Send
+
+	if (STRSTR(reference[0], 'send_Time_', 0) == 0 || STRSTR(reference[0], 'send_Ghost_', 0) == 0 || STRSTR(reference[0], 'send_Message_', 0) == 0) {
+		OnMenu_Send('cond')
+	}
+	else {
+		OnMenu_Send
+	}
 }
 
 OnMenu_Send_Edit_Entered
 {
-	_entered = reference[0]
-	_entered = SHIORI3FW.TranslateSystemChar(_entered)
-	_entered = SHIORI3FW.EscapeAllTags(_entered)
-	LETTONAME(reference[2], _entered)
-	OnMenu_Send
+	_r0 = reference[0]
+	_r0 = SHIORI3FW.EscapeAllTags(_r0)
+
+	case reference[2] {
+		when 'send_Enable' {
+			if TOINT(_r0) == 1 || TOINT(_r0) == 0 {
+				send_Enable = 0
+				MenuCommentForce = '0に戻したよ～'
+			}
+			else {
+				send_Enable = TOINT(_r0)
+			}
+		}
+		when 'send_RunCount' {
+			if !(_r0 >= 1) {
+				send_RunCount = 1
+				MenuCommentForce = '1に戻したよ～'
+			}
+			else {
+				send_RunCount = TOINT(_r0)
+			}
+		}
+		when 'send_Late' {
+			send_Late = TOINT(_r0)
+		}
+		when 'send_Time_After' {
+			_arr = SPLITEX(TOSTR(_r0), ':')
+			_cnt = ARRAYSIZE(_arr)
+			_arr = REVERSE(_arr)
+			_arr[5] = ''
+			_arr = REVERSE(_arr)
+			_arr[0] = IARRAY
+			TESTTEST=_arr
+			_now = GETTIME()
+			_now = (_now[0], _now[1], _now[2], _now[4], _now[5])
+			_entered = IARRAY
+			for _i=0; _i<5; _i++ {
+				if (RE_MATCH(_arr[_i], '\d+') == 1) {
+					_entered[_i] = TOINT(_arr[_i])
+				}
+				else {
+					_entered[_i] = _now[_i]
+				}
+			}
+			_time = GETSECCOUNT(_entered[0], _entered[1], _entered[2], 0, _entered[3], _entered[4], 0)
+			_time = GETTIME(_time)
+			_result = ''
+			case _cnt {
+				when 1 {
+					_result = STRFORM('$02d', _time[5])
+				}
+				when 2 {
+					_result = STRFORM('$02d:$02d', _time[4], _time[5])
+				}
+				when 3 {
+					_result = STRFORM('$02d:$02d:$02d', _time[2], _time[4], _time[5])
+				}
+				when 4 {
+					_result = STRFORM('$02d:$02d:$02d:$02d', _time[1], _time[2], _time[4], _time[5])
+				}
+				when 5 {
+					_result = STRFORM('$04d:$02d:$02d:$02d:$02d', _time[0], _time[1], _time[2], _time[4], _time[5])
+				}
+			}
+			if STRLEN(_result) <= 0 {
+				send_Time_After = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+			else {
+				send_Time_After = _result
+			}
+		}
+		when 'send_Time_Seconds' {
+			send_Time_Seconds = TOINT(_r0)
+		}
+		when 'send_Time_DayOfWeek' {
+			_r0 = TOINT(_r0)
+			if (_r0 >= 1 && _r0 <= 7) {
+				send_Time_DayOfWeek = _r0
+			}
+			else {
+				send_Time_DayOfWeek = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+		}
+		when 'send_Time_During' {
+			_result = 1
+			if (RE_MATCH(TOSTR(_r0), '\d+') == 0) {
+				_result = -1000
+			}
+			_arr = RE_SPLIT(TOSTR(_r0), '[:_]')
+			foreach _arr; _num {
+				if _num != 0000 {
+					_result -= !(TOINT(_num) >= 0 && TOINT(_num) <= 2359)
+				}
+			}
+			if _result != 1 {
+				send_Time_During = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+			else {
+				send_Time_During = _r0
+			}
+		}
+		when 'send_Ghost_Booted' {
+			send_Ghost_Booted = SHIORI3FW.TranslateSystemChar(_r0)
+		}
+		when 'send_Ghost_Closed' {
+			send_Ghost_Closed = SHIORI3FW.TranslateSystemChar(_r0)
+		}
+		when 'send_Ghost_IsBooting' {
+			if (STRSTR(_r0, ':', 0) == -1) {
+				send_Ghost_IsBooting = SHIORI3FW.TranslateSystemChar(_r0)
+			}
+			else {
+				_arr = SPLITEX(TOSTR(_r0), ':')
+				_result = IARRAY
+				foreach _arr; _ghost {
+					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
+				}
+				send_Ghost_IsBooting = JOIN(_result, ':')
+			}
+		}
+		when 'send_Ghost_IsNotBooting' {
+			if (STRSTR(_r0, ':', 0) == -1) {
+				send_Ghost_IsNotBooting = SHIORI3FW.TranslateSystemChar(_r0)
+			}
+			else {
+				_arr = SPLITEX(TOSTR(_r0), ':')
+				_result = IARRAY
+				foreach _arr; _ghost {
+					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
+				}
+				send_Ghost_IsNotBooting = JOIN(_result, ':')
+			}
+		}
+		when 'send_Ghost_Exists' {
+			if (STRSTR(_r0, ':', 0) == -1) {
+				send_Ghost_Exists = SHIORI3FW.TranslateSystemChar(_r0)
+			}
+			else {
+				_arr = SPLITEX(TOSTR(_r0), ':')
+				_result = IARRAY
+				foreach _arr; _ghost {
+					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
+				}
+				send_Ghost_Exists = JOIN(_result, ':')
+			}
+		}
+		when 'send_Ghost_NotExists' {
+			if (STRSTR(_r0, ':', 0) == -1) {
+				send_Ghost_NotExists = SHIORI3FW.TranslateSystemChar(_r0)
+			}
+			else {
+				_arr = SPLITEX(TOSTR(_r0), ':')
+				_result = IARRAY
+				foreach _arr; _ghost {
+					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
+				}
+				send_Ghost_NotExists = JOIN(_result, ':')
+			}
+		}
+		when 'send_Ghost_IsInAddressBook' {
+			if (RE_MATCH( _r0 , '.+:.+' ) == 0) {
+				send_Ghost_NotExists = ''
+			}
+			else {
+				_arr = RE_SPLIT( _r0, '' )
+			}
+
+
+			_result = 1
+			if (RE_MATCH(TOSTR(_r0), '\d+') == 0) {
+				_result = -1000
+			}
+			_arr = RE_SPLIT(TOSTR(_r0), '[:_]')
+			foreach _arr; _num {
+				if _num != 0000 {
+					_result -= !(TOINT(_num) >= 0 && TOINT(_num) <= 2359)
+				}
+			}
+			if _result != 1 {
+				send_Time_During = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+			else {
+				send_Time_During = _r0
+			}
+		}
+		when 'send_Ghost_Triggered' {
+		}
+		when 'send_Message_Run' {
+		}
+		when 'send_Message_IsRun' {
+		}
+		when 'send_Message_IsNotRun' {
+		}
+		when 'send_Message_Read' {
+		}
+		when 'send_Message_IsRead' {
+		}
+		when 'send_Message_IsNotRead' {
+		}
+		others {
+			_r0 = SHIORI3FW.TranslateSystemChar(_r0)
+			LETTONAME(reference[2], _r0)
+		}
+	}
+
+	if (STRSTR(reference[2], 'send_Time_', 0) == 0 || STRSTR(reference[2], 'send_Ghost_', 0) == 0 || STRSTR(reference[2], 'send_Message_', 0) == 0) {
+		OnMenu_Send('cond')
+	}
+	else {
+		OnMenu_Send
+	}
 }
 
 OnMenu_Send_Edit_EventReference
@@ -620,20 +772,157 @@ OnMenu_Send_Edit_EventReference
 	_script += '\_a[EventReference]イベントリファレンス\_aを入力してね～\n[150]削除する場合は空欄にして決定だよ'
 
 	MenuCommentForce = _script
+	OnMenu_Send('reference')
 }
 
 OnMenu_Send_Edit_Entered_EventReference
 {
-	if (STRLEN(reference[0])>0) {
+	if (STRLEN(reference[0]) > 0) {
 		_entered = reference[0]
 		_entered = SHIORI3FW.TranslateSystemChar(_entered)
 		_entered = SHIORI3FW.EscapeAllTags(_entered)
 		_count = TOINT(reference[2])
 		send_EventReference[_count] = _entered
-	} else {
+	}
+	else {
 		_count = TOINT(reference[2])
 		send_EventReference[_count] = IARRAY
 	}
 
 	OnMenu_Send('reference')
+}
+
+//------------------------------------------------------------------------------
+// OnUkagakaGhostMessenger_Cancel系列
+//------------------------------------------------------------------------------
+
+OnMenu_Cancel
+{
+	BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Cancel|ここ')
+	<<"
+	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
+	＠スクリプト：\![quicksection,1]
+	＠スクリプト：\0\_n
+	＠スクリプト：%(CloseMenuButton)
+	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuHr('\_a[Cancel]メッセージの取り消し\_a'))\n
+	＠スクリプト：%(MenuItem(1,'以下の内容で取り消す','OnMenu_Cancel_Exec'))\n
+	＠スクリプト：%(MenuItem(1,'スクリプトをコピーする','OnMenu_CopyScript','Cancel'))\n[150]
+	＠スクリプト：\f[bold,1]送信者識別子\f[bold,0]\n
+	＠スクリプト：%(MenuItem(1,GenerateTextLabel(cancel_SenderId),'OnMenu_Cancel_Edit','cancel_SenderId'))
+	＠スクリプト：\_n
+	＠設定：クイックセクション
+	待０い：\![quicksection,1]%(MenuComment(OnExplanationCall('Cancel')))
+	">>
+}
+
+OnMenu_Cancel_Exec
+{
+	_script = MakeScript_Cancel
+	MenuCommentForce = '取り消すよ～' + _script
+	OnMenu_Cancel
+}
+
+OnMenu_Cancel_Edit
+{
+	_r0 = EVAL(reference[0])
+	_script = '\![close,inputbox,__SYSTEM_ALL_INPUT__]\![open,inputbox,OnMenu_Cancel_Edit_Entered,0'
+	if (STRLEN(_r0) > 0) {
+		_script += ',--text="'
+		_script += _r0
+		_script += '"'
+	}
+	_script += ',--reference='
+	_script += reference[0]
+	_script += ']'
+	MenuCommentForce = _script
+	MenuCommentForce += '送信者識別子を入力してね'
+	MenuCommentForce += '\n[150]未設定に戻すなら空欄で決定だよ～'
+	OnMenu_Cancel
+}
+
+OnMenu_Cancel_Edit_Entered
+{
+	_entered = reference[0]
+	_entered = SHIORI3FW.TranslateSystemChar(_entered)
+	_entered = SHIORI3FW.EscapeAllTags(_entered)
+	LETTONAME(reference[2], _entered)
+	OnMenu_Cancel
+}
+
+//------------------------------------------------------------------------------
+// OnUkagakaGhostMessenger_Trigger系列
+//------------------------------------------------------------------------------
+
+OnMenu_Trigger
+{
+	BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Trigger|ここ')
+	<<"
+	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
+	＠スクリプト：\![quicksection,1]
+	＠スクリプト：\0\_n
+	＠スクリプト：%(CloseMenuButton)
+	＠スクリプト：%(MenuBreadCrumbs)\n[150]
+	＠スクリプト：%(MenuHr('\_a[Trigger]メッセージのトリガー\_a'))\n
+	＠スクリプト：%(MenuItem(1,'以下の内容で取り消す','OnMenu_Trigger_Exec'))\n
+	＠スクリプト：%(MenuItem(1,'スクリプトをコピーする','OnMenu_CopyScript','Trigger'))\n[150]
+	＠スクリプト：\f[bold,1]イベント識別子\f[bold,0]\n
+	＠スクリプト：%(MenuItem(1,GenerateTextLabel(trigger_TriggerId),'OnMenu_Trigger_Edit','trigger_TriggerId'))\n[150]
+	＠スクリプト：\f[bold,1]対象ゴースト名\f[bold,0]\n
+	＠スクリプト：%(MenuItem(1,GenerateTextLabel(trigger_TargerSender),'OnMenu_Trigger_Edit','trigger_TargerSender'))\n[150]
+	＠スクリプト：\f[bold,1]対象の送信者識別子\f[bold,0]\n
+	＠スクリプト：%(MenuItem(1,GenerateTextLabel(trigger_TargetSenderId),'OnMenu_Trigger_Edit','trigger_TargetSenderId'))
+	＠スクリプト：\_n
+	＠設定：クイックセクション
+	待０い：\![quicksection,1]%(MenuComment(OnExplanationCall('Trigger')))
+	">>
+}
+
+OnMenu_Trigger_Exec
+{
+	_script = MakeScript_Trigger
+	MenuCommentForce = '問い合わせるよ～' + _script
+	OnMenu_Trigger
+}
+
+OnMenu_Trigger_Edit
+{
+	_r0 = EVAL(reference[0])
+	_script = '\![close,inputbox,__SYSTEM_ALL_INPUT__]\![open,inputbox,OnMenu_Trigger_Edit_Entered,0'
+	if (STRLEN(_r0) > 0) {
+		_script += ',--text="'
+		_script += _r0
+		_script += '"'
+	}
+	_script += ',--reference='
+	_script += reference[0]
+	_script += ']'
+	MenuCommentForce = _script
+
+	case reference[0] {
+		when 'trigger_TriggerId' {
+			MenuCommentForce += 'イベントを識別するための文字列を\n入力してね～'
+		}
+		when 'trigger_TargerSender' {
+			MenuCommentForce += '対象のゴースト名を入力してね'
+			MenuCommentForce += '\n[150]省略すると、全員に送られるよ'
+			MenuCommentForce += '\n[150]未設定に戻すなら空欄で決定だよ～'
+		}
+		when 'trigger_TargetSenderId' {
+			MenuCommentForce += '対象の送信者識別子を入力してね'
+			MenuCommentForce += '\n[150]省略すると、そのゴースト内の全員に送られるよ'
+			MenuCommentForce += '\n[150]ゴースト名も省略したら、\n対象が全ての全員になるよ'
+			MenuCommentForce += '\n[150]未設定に戻すなら空欄で決定だよ～'
+		}
+	}
+	OnMenu_Trigger
+}
+
+OnMenu_Trigger_Edit_Entered
+{
+	_entered = reference[0]
+	_entered = SHIORI3FW.TranslateSystemChar(_entered)
+	_entered = SHIORI3FW.EscapeAllTags(_entered)
+	LETTONAME(reference[2], _entered)
+	OnMenu_Trigger
 }

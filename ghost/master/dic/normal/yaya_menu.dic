@@ -4,7 +4,7 @@
 
 MenuComment
 {
-	_script = '\![quicksection,0]'
+	_script = ''
 	if (STRLEN(MenuCommentForce) > 0) {
 		_script += MenuCommentForce
 		ERASEVAR('MenuCommentForce')

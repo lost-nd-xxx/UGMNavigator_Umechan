@@ -81,6 +81,7 @@ OnSystemLoad.Umechan
 {
 	// ＠スクリプト：%(一体化)
 	<<"
+	＠スクリプト：\0\s[0]\1\s[10]
 	い：UkagakaGhostMessengerのナビ、うめちゃんだよ！
 	改行多めい：なにか用事のときは、うめちゃんをつついてね～★
 	＠スクリプト：%(OnBalloonInfoRequest)
@@ -116,7 +117,7 @@ OnSystemLoad.Umechan
 OnWindowStateRestore
 {
 	<<"
-	い：もう出てきてもいい？
+	い：もう出てきてもいいの？
 	">>
 	<<"
 	い：うめちゃんのかわいさを堪能しなおしてね～★
