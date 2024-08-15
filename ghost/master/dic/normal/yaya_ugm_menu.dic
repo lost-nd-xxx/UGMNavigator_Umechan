@@ -703,29 +703,16 @@ OnMenu_Send_Edit_Entered
 		}
 		when 'send_Ghost_IsInAddressBook' {
 			if (RE_MATCH( _r0 , '.+:.+' ) == 0) {
-				send_Ghost_NotExists = ''
-			}
-			else {
-				_arr = RE_SPLIT( _r0, '' )
-			}
-
-
-			_result = 1
-			if (RE_MATCH(TOSTR(_r0), '\d+') == 0) {
-				_result = -1000
-			}
-			_arr = RE_SPLIT(TOSTR(_r0), '[:_]')
-			foreach _arr; _num {
-				if _num != 0000 {
-					_result -= !(TOINT(_num) >= 0 && TOINT(_num) <= 2359)
-				}
-			}
-			if _result != 1 {
-				send_Time_During = ''
+				send_Ghost_IsInAddressBook = ''
 				MenuCommentForce = '未設定に戻したよ～'
 			}
 			else {
-				send_Time_During = _r0
+				_result = ''
+				_arr0 = SPLITEX( _r0, ':' )
+				foreach _arr0; _curt {
+					_arr1 = SPLITEX( _curt, '/' )
+					_result = SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+				}
 			}
 		}
 		when 'send_Ghost_Triggered' {
