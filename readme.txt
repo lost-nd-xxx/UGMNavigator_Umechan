@@ -1,4 +1,7 @@
-うめちゃんはさいかわでさいつよ！
+UkagakaGhostMessengerナビゲーターうめちゃん
+～～～～
+UkagakaGhostMessengerのナビゲートをするゴーストです。
+スクリプトの作成補助、プラグインの内容の簡易解説などをします。
 
 ～～～～
 ＃利用モジュール等
@@ -21,3 +24,6 @@ https://code.google.com/archive/p/csaori/
 https://nijijourney.com/ja/
 にじジャーニー利用規約
 https://docs.midjourney.com/docs/terms-of-service
+
+～～～～
+うめちゃんはさいかわでさいつよ！

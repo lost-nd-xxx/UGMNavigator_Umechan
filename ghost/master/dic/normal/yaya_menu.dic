@@ -89,6 +89,7 @@ MenuItem
 OnMenu
 {
 	_BreadCrumbs = (IARRAY, 'OnMenu|メニュー')
+	_script = '"script:\C\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]\1\c開いたよ～"'
 	<<"
 	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
 	＠スクリプト：\![quicksection,1]
@@ -98,6 +99,8 @@ OnMenu
 	＠スクリプト：%(MenuHr('ＵＧＭ補助機能'))\n
 	＠スクリプト：%(MenuItem(1,'スクリプト作成＆イベント試行','OnMenu_UgmTools'))\n
 	＠スクリプト：%(MenuItem(1,'きっとわかる！うめちゃん解説','OnMenu_UgmNavi'))\n
+	＠スクリプト【isUgm==1】：%(MenuItem(1,'ＵＧＭの受信履歴を開く',_script))\n
+	＠スクリプト【それ以外】：\![*]\f[strike,1]\f[color,disable]ＵＧＭの受信履歴を開く\f[default]\n
 	＠スクリプト：\n[50]%(MenuHr('おしゃべり'))\n
 	＠スクリプト：%(MenuItem(1,'何か話して','Menu_AITALK'))\n
 	＠スクリプト【STRLEN(SHIORI3FW.LastAITalk) > 0】：%(MenuItem(1,'さっきの話は？','Menu_LASTTALK'))\n
