@@ -359,6 +359,13 @@ OnMenu_Request_Edit
 	OnMenu_Request
 }
 
+OnMenu_Request_Edit_tooltip
+{
+	if ISEVALUABLE(reference[2])==1 {
+		EVAL(reference[2])
+	}
+}
+
 OnMenu_Request_Edit_Entered
 {
 	_entered = reference[0]
@@ -419,7 +426,9 @@ OnMenu_Send
 		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Ghost_NotExists),'OnMenu_Send_Edit','send_Ghost_NotExists'))\n[150]
 
 		＠スクリプト：\f[bold,1]\_a[Ghost_IsInAddressBook]ゴースト連絡先登録済\_a\f[bold,0]\n
-		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Ghost_IsInAddressBook),'OnMenu_Send_Edit','send_Ghost_IsInAddressBook'))\n[150]
+		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Ghost_IsInAddressBook),'OnMenu_Send_Edit','send_Ghost_IsInAddressBook'))\n[-100]
+		＠スクリプト：%(_right)\f[bold,1]\_a[Ghost_Triggered]トリガーを引かれた\_a\f[bold,0]\n
+		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Ghost_Triggered),'OnMenu_Send_Edit','send_Ghost_Triggered'))\n[150]
 
 		＠スクリプト：\f[bold,1]\_a[Message_Run]メッセージが発動した\_a\f[bold,0]\n
 		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Message_Run),'OnMenu_Send_Edit','send_Message_Run'))\n[-100]
@@ -498,7 +507,7 @@ OnMenu_Send_PageTurn
 			MenuCommentForce = '追加情報を編集する？\n[150]未設定に戻すときは、空欄で決定してね～'
 		}
 		when 'cond' {
-			MenuCommentForce = '条件を編集する？\n[150]未設定に戻すときは、空欄で決定してね～'
+			MenuCommentForce = '条件を編集する？\n[150]未設定に戻すときは、空欄で決定してね\n[150]設定済みの条件を全て達成した時だけ\nメッセージは発動するの～'
 		}
 	}
 	OnMenu_Send(reference[0])
@@ -537,6 +546,13 @@ OnMenu_Send_Edit
 	}
 }
 
+OnMenu_Send_Edit_tooltip
+{
+	if ISEVALUABLE(reference[2])==1 {
+		EVAL(reference[2])
+	}
+}
+
 OnMenu_Send_Edit_Entered
 {
 	_r0 = reference[0]
@@ -545,15 +561,15 @@ OnMenu_Send_Edit_Entered
 	case reference[2] {
 		when 'send_Enable' {
 			if TOINT(_r0) == 1 || TOINT(_r0) == 0 {
+				send_Enable = TOINT(_r0)
+			}
+			else {
 				send_Enable = 0
 				MenuCommentForce = '0に戻したよ～'
 			}
-			else {
-				send_Enable = TOINT(_r0)
-			}
 		}
 		when 'send_RunCount' {
-			if !(_r0 >= 1) {
+			if !(_r0 >= 0) {
 				send_RunCount = 1
 				MenuCommentForce = '1に戻したよ～'
 			}
@@ -562,10 +578,21 @@ OnMenu_Send_Edit_Entered
 			}
 		}
 		when 'send_Late' {
-			send_Late = TOINT(_r0)
+			if (RE_MATCH(_r0,'\d+')==1) {
+				send_Late = TOINT(_r0)
+			}
+			else {
+				_arr = ASORT('int',ARRAYDEDUP(SPLITEX(TOSTR(_r0), '-')))
+				if ARRAYSIZE(_arr)>=2 {
+					_arr = (TOINT(_arr[0]),TOINT(_arr[1]))
+					send_Late = JOIN(_arr,'-')
+				} else {
+					send_Late = TOINT(_arr[0])
+				}
+			}
 		}
 		when 'send_Time_After' {
-			_arr = SPLITEX(TOSTR(_r0), ':')
+			_arr = SPLITEX(TOSTR(_r0), '/')
 			_cnt = ARRAYSIZE(_arr)
 			_arr = REVERSE(_arr)
 			_arr[5] = ''
@@ -591,16 +618,16 @@ OnMenu_Send_Edit_Entered
 					_result = STRFORM('$02d', _time[5])
 				}
 				when 2 {
-					_result = STRFORM('$02d:$02d', _time[4], _time[5])
+					_result = STRFORM('$02d/$02d', _time[4], _time[5])
 				}
 				when 3 {
-					_result = STRFORM('$02d:$02d:$02d', _time[2], _time[4], _time[5])
+					_result = STRFORM('$02d/$02d/$02d', _time[2], _time[4], _time[5])
 				}
 				when 4 {
-					_result = STRFORM('$02d:$02d:$02d:$02d', _time[1], _time[2], _time[4], _time[5])
+					_result = STRFORM('$02d/$02d/$02d/$02d', _time[1], _time[2], _time[4], _time[5])
 				}
 				when 5 {
-					_result = STRFORM('$04d:$02d:$02d:$02d:$02d', _time[0], _time[1], _time[2], _time[4], _time[5])
+					_result = STRFORM('$04d/$02d/$02d/$02d/$02d', _time[0], _time[1], _time[2], _time[4], _time[5])
 				}
 			}
 			if STRLEN(_result) <= 0 {
@@ -612,7 +639,11 @@ OnMenu_Send_Edit_Entered
 			}
 		}
 		when 'send_Time_Seconds' {
-			send_Time_Seconds = TOINT(_r0)
+			if (STRLEN(_r0)>0) {
+				send_Time_Seconds = TOINT(_r0)
+			} else {
+				send_Time_Seconds = ''
+			}
 		}
 		when 'send_Time_DayOfWeek' {
 			_r0 = TOINT(_r0)
@@ -625,22 +656,20 @@ OnMenu_Send_Edit_Entered
 			}
 		}
 		when 'send_Time_During' {
-			_result = 1
-			if (RE_MATCH(TOSTR(_r0), '\d+') == 0) {
-				_result = -1000
+			_result = IARRAY
+			_arr = SPLITEX(TOSTR(_r0), ':')
+			foreach _arr; _time {
+				_time = SPLITEX(TOSTR(_time), '/')
+				_time = (TOINT(_time[0]),TOINT(_time[1]))
+				_time = ARRAYDEDUP(_time)
+				if ARRAYSIZE(_time)==2 {_result ,= STRFORM('$04d/$04d',TOINT(_time[0]),TOINT(_time[1]))}
 			}
-			_arr = RE_SPLIT(TOSTR(_r0), '[:_]')
-			foreach _arr; _num {
-				if _num != 0000 {
-					_result -= !(TOINT(_num) >= 0 && TOINT(_num) <= 2359)
-				}
-			}
-			if _result != 1 {
+			if ARRAYSIZE(_result)<=0 {
 				send_Time_During = ''
 				MenuCommentForce = '未設定に戻したよ～'
 			}
 			else {
-				send_Time_During = _r0
+				send_Time_During = JOIN(_result,':')
 			}
 		}
 		when 'send_Ghost_Booted' {
@@ -650,84 +679,210 @@ OnMenu_Send_Edit_Entered
 			send_Ghost_Closed = SHIORI3FW.TranslateSystemChar(_r0)
 		}
 		when 'send_Ghost_IsBooting' {
-			if (STRSTR(_r0, ':', 0) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Ghost_IsBooting = SHIORI3FW.TranslateSystemChar(_r0)
 			}
 			else {
-				_arr = SPLITEX(TOSTR(_r0), ':')
+				_arr = SPLITEX(TOSTR(_r0), '/')
 				_result = IARRAY
 				foreach _arr; _ghost {
 					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
 				}
-				send_Ghost_IsBooting = JOIN(_result, ':')
+				send_Ghost_IsBooting = JOIN(_result, '/')
 			}
 		}
 		when 'send_Ghost_IsNotBooting' {
-			if (STRSTR(_r0, ':', 0) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Ghost_IsNotBooting = SHIORI3FW.TranslateSystemChar(_r0)
 			}
 			else {
-				_arr = SPLITEX(TOSTR(_r0), ':')
+				_arr = SPLITEX(TOSTR(_r0), '/')
 				_result = IARRAY
 				foreach _arr; _ghost {
 					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
 				}
-				send_Ghost_IsNotBooting = JOIN(_result, ':')
+				send_Ghost_IsNotBooting = JOIN(_result, '/')
 			}
 		}
 		when 'send_Ghost_Exists' {
-			if (STRSTR(_r0, ':', 0) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Ghost_Exists = SHIORI3FW.TranslateSystemChar(_r0)
 			}
 			else {
-				_arr = SPLITEX(TOSTR(_r0), ':')
+				_arr = SPLITEX(TOSTR(_r0), '/')
 				_result = IARRAY
 				foreach _arr; _ghost {
 					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
 				}
-				send_Ghost_Exists = JOIN(_result, ':')
+				send_Ghost_Exists = JOIN(_result, '/')
 			}
 		}
 		when 'send_Ghost_NotExists' {
-			if (STRSTR(_r0, ':', 0) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Ghost_NotExists = SHIORI3FW.TranslateSystemChar(_r0)
 			}
 			else {
-				_arr = SPLITEX(TOSTR(_r0), ':')
+				_arr = SPLITEX(TOSTR(_r0), '/')
 				_result = IARRAY
 				foreach _arr; _ghost {
 					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
 				}
-				send_Ghost_NotExists = JOIN(_result, ':')
+				send_Ghost_NotExists = JOIN(_result, '/')
 			}
 		}
 		when 'send_Ghost_IsInAddressBook' {
-			if (RE_MATCH( _r0 , '.+:.+' ) == 0) {
+			if (STRSTR( _r0 , '/', 0 ) == -1) {
 				send_Ghost_IsInAddressBook = ''
 				MenuCommentForce = '未設定に戻したよ～'
 			}
 			else {
-				_result = ''
+				_result = IARRAY
 				_arr0 = SPLITEX( _r0, ':' )
 				foreach _arr0; _curt {
 					_arr1 = SPLITEX( _curt, '/' )
-					_result = SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					}
+				}
+				send_Ghost_IsInAddressBook = JOIN(_result,':')
+				if (STRLEN(send_Ghost_IsInAddressBook)<=0) {
+					MenuCommentForce = '未設定に戻したよ～'
 				}
 			}
 		}
 		when 'send_Ghost_Triggered' {
+			if STRLEN(_r0)<=0 {
+				send_Ghost_Triggered = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+			elseif (STRSTR( _r0 , '/', 0 ) == -1) {
+				send_Ghost_Triggered = SHIORI3FW.TranslateSystemChar(_r0)
+			}
+			else {
+				_result = IARRAY
+				_arr = SPLITEX( _r0, '/' )
+				foreach _arr; _curt {
+					_result ,= SHIORI3FW.TranslateSystemChar(_curt)
+				}
+				send_Ghost_Triggered = JOIN(_result,'/')
+				if (STRLEN(send_Ghost_Triggered)<=0) {
+					MenuCommentForce = '未設定に戻したよ～'
+				}
+			}
 		}
 		when 'send_Message_Run' {
+			if (STRSTR( _r0 , '/', 0 ) == -1) {
+				send_Message_Run = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+			else {
+				_result = IARRAY
+				_arr = SPLITEX( _r0, '/' )
+				foreach _arr; _curt {
+					_result ,= SHIORI3FW.TranslateSystemChar(_curt)
+				}
+				send_Message_Run = JOIN(_result,'/')
+				if (STRLEN(send_Message_Run)<=0) {
+					MenuCommentForce = '未設定に戻したよ～'
+				}
+			}
 		}
 		when 'send_Message_IsRun' {
+			if (STRSTR( _r0 , '/', 0 ) == -1) {
+				send_Message_IsRun = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+			else {
+				_result = IARRAY
+				_arr0 = SPLITEX( _r0, ':' )
+				foreach _arr0; _curt {
+					_arr1 = SPLITEX( _curt, '/' )
+					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					}
+				}
+				send_Message_IsRun = JOIN(_result,':')
+				if (STRLEN(send_Message_IsRun)<=0) {
+					MenuCommentForce = '未設定に戻したよ～'
+				}
+			}
 		}
 		when 'send_Message_IsNotRun' {
+			if (STRSTR( _r0 , '/', 0 ) == -1) {
+				send_Message_IsNotRun = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+			else {
+				_result = IARRAY
+				_arr0 = SPLITEX( _r0, ':' )
+				foreach _arr0; _curt {
+					_arr1 = SPLITEX( _curt, '/' )
+					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					}
+				}
+				send_Message_IsNotRun = JOIN(_result,':')
+				if (STRLEN(send_Message_IsNotRun)<=0) {
+					MenuCommentForce = '未設定に戻したよ～'
+				}
+			}
 		}
 		when 'send_Message_Read' {
+			if (STRSTR( _r0 , '/', 0 ) == -1) {
+				send_Message_Read = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+			else {
+				_result = IARRAY
+				_arr = SPLITEX( _r0, '/' )
+				foreach _arr; _curt {
+					_result ,= SHIORI3FW.TranslateSystemChar(_curt)
+				}
+				send_Message_Read = JOIN(_result,'/')
+				if (STRLEN(send_Message_Read)<=0) {
+					MenuCommentForce = '未設定に戻したよ～'
+				}
+			}
 		}
 		when 'send_Message_IsRead' {
+			if (STRSTR( _r0 , '/', 0 ) == -1) {
+				send_Message_IsRead = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+			else {
+				_result = IARRAY
+				_arr0 = SPLITEX( _r0, ':' )
+				foreach _arr0; _curt {
+					_arr1 = SPLITEX( _curt, '/' )
+					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					}
+				}
+				send_Message_IsRead = JOIN(_result,':')
+				if (STRLEN(send_Message_IsRead)<=0) {
+					MenuCommentForce = '未設定に戻したよ～'
+				}
+			}
 		}
 		when 'send_Message_IsNotRead' {
+			if (STRSTR( _r0 , '/', 0 ) == -1) {
+				send_Message_IsRead = ''
+				MenuCommentForce = '未設定に戻したよ～'
+			}
+			else {
+				_result = IARRAY
+				_arr0 = SPLITEX( _r0, ':' )
+				foreach _arr0; _curt {
+					_arr1 = SPLITEX( _curt, '/' )
+					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					}
+				}
+				send_Message_IsRead = JOIN(_result,':')
+				if (STRLEN(send_Message_IsRead)<=0) {
+					MenuCommentForce = '未設定に戻したよ～'
+				}
+			}
 		}
 		others {
 			_r0 = SHIORI3FW.TranslateSystemChar(_r0)
@@ -828,6 +983,13 @@ OnMenu_Cancel_Edit
 	OnMenu_Cancel
 }
 
+OnMenu_Cancel_Edit_tooltip
+{
+	if ISEVALUABLE(reference[2])==1 {
+		EVAL(reference[2])
+	}
+}
+
 OnMenu_Cancel_Edit_Entered
 {
 	_entered = reference[0]
@@ -903,6 +1065,13 @@ OnMenu_Trigger_Edit
 		}
 	}
 	OnMenu_Trigger
+}
+
+OnMenu_Trigger_Edit_tooltip
+{
+	if ISEVALUABLE(reference[2])==1 {
+		EVAL(reference[2])
+	}
 }
 
 OnMenu_Trigger_Edit_Entered
