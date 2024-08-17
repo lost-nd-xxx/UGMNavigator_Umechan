@@ -35,9 +35,9 @@ OnUkagakaGhostMessenger_SendComplete
 	う：\f[bold,1]\_a[SendComplete]OnUkagakaGhostMessenger_SendComplete\_a\f[bold,0]
 	改多う：\f[bold,1]\_a[SendComplete_r0]成功種別\_a\f[bold,0]
 	う：%(reference[0])
-	改多う：\f[bold,1]メッセージ識別子\f[bold,0]
-	う：%(reference[1])
 	改多う：\f[bold,1]送信者識別子\f[bold,0]
+	う：%(reference[1])
+	改多う：\f[bold,1]メッセージ識別子\f[bold,0]
 	う：%(reference[2])
 	＠スクリプト：\![quicksection,0]\_n
 	＠設定：クイックセクション
@@ -54,9 +54,9 @@ OnUkagakaGhostMessenger_SendFailure
 	う：\f[bold,1]\_a[SendFailure]OnUkagakaGhostMessenger_SendFailure\_a\f[bold,0]
 	改多う：\f[bold,1]失敗理由\f[bold,0]
 	う：%(reference[0])
-	改多う：\f[bold,1]\_a[SendFailure_r1]メッセージ識別子\_a\f[bold,0]
-	う：%(reference[1])
 	改多う：\f[bold,1]\_a[SendFailure_r2]送信者識別子\_a\f[bold,0]
+	う：%(reference[1])
+	改多う：\f[bold,1]\_a[SendFailure_r1]メッセージ識別子\_a\f[bold,0]
 	う：%(reference[2])
 	＠スクリプト：\![quicksection,0]\_n
 	＠設定：クイックセクション
