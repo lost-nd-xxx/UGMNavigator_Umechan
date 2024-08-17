@@ -1,2 +1,3 @@
 .git/,nonar,noupdate
 .gitignore,nonar,noupdate
+ghost/master/ssp_shiori_log.txt,nonar,noupdate

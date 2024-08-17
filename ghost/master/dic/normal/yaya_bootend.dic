@@ -7,11 +7,7 @@
 // ロードとアンロードの時に何かする
 //******************************************************************************
 
-OnSystemLoad.Umechan
-{
-	BreadCrumbs = (IARRAY, 'OnMenu')
-}
-
+// OnSystemLoad.Umechan
 // OnSystemUnload.Umechan
 
 //******************************************************************************
@@ -26,7 +22,7 @@ OnSystemLoad.Umechan
 	send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerのナビキャラだよ～'
 	send_MessageId = 'test01'
 	send_Enable = 1
-	send_Text = 'ほにょほにょ'
+	send_Text = 'ほにゃらら'
 	send_EventReference = IARRAY
 	send_RunCount = 1
 	send_Late = 0
@@ -55,8 +51,6 @@ OnSystemLoad.Umechan
 	trigger_TargerSender = 'UkagakaGhostMessengerナビゲーターうめちゃん'
 	trigger_TargetSenderId = 'うめちゃん'
 	cancel_SenderId = 'うめちゃん'
-
-	menu_sendedit_page = 'text'
 
 	// SSPデフォルト+の\b[2]の値
 	BalloonLines = 25

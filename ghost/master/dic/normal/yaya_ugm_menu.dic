@@ -68,7 +68,7 @@ OnUkagakaGhostMessenger_Response
 {
 	_loop = ''
 	for _i=6; _i<ARRAYSIZE(reference); _i++ {
-		_loop += "\n[150]\f[bold,1]＊文字列ランダム結果%(HAN2ZEN(_i-5))\f[bold,0]\n%(reference[_i])"
+		_loop += "\n[150]\f[bold,1]文字列ランダム結果%(HAN2ZEN(_i-5))\f[bold,0]\n%(reference[_i])"
 	}
 	<<"
 	＠設定：クイックセクション
@@ -406,7 +406,8 @@ OnMenu_Send
 
 	＠スクリプト：%(MenuItem(1,'入力済みの内容で送信する','OnMenu_Send_Exec',_argv[0]))\n
 	＠スクリプト：%(MenuItem(1,'スクリプトをコピーする','OnMenu_CopyScript','Send'))\n
-	＠スクリプト：%(MenuItem(1,'このページの入力欄を初期化する','OnMenu_Send_Initialize',_argv[0]))\n[150]
+	＠スクリプト：%(MenuItem(1,'活用例プリセットを選ぶ','OnMenu_Send_SampleSelect'))\n
+	＠スクリプト：%(MenuItem(1,'このページの入力内容を削除する','OnMenu_Send_Initialize',_argv[0]))\n[150]
 	">>
 	--
 	if (_argv[0] == 'cond') {
@@ -510,6 +511,123 @@ OnMenu_Send
 	">>
 }
 
+OnMenu_Send_SampleSelect
+{
+	_BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Send|送信', 'OnMenu_Send_SampleSelect|ここ')
+	_script = '\1\s[10]\0\s[0]'
+	_script += '\![quicksection,1]'
+	_script += '\0'
+	_script += '\_n'
+	_script += '\![set,autoscroll,disable]'
+	_script += CloseMenuButton()
+	_script += MenuBreadCrumbs(JOIN(_BreadCrumbs,','))+'\n[150]'
+	_script += MenuHr('メッセージ送信の入力例')+'\n'
+	_script += MenuItem(1,'初期設定に戻す','OnMenu_Send_SampleSet')+'\n'
+	_script += MenuItem(1,'プロフィールのみ更新','OnMenu_Send_SampleSet','1')+'\n'
+	_script += MenuItem(1,'文面ランダム','OnMenu_Send_SampleSet','2')+'\n'
+	_script += MenuItem(1,'時刻を本文に反映','OnMenu_Send_SampleSet','3')+'\n'
+	_script += MenuItem(1,'定期的に無限繰り返し','OnMenu_Send_SampleSet','4')+'\n'
+	_script += MenuItem(1,'自分がいないときだけメッセージを発動','OnMenu_Send_SampleSet','5')+'\n'
+	_script += MenuItem(1,'メッセージ単体取り消し','OnMenu_Send_SampleSet','6')
+	_script += '\1'
+	_script += MenuComment('いま入力済みの状態は全部消えちゃうから、\n気を付けてね～')
+
+	_script
+}
+
+OnMenu_Send_SampleSet
+{
+	// まず全部を未入力にし、後で関係のある個所のみ変更する
+	send_SenderId = ''
+	send_SenderName = ''
+	send_SenderIcon = ''
+	send_SenderProfile = ''
+	send_MessageId = ''
+	send_Enable = 1
+	send_Text = ''
+	send_RunCount = 1
+	send_Late = 0
+	end_EventReference = IARRAY
+	send_Time_After = ''
+	send_Time_Seconds = ''
+	send_Time_DayOfWeek = ''
+	send_Time_During = ''
+	send_Ghost_Booted = ''
+	send_Ghost_Closed = ''
+	send_Ghost_IsBooting = ''
+	send_Ghost_IsNotBooting = ''
+	send_Ghost_Exists = ''
+	send_Ghost_NotExists = ''
+	send_Ghost_IsInAddressBook = ''
+	send_Ghost_Triggered = ''
+	send_Message_Run = ''
+	send_Message_IsRun = ''
+	send_Message_IsNotRun = ''
+	send_Message_Read = ''
+	send_Message_IsRead = ''
+	send_Message_IsNotRead = ''
+	
+	case reference[0] {
+		when '1' {
+			// プロフィールのみ更新
+			MenuCommentForce = '本文未設定だと、\n通知なしでプロフィールだけが更新されるよ～'
+			send_SenderProfile = 'プロフィールだけの更新だよ'
+		}
+		when '2' {
+			// 文面ランダム
+			MenuCommentForce = 'メッセージ本文とプロフィール文章は、\n文面をランダムにすることもできるよ\n[150]/
+			「:choice_start:」と「:choice_end:」で囲んで、\n区切りを「:」にしてね\n[150]/
+			でも、ランダム選択の中に\n他の\_a[プラグイン独自の記法]独自タグ\_aをいれることはできないよ～'
+			send_SenderProfile = 'とっても:choice_start:かわいい:プリティーな:キュートな:choice_end:うめちゃんだよ'
+			send_Text = ':choice_start:桃って甘くて大好き！:栗ご飯はほくほくでいいよね～:渋柿も干すとおいしくなるのって不思議だね～:choice_end:'
+		}
+		when '3' {
+			// 時刻を本文やプロフィールに反映
+			MenuCommentForce = '本文とプロフィール文章には、\nメッセージ発動時の情報を反映させることができるよ\n[150]/
+			本体が起動されていなかったり、\nプラグインが無効にされている間は\nメッセージは発動したことにならないから、\nそこは注意してね'
+			send_SenderProfile = ':year:年:month:月:day:日もうめちゃんは元気だよ～'
+			send_Text = ':weekday:曜日だね～:nl:ユーザさんは調子どう？'
+		}
+		when '4' {
+			// 定期的に無限繰り返し
+			MenuCommentForce = '条件「指定秒数経過後」を86400秒(24時間)後、\n情報「実行回数」を無限回(0)にしたよ\n[150]/
+			メッセージ発動後、24時間経つと\n再度メッセージが発動されるよ\n[150]/
+			この設定だと、最初のメッセージ発動も\n送信から24時間後になるよ'
+			send_Time_Seconds = 86400
+			send_RunCount = 0
+			send_Text = ':month:月:day:日だね～:nl::choice_start:うめちゃんは今日も元気！:ユーザさんは調子どう？:choice_end:'
+		}
+		when '5' {
+			// 自分がいないときだけメッセージを発動
+			MenuCommentForce = '条件「ゴーストが非起動中」に自分を入れると、\n自分がいない時だけメッセージを発動させられるよ\n[150]/
+			ゴースト終了後すぐ発動しないように、\n情報の「遅延秒数」を600～1200秒に変更しているよ～'
+			send_Text = 'やっほ～　いま何してる？'
+			send_Ghost_IsNotBooting = 'UkagakaGhostMessengerナビゲーターうめちゃん'
+			send_Late = '600-1200'
+		}
+		when '6' {
+			// メッセージ単体取り消し
+			MenuCommentForce = '情報「送信者識別子」と「メッセージ識別子」の\n一致する、予約済みのメッセージを取り消せるよ\n[150]/
+			「メッセージ識別子」が未設定のときは\n\_a[OnMenu_Cancel]一括取り消し\_aを使ってね\n[150]/
+			他のゴーストの予約や、\n発動済みメッセージは取り消せないよ'
+			send_SenderId = 'うめちゃん'
+			send_MessageId = 'test01'
+			send_Text = 'ほにゃらら'
+		}
+		others {
+			// 初期設定に戻す
+			MenuCommentForce = '送信内容をインストール時の初期状態に戻したよ～'
+			send_SenderId = 'うめちゃん'
+			send_SenderName = 'うめちゃん@UGMナビ'
+			send_SenderIcon = 'img\\umechan_icon.png'
+			send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerのナビキャラだよ～'
+			send_MessageId = 'test01'
+			send_Text = 'ほにゃらら'
+		}
+	}
+	OnMenu_Send
+}
+
 OnMenu_Send_Initialize
 {
 	case reference[0] {
@@ -561,7 +679,9 @@ OnMenu_Send_PageTurn
 			MenuCommentForce = '追加情報を編集する？\n[150]未設定に戻すときは、空欄で決定してね～'
 		}
 		when 'cond' {
-			MenuCommentForce = '条件を編集する？\n[150]未設定に戻すときは、空欄で決定してね\n[150]設定済みの条件を全て達成した時だけ\nメッセージは発動するの～'
+			MenuCommentForce = '条件を編集する？\n[150]未設定に戻すときは、空欄で決定してね\n[150]/
+			設定済みの条件を全て達成した時だけ\nメッセージは発動するの\n[150]/
+			条件がひとつも無いなら、送信後すぐに\nメッセージが発動するよ～'
 		}
 	}
 	OnMenu_Send(reference[0])
