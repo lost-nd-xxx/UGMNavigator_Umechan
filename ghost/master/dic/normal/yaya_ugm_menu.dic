@@ -446,7 +446,7 @@ OnMenu_Send
 
 		＠スクリプト：\f[bold,1]\_a[Message_Run]メッセージが発動した\_a\f[bold,0]\n
 		＠スクリプト：%(MenuItem(2,GenerateTextLabel(send_Message_Run),'OnMenu_Send_Edit','send_Message_Run'))\n[-100]
-		＠スクリプト：%(_right)\f[bold,1]\_a[Message_Read]メッセージが読まれた瞬間\_a\f[bold,0]\n
+		＠スクリプト：%(_right)\f[bold,1]\_a[Message_Read]メッセージが読まれた\_a\f[bold,0]\n
 		＠スクリプト：%(_right)%(MenuItem(2,GenerateTextLabel(send_Message_Read),'OnMenu_Send_Edit','send_Message_Read'))\n[150]
 
 		＠スクリプト：\f[bold,1]\_a[Message_IsRun]メッセージ発動済み\_a\f[bold,0]\n
@@ -730,6 +730,7 @@ OnMenu_Send_Edit_tooltip
 OnMenu_Send_Edit_Entered
 {
 	_r0 = reference[0]
+	_r0 = RE_REPLACE( _r0, '"+', '""' )
 	_r0 = SHIORI3FW.EscapeAllTags(_r0)
 
 	case reference[2] {
