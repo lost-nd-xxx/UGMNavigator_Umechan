@@ -17,8 +17,8 @@ OnMenu_UgmTools
 	＠スクリプト：%(MenuItem(1,'メッセージ状況問い合わせ','OnMenu_Request'))\n
 	＠スクリプト：%(MenuItem(1,'トリガーを引く','OnMenu_Trigger'))
 	＠スクリプト：\_n
-	い【isUgm==1】：%(MenuComment('メニューだよ～'))
-	い【それ以外】：プラグインが認識されてないよ～
+	い【isUgm==1】：%(MenuComment('UGMのスクリプト作成＆メニューです。'))
+	い【それ以外】：プラグインが認識されていません。
 	">>
 }
 
@@ -41,7 +41,7 @@ OnUkagakaGhostMessenger_SendComplete
 	う：%(reference[2])
 	＠スクリプト：\![quicksection,0]\_n
 	＠設定：クイックセクション
-	い：送信成功！
+	い：メッセージの送信に成功しました。
 	">>
 }
 
@@ -60,7 +60,7 @@ OnUkagakaGhostMessenger_SendFailure
 	う：%(reference[2])
 	＠スクリプト：\![quicksection,0]\_n
 	＠設定：クイックセクション
-	い：送信失敗……
+	い：メッセージの送信に失敗しました。
 	">>
 }
 
@@ -90,7 +90,7 @@ OnUkagakaGhostMessenger_Response
 	＠スクリプト：%(_loop)
 	＠スクリプト：\![quicksection,0]\_n
 	＠設定：クイックセクション
-	い：メッセージ発動！
+	い：メッセージ情報の問い合わせ結果です。
 	">>
 }
 
@@ -115,7 +115,7 @@ OnUkagakaGhostMessenger_Ringing
 	＠スクリプト：%(_loop)
 	＠スクリプト：\![quicksection,0]\_n
 	＠設定：クイックセクション
-	い：メッセージ発動！
+	い：メッセージが発動しました。
 	">>
 }
 
@@ -133,7 +133,7 @@ OnMenu_CopyScript
 			FUNCTIONEX('textcopy2.dll', _script)
 		}
 	}
-	MenuCommentForce = 'クリップボードにコピーしたよ～'
+	MenuCommentForce = 'クリップボードにコピーしました。'
 	if ISFUNC(_return_to) {
 		// 帰り先がある
 		EVAL(_return_to)
@@ -315,7 +315,7 @@ GenerateTextLabel
 
 OnMenu_Request
 {
-	_BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Request|ここ')
+	_BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Request|現在地')
 	<<"
 	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
 	＠スクリプト：\![quicksection,1]
@@ -340,7 +340,7 @@ OnMenu_Request
 OnMenu_Request_Exec
 {
 	_script = MakeScript_Request
-	MenuCommentForce = '問い合わせるよ～' + _script
+	MenuCommentForce = 'メッセージ情報を問い合わせます。' + _script
 	OnMenu_Request
 }
 
@@ -359,13 +359,13 @@ OnMenu_Request_Edit
 	MenuCommentForce = _script
 	case reference[0] {
 		when 'request_Sender' {
-			MenuCommentForce += 'ゴースト名を入力してね～'
+			MenuCommentForce += 'ゴースト名を入力してください。'
 		}
 		when 'request_SenderId' {
-			MenuCommentForce += '送信者識別子を入力してね～'
+			MenuCommentForce += '送信者識別子を入力してください。'
 		}
 		when 'request_MessageId' {
-			MenuCommentForce += 'メッセージ識別子を入力してね～'
+			MenuCommentForce += 'メッセージ識別子を入力してください。'
 		}
 	}
 	OnMenu_Request
@@ -373,7 +373,7 @@ OnMenu_Request_Edit
 
 OnMenu_Request_Edit_tooltip
 {
-	if ISEVALUABLE(reference[2])==1 {
+	if ISEVALUABLE(reference[2]) == 1 {
 		EVAL(reference[2])
 	}
 }
@@ -395,7 +395,7 @@ OnMenu_Send
 {
 	_right = "\_l[%(BalloonValidWidth/2),]"
 
-	_BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Send|ここ')
+	_BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmTools|UGM 作成&試行', 'OnMenu_Send|現在地')
 	<<"
 	＠スクリプト：\![quicksection,1]
 	＠スクリプト：\0\_n\![set,autoscroll,disable]
@@ -520,17 +520,17 @@ OnMenu_Send_SampleSelect
 	_script += '\_n'
 	_script += '\![set,autoscroll,disable]'
 	_script += CloseMenuButton()
-	_script += MenuBreadCrumbs(JOIN(_BreadCrumbs,','))+'\n[150]'
-	_script += MenuHr('メッセージ送信の入力例')+'\n'
-	_script += MenuItem(1,'初期設定に戻す','OnMenu_Send_SampleSet')+'\n'
-	_script += MenuItem(1,'プロフィールのみ更新','OnMenu_Send_SampleSet','1')+'\n'
-	_script += MenuItem(1,'文面ランダム','OnMenu_Send_SampleSet','2')+'\n'
-	_script += MenuItem(1,'時刻を本文に反映','OnMenu_Send_SampleSet','3')+'\n'
-	_script += MenuItem(1,'定期的に無限繰り返し','OnMenu_Send_SampleSet','4')+'\n'
-	_script += MenuItem(1,'自分がいないときだけメッセージを発動','OnMenu_Send_SampleSet','5')+'\n'
-	_script += MenuItem(1,'メッセージ単体取り消し','OnMenu_Send_SampleSet','6')
+	_script += MenuBreadCrumbs(JOIN(_BreadCrumbs, ',')) + '\n[150]'
+	_script += MenuHr('メッセージ送信の入力例') + '\n'
+	_script += MenuItem(1, '初期設定に戻す', 'OnMenu_Send_SampleSet') + '\n'
+	_script += MenuItem(1, 'プロフィールのみ更新', 'OnMenu_Send_SampleSet', '1') + '\n'
+	_script += MenuItem(1, '文面ランダム', 'OnMenu_Send_SampleSet', '2') + '\n'
+	_script += MenuItem(1, '時刻を本文に反映', 'OnMenu_Send_SampleSet', '3') + '\n'
+	_script += MenuItem(1, '定期的に無限繰り返し', 'OnMenu_Send_SampleSet', '4') + '\n'
+	_script += MenuItem(1, '自分がいないときだけメッセージを発動', 'OnMenu_Send_SampleSet', '5') + '\n'
+	_script += MenuItem(1, 'メッセージ単体取り消し', 'OnMenu_Send_SampleSet', '6')
 	_script += '\1'
-	_script += MenuComment('いま入力済みの状態は全部消えちゃうから、\n気を付けてね～')
+	_script += MenuComment('いま入力済みの状態は全部消えてしまうので、\n気を付けてくださいね。')
 
 	_script
 }
@@ -566,61 +566,61 @@ OnMenu_Send_SampleSet
 	send_Message_Read = ''
 	send_Message_IsRead = ''
 	send_Message_IsNotRead = ''
-	
+
 	case reference[0] {
 		when '1' {
 			// プロフィールのみ更新
-			MenuCommentForce = '本文未設定だと、\n通知なしでプロフィールだけが更新されるよ～'
-			send_SenderProfile = 'プロフィールだけの更新だよ'
+			MenuCommentForce = '本文未設定だと、\n通知なしでプロフィールだけが更新されます。'
+			send_SenderProfile = 'プロフィールだけの更新です'
 		}
 		when '2' {
 			// 文面ランダム
-			MenuCommentForce = 'メッセージ本文とプロフィール文章は、\n文面をランダムにすることもできるよ\n[150]/
-			「:choice_start:」と「:choice_end:」で囲んで、\n区切りを「:」にしてね\n[150]/
-			でも、ランダム選択の中に\n他の\_a[プラグイン独自の記法]独自タグ\_aをいれることはできないよ～'
-			send_SenderProfile = 'とっても:choice_start:かわいい:プリティーな:キュートな:choice_end:うめちゃんだよ'
-			send_Text = ':choice_start:桃って甘くて大好き！:栗ご飯はほくほくでいいよね～:渋柿も干すとおいしくなるのって不思議だね～:choice_end:'
+			MenuCommentForce = 'メッセージ本文とプロフィール文章は、\n文面をランダムにすることもできます。\n[150]/
+			「:choice_start:」と「:choice_end:」で囲んで、\n区切りを「:」にしてください。\n[150]/
+			ランダム選択の中に\n他の\_a[プラグイン独自の記法]独自タグ\_aをいれることはできません。'
+			send_SenderProfile = 'うめちゃんのいるところの今日の天気は:choice_start:快晴:晴れ:晴れ:晴れ:くもり:くもり:くもり:雨:雪:choice_end:です'
+			send_Text = ':choice_start:桃は甘いですね:栗ご飯はほくほくですね:渋柿を干すと渋みが抜けるのは不思議ですね:choice_end:'
 		}
 		when '3' {
 			// 時刻を本文やプロフィールに反映
-			MenuCommentForce = '本文とプロフィール文章には、\nメッセージ発動時の情報を反映させることができるよ\n[150]/
-			本体が起動されていなかったり、\nプラグインが無効にされている間は\nメッセージは発動したことにならないから、\nそこは注意してね'
-			send_SenderProfile = ':year:年:month:月:day:日もうめちゃんは元気だよ～'
-			send_Text = ':weekday:曜日だね～:nl:ユーザさんは調子どう？'
+			MenuCommentForce = '本文とプロフィール文章には、\nメッセージ発動時の情報を反映させることができます。\n[150]/
+			本体が起動されていなかったり、\nプラグインが無効にされている間は\nメッセージは発動したことにならないので、\n注意してください。'
+			send_SenderProfile = ':year:年:month:月:day:日もうめちゃんは元気です'
+			send_Text = ':weekday:曜日ですね:nl:ユーザさんの調子はどうですか？'
 		}
 		when '4' {
 			// 定期的に無限繰り返し
-			MenuCommentForce = '条件「指定秒数経過後」を86400秒(24時間)後、\n情報「実行回数」を無限回(0)にしたよ\n[150]/
-			メッセージ発動後、24時間経つと\n再度メッセージが発動されるよ\n[150]/
-			この設定だと、最初のメッセージ発動も\n送信から24時間後になるよ'
+			MenuCommentForce = '条件「指定秒数経過後」を86400秒(24時間)後、\n情報「実行回数」を無限回(0)にしました。\n[150]/
+			メッセージ発動後、24時間経つと\n再度メッセージが発動されます。\n[150]/
+			この設定だと、最初のメッセージ発動も\n送信から24時間後になります。'
 			send_Time_Seconds = 86400
 			send_RunCount = 0
-			send_Text = ':month:月:day:日だね～:nl::choice_start:うめちゃんは今日も元気！:ユーザさんは調子どう？:choice_end:'
+			send_Text = ':month:月:day:日ですね:nl::choice_start:うめちゃんは今日も元気です:ユーザさんは調子どうですか？:choice_end:'
 		}
 		when '5' {
 			// 自分がいないときだけメッセージを発動
-			MenuCommentForce = '条件「ゴーストが非起動中」に自分を入れると、\n自分がいない時だけメッセージを発動させられるよ\n[150]/
-			ゴースト終了後すぐ発動しないように、\n情報の「遅延秒数」を600～1200秒に変更しているよ～'
-			send_Text = 'やっほ～　いま何してる？'
+			MenuCommentForce = '条件「ゴーストが非起動中」に自分を入れると、\n自分がいない時だけメッセージを発動させられます。\n[150]/
+			ゴースト終了後すぐ発動しないように、\n情報の「遅延秒数」を600～1200秒に変更しています。'
+			send_Text = 'ユーザさん、調子はどうですか？'
 			send_Ghost_IsNotBooting = 'UkagakaGhostMessengerナビゲーターうめちゃん'
 			send_Late = '600-1200'
 		}
 		when '6' {
 			// メッセージ単体取り消し
-			MenuCommentForce = '情報「送信者識別子」と「メッセージ識別子」の\n一致する、予約済みのメッセージを取り消せるよ\n[150]/
-			「メッセージ識別子」が未設定のときは\n\_a[OnMenu_Cancel]一括取り消し\_aを使ってね\n[150]/
-			他のゴーストの予約や、\n発動済みメッセージは取り消せないよ'
+			MenuCommentForce = '情報「送信者識別子」と「メッセージ識別子」の\n一致する、予約済みのメッセージを取り消せます。\n[150]/
+			「メッセージ識別子」が未設定のときは\n\_a[OnMenu_Cancel]一括取り消し\_aを使ってください。\n[150]/
+			他のゴーストの予約や、\n発動済みメッセージは取り消せません。'
 			send_SenderId = 'うめちゃん'
 			send_MessageId = 'test01'
 			send_Text = 'ほにゃらら'
 		}
 		others {
 			// 初期設定に戻す
-			MenuCommentForce = '送信内容をインストール時の初期状態に戻したよ～'
+			MenuCommentForce = '送信内容をインストール時の初期状態に戻しました。'
 			send_SenderId = 'うめちゃん'
 			send_SenderName = 'うめちゃん@UGMナビ'
 			send_SenderIcon = 'img\\umechan_icon.png'
-			send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerのナビキャラだよ～'
+			send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerのナビキャラです。'
 			send_MessageId = 'test01'
 			send_Text = 'ほにゃらら'
 		}
@@ -673,15 +673,15 @@ OnMenu_Send_PageTurn
 {
 	case reference[0] {
 		when 'info' {
-			MenuCommentForce = '情報を編集する？\n[150]未設定に戻すときは、空欄で決定してね～'
+			MenuCommentForce = '情報を編集しますか？\n[150]未設定に戻すときは、空欄で決定してください。'
 		}
 		when 'reference' {
-			MenuCommentForce = '追加情報を編集する？\n[150]未設定に戻すときは、空欄で決定してね～'
+			MenuCommentForce = '追加情報を編集しますか？\n[150]未設定に戻すときは、空欄で決定してください。'
 		}
 		when 'cond' {
-			MenuCommentForce = '条件を編集する？\n[150]未設定に戻すときは、空欄で決定してね\n[150]/
-			設定済みの条件を全て達成した時だけ\nメッセージは発動するの\n[150]/
-			条件がひとつも無いなら、送信後すぐに\nメッセージが発動するよ～'
+			MenuCommentForce = '条件を編集しますか？\n[150]未設定に戻すときは、空欄で決定してください。\n[150]/
+			設定済みの条件を全て達成した時だけ\nメッセージは発動します。\n[150]/
+			条件がひとつも無いなら、送信後すぐに\nメッセージが発動します。'
 		}
 	}
 	OnMenu_Send(reference[0])
@@ -690,7 +690,7 @@ OnMenu_Send_PageTurn
 OnMenu_Send_Exec
 {
 	_script = MakeScript_Send
-	MenuCommentForce = '送信するよ～' + _script
+	MenuCommentForce = '送信します。' + _script
 	OnMenu_Send(reference[0])
 }
 
@@ -722,7 +722,7 @@ OnMenu_Send_Edit
 
 OnMenu_Send_Edit_tooltip
 {
-	if ISEVALUABLE(reference[2])==1 {
+	if ISEVALUABLE(reference[2]) == 1 {
 		EVAL(reference[2])
 	}
 }
@@ -730,7 +730,7 @@ OnMenu_Send_Edit_tooltip
 OnMenu_Send_Edit_Entered
 {
 	_r0 = reference[0]
-	_r0 = RE_REPLACE( _r0, '"+', '""' )
+	_r0 = RE_REPLACE(_r0, '"+', '""')
 	_r0 = SHIORI3FW.EscapeAllTags(_r0)
 
 	case reference[2] {
@@ -741,15 +741,15 @@ OnMenu_Send_Edit_Entered
 			send_MessageId = SHIORI3FW.TranslateSystemChar(_r0)
 		}
 		when 'send_Enable' {
-			if STRLEN(_r0)<=0 {
-				send_Enable=1
+			if STRLEN(_r0) <= 0 {
+				send_Enable = 1
 			}
 			elseif TOINT(_r0) == 1 || TOINT(_r0) == 0 {
 				send_Enable = TOINT(_r0)
 			}
 			else {
 				send_Enable = 0
-				MenuCommentForce = '0に戻したよ～'
+				MenuCommentForce = '有効状態を0に戻しました。'
 			}
 		}
 		when 'send_SenderId' {
@@ -765,24 +765,25 @@ OnMenu_Send_Edit_Entered
 			send_SenderProfile = _r0
 		}
 		when 'send_RunCount' {
-			if !(TOINT(_r0) > 0) {
+			if !(TOINT(_r0) >= 0) {
 				send_RunCount = 1
-				MenuCommentForce = '1に戻したよ～'
+				MenuCommentForce = '実行回数を1に戻しました。'
 			}
 			else {
 				send_RunCount = TOINT(_r0)
 			}
 		}
 		when 'send_Late' {
-			if (RE_MATCH(_r0,'\d+')==1) {
+			if (RE_MATCH(_r0, '\d+') == 1) {
 				send_Late = TOINT(_r0)
 			}
 			else {
-				_arr = ASORT('int',ARRAYDEDUP(SPLITEX(TOSTR(_r0), '-')))
-				if ARRAYSIZE(_arr)>=2 {
-					_arr = (TOINT(_arr[0]),TOINT(_arr[1]))
-					send_Late = JOIN(_arr,'-')
-				} else {
+				_arr = ASORT('int', ARRAYDEDUP(SPLITEX(TOSTR(_r0), '-')))
+				if ARRAYSIZE(_arr) >= 2 {
+					_arr = (TOINT(_arr[0]), TOINT(_arr[1]))
+					send_Late = JOIN(_arr, '-')
+				}
+				else {
 					send_Late = TOINT(_arr[0])
 				}
 			}
@@ -794,7 +795,7 @@ OnMenu_Send_Edit_Entered
 			_arr[5] = ''
 			_arr = REVERSE(_arr)
 			_arr[0] = IARRAY
-			TESTTEST=_arr
+			TESTTEST = _arr
 			_now = GETTIME()
 			_now = (_now[0], _now[1], _now[2], _now[4], _now[5])
 			_entered = IARRAY
@@ -828,16 +829,17 @@ OnMenu_Send_Edit_Entered
 			}
 			if STRLEN(_result) <= 0 {
 				send_Time_After = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「指定時刻以降」を未設定に戻しました。'
 			}
 			else {
 				send_Time_After = _result
 			}
 		}
 		when 'send_Time_Seconds' {
-			if (STRLEN(_r0)>0&&TOINT(_r0)>=0) {
+			if (STRLEN(_r0) > 0 && TOINT(_r0) >= 0) {
 				send_Time_Seconds = TOINT(_r0)
-			} else {
+			}
+			else {
 				send_Time_Seconds = ''
 			}
 		}
@@ -848,7 +850,7 @@ OnMenu_Send_Edit_Entered
 			}
 			else {
 				send_Time_DayOfWeek = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「指定の曜日」を未設定に戻しました。'
 			}
 		}
 		when 'send_Time_During' {
@@ -856,16 +858,18 @@ OnMenu_Send_Edit_Entered
 			_arr = SPLITEX(TOSTR(_r0), ':')
 			foreach _arr; _time {
 				_time = SPLITEX(TOSTR(_time), '/')
-				_time = (TOINT(_time[0]),TOINT(_time[1]))
+				_time = (TOINT(_time[0]), TOINT(_time[1]))
 				_time = ARRAYDEDUP(_time)
-				if ARRAYSIZE(_time)==2 {_result ,= STRFORM('$04d/$04d',TOINT(_time[0]),TOINT(_time[1]))}
+				if ARRAYSIZE(_time) == 2 {
+					_result ,= STRFORM('$04d/$04d', TOINT(_time[0]), TOINT(_time[1]))
+				}
 			}
-			if ARRAYSIZE(_result)<=0 {
+			if ARRAYSIZE(_result) <= 0 {
 				send_Time_During = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「指定の時間帯」を未設定に戻しました。'
 			}
 			else {
-				send_Time_During = JOIN(_result,':')
+				send_Time_During = JOIN(_result, ':')
 			}
 		}
 		when 'send_Ghost_Booted' {
@@ -927,153 +931,153 @@ OnMenu_Send_Edit_Entered
 			}
 		}
 		when 'send_Ghost_IsInAddressBook' {
-			if (STRSTR( _r0 , '/', 0 ) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Ghost_IsInAddressBook = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「ゴースト連絡先登録済」を未設定に戻しました。'
 			}
 			else {
 				_result = IARRAY
-				_arr0 = SPLITEX( _r0, ':' )
+				_arr0 = SPLITEX(_r0, ':')
 				foreach _arr0; _curt {
-					_arr1 = SPLITEX( _curt, '/' )
-					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])
+					_arr1 = SPLITEX(_curt, '/')
+					if (STRLEN(_arr1[0]) > 0 && STRLEN(_arr1[1]) > 0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[1])
 					}
 				}
-				send_Ghost_IsInAddressBook = JOIN(_result,':')
-				if (STRLEN(send_Ghost_IsInAddressBook)<=0) {
-					MenuCommentForce = '未設定に戻したよ～'
+				send_Ghost_IsInAddressBook = JOIN(_result, ':')
+				if (STRLEN(send_Ghost_IsInAddressBook) <= 0) {
+					MenuCommentForce = '「ゴースト連絡先登録済」を未設定に戻しました。'
 				}
 			}
 		}
 		when 'send_Ghost_Triggered' {
-			if STRLEN(_r0)<=0 {
+			if STRLEN(_r0) <= 0 {
 				send_Ghost_Triggered = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「トリガーを引かれた」を未設定に戻しました。'
 			}
-			elseif (STRSTR( _r0 , '/', 0 ) == -1) {
+			elseif (STRSTR(_r0, '/', 0) == -1) {
 				send_Ghost_Triggered = SHIORI3FW.TranslateSystemChar(_r0)
 			}
 			else {
-				_arr = SPLITEX( _r0, '/' )
-				_result = (SHIORI3FW.TranslateSystemChar(_arr[0]),SHIORI3FW.TranslateSystemChar(_arr[1]))
-				send_Ghost_Triggered = JOIN(_result,'/')
-				if (STRLEN(send_Ghost_Triggered)<=0) {
-					MenuCommentForce = '未設定に戻したよ～'
+				_arr = SPLITEX(_r0, '/')
+				_result = (SHIORI3FW.TranslateSystemChar(_arr[0]), SHIORI3FW.TranslateSystemChar(_arr[1]))
+				send_Ghost_Triggered = JOIN(_result, '/')
+				if (STRLEN(send_Ghost_Triggered) <= 0) {
+					MenuCommentForce = '「トリガーを引かれた」を未設定に戻しました。'
 				}
 			}
 		}
 		when 'send_Message_Run' {
-			if (STRSTR( _r0 , '/', 0 ) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Message_Run = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「メッセージが発動した」を未設定に戻しました。'
 			}
 			else {
 				_result = IARRAY
-				_arr = SPLITEX( _r0, '/' )
+				_arr = SPLITEX(_r0, '/')
 				foreach _arr; _curt {
 					_result ,= SHIORI3FW.TranslateSystemChar(_curt)
 				}
-				send_Message_Run = JOIN(_result,'/')
-				if (STRLEN(send_Message_Run)<=0) {
-					MenuCommentForce = '未設定に戻したよ～'
+				send_Message_Run = JOIN(_result, '/')
+				if (STRLEN(send_Message_Run) <= 0) {
+					MenuCommentForce = '「メッセージが発動した」を未設定に戻しました。'
 				}
 			}
 		}
 		when 'send_Message_IsRun' {
-			if (STRSTR( _r0 , '/', 0 ) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Message_IsRun = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「メッセージ発動済み」を未設定に戻しました。'
 			}
 			else {
 				_result = IARRAY
-				_arr0 = SPLITEX( _r0, ':' )
+				_arr0 = SPLITEX(_r0, ':')
 				foreach _arr0; _curt {
-					_arr1 = SPLITEX( _curt, '/' )
-					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0&&STRLEN(_arr1[2])>0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[2])
+					_arr1 = SPLITEX(_curt, '/')
+					if (STRLEN(_arr1[0]) > 0 && STRLEN(_arr1[1]) > 0 && STRLEN(_arr1[2]) > 0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[1]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[2])
 					}
 				}
-				send_Message_IsRun = JOIN(_result,':')
-				if (STRLEN(send_Message_IsRun)<=0) {
-					MenuCommentForce = '未設定に戻したよ～'
+				send_Message_IsRun = JOIN(_result, ':')
+				if (STRLEN(send_Message_IsRun) <= 0) {
+					MenuCommentForce = '「メッセージ発動済み」を未設定に戻しました。'
 				}
 			}
 		}
 		when 'send_Message_IsNotRun' {
-			if (STRSTR( _r0 , '/', 0 ) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Message_IsNotRun = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「メッセージ未発動」を未設定に戻しました。'
 			}
 			else {
 				_result = IARRAY
-				_arr0 = SPLITEX( _r0, ':' )
+				_arr0 = SPLITEX(_r0, ':')
 				foreach _arr0; _curt {
-					_arr1 = SPLITEX( _curt, '/' )
-					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0&&STRLEN(_arr1[2])>0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[2])
+					_arr1 = SPLITEX(_curt, '/')
+					if (STRLEN(_arr1[0]) > 0 && STRLEN(_arr1[1]) > 0 && STRLEN(_arr1[2]) > 0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[1]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[2])
 					}
 				}
-				send_Message_IsNotRun = JOIN(_result,':')
-				if (STRLEN(send_Message_IsNotRun)<=0) {
-					MenuCommentForce = '未設定に戻したよ～'
+				send_Message_IsNotRun = JOIN(_result, ':')
+				if (STRLEN(send_Message_IsNotRun) <= 0) {
+					MenuCommentForce = '「メッセージ未発動」を未設定に戻しました。'
 				}
 			}
 		}
 		when 'send_Message_Read' {
-			if (STRSTR( _r0 , '/', 0 ) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Message_Read = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「メッセージが読まれた」を未設定に戻しました。'
 			}
 			else {
 				_result = IARRAY
-				_arr = SPLITEX( _r0, '/' )
+				_arr = SPLITEX(_r0, '/')
 				foreach _arr; _curt {
 					_result ,= SHIORI3FW.TranslateSystemChar(_curt)
 				}
-				send_Message_Read = JOIN(_result,'/')
-				if (STRLEN(send_Message_Read)<=0) {
-					MenuCommentForce = '未設定に戻したよ～'
+				send_Message_Read = JOIN(_result, '/')
+				if (STRLEN(send_Message_Read) <= 0) {
+					MenuCommentForce = '「メッセージが読まれた」を未設定に戻しました。'
 				}
 			}
 		}
 		when 'send_Message_IsRead' {
-			if (STRSTR( _r0 , '/', 0 ) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Message_IsRead = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「メッセージが既読」を未設定に戻しました。'
 			}
 			else {
 				_result = IARRAY
-				_arr0 = SPLITEX( _r0, ':' )
+				_arr0 = SPLITEX(_r0, ':')
 				foreach _arr0; _curt {
-					_arr1 = SPLITEX( _curt, '/' )
-					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0&&STRLEN(_arr1[2])>0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[2])
+					_arr1 = SPLITEX(_curt, '/')
+					if (STRLEN(_arr1[0]) > 0 && STRLEN(_arr1[1]) > 0 && STRLEN(_arr1[2]) > 0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[1]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[2])
 					}
 				}
-				send_Message_IsRead = JOIN(_result,':')
-				if (STRLEN(send_Message_IsRead)<=0) {
-					MenuCommentForce = '未設定に戻したよ～'
+				send_Message_IsRead = JOIN(_result, ':')
+				if (STRLEN(send_Message_IsRead) <= 0) {
+					MenuCommentForce = '「メッセージが既読」を未設定に戻しました。'
 				}
 			}
 		}
 		when 'send_Message_IsNotRead' {
-			if (STRSTR( _r0 , '/', 0 ) == -1) {
+			if (STRSTR(_r0, '/', 0) == -1) {
 				send_Message_IsNotRead = ''
-				MenuCommentForce = '未設定に戻したよ～'
+				MenuCommentForce = '「メッセージが未読」を未設定に戻しました。'
 			}
 			else {
 				_result = IARRAY
-				_arr0 = SPLITEX( _r0, ':' )
+				_arr0 = SPLITEX(_r0, ':')
 				foreach _arr0; _curt {
-					_arr1 = SPLITEX( _curt, '/' )
-					if (STRLEN(_arr1[0])>0&&STRLEN(_arr1[1])>0&&STRLEN(_arr1[2])>0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[1])+'/'+SHIORI3FW.TranslateSystemChar(_arr1[2])
+					_arr1 = SPLITEX(_curt, '/')
+					if (STRLEN(_arr1[0]) > 0 && STRLEN(_arr1[1]) > 0 && STRLEN(_arr1[2]) > 0) {
+						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[1]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[2])
 					}
 				}
-				send_Message_IsNotRead = JOIN(_result,':')
-				if (STRLEN(send_Message_IsNotRead)<=0) {
-					MenuCommentForce = '未設定に戻したよ～'
+				send_Message_IsNotRead = JOIN(_result, ':')
+				if (STRLEN(send_Message_IsNotRead) <= 0) {
+					MenuCommentForce = '「メッセージが未読」を未設定に戻しました。'
 				}
 			}
 		}
@@ -1104,7 +1108,7 @@ OnMenu_Send_Edit_EventReference
 	_script += reference[0]
 	_script += ']'
 
-	_script += '\_a[EventReference]イベントリファレンス\_aを入力してね～\n[150]削除する場合は空欄にして決定だよ'
+	_script += '\_a[EventReference]イベントリファレンス\_aを入力してください。\n[150]空欄で決定すると、未設定に戻ります。'
 
 	MenuCommentForce = _script
 	OnMenu_Send('reference')
@@ -1171,14 +1175,14 @@ OnMenu_Cancel_Edit
 	_script += reference[0]
 	_script += ']'
 	MenuCommentForce = _script
-	MenuCommentForce += '送信者識別子を入力してね'
-	MenuCommentForce += '\n[150]未設定に戻すなら空欄で決定だよ～'
+	MenuCommentForce += '送信者識別子を入力してください。'
+	MenuCommentForce += '\n[150]空欄で決定すると、未設定に戻ります。'
 	OnMenu_Cancel
 }
 
 OnMenu_Cancel_Edit_tooltip
 {
-	if ISEVALUABLE(reference[2])==1 {
+	if ISEVALUABLE(reference[2]) == 1 {
 		EVAL(reference[2])
 	}
 }
@@ -1243,18 +1247,18 @@ OnMenu_Trigger_Edit
 
 	case reference[0] {
 		when 'trigger_TriggerId' {
-			MenuCommentForce += 'イベントを識別するための文字列を\n入力してね～'
+			MenuCommentForce += 'イベントを識別するための文字列を\n入力してください。'
 		}
 		when 'trigger_TargerSender' {
-			MenuCommentForce += '対象のゴースト名を入力してね'
-			MenuCommentForce += '\n[150]省略すると、全員に送られるよ'
-			MenuCommentForce += '\n[150]未設定に戻すなら空欄で決定だよ～'
+			MenuCommentForce += '対象のゴースト名を入力してください。'
+			MenuCommentForce += '\n[150]省略すると、全員に送られます。'
+			MenuCommentForce += '\n[150]空欄で決定すると、未設定に戻ります。'
 		}
 		when 'trigger_TargetSenderId' {
-			MenuCommentForce += '対象の送信者識別子を入力してね'
-			MenuCommentForce += '\n[150]省略すると、そのゴースト内の全員に送られるよ'
-			MenuCommentForce += '\n[150]ゴースト名も省略したら、\n対象が全ての全員になるよ'
-			MenuCommentForce += '\n[150]未設定に戻すなら空欄で決定だよ～'
+			MenuCommentForce += '対象の送信者識別子を入力してください。'
+			MenuCommentForce += '\n[150]省略すると、そのゴースト内の全員に送られます。'
+			MenuCommentForce += '\n[150]ゴースト名も省略されていたら、\n対象は全ての全員になります。'
+			MenuCommentForce += '\n[150]空欄で決定すると、未設定に戻ります。'
 		}
 	}
 	OnMenu_Trigger
@@ -1262,7 +1266,7 @@ OnMenu_Trigger_Edit
 
 OnMenu_Trigger_Edit_tooltip
 {
-	if ISEVALUABLE(reference[2])==1 {
+	if ISEVALUABLE(reference[2]) == 1 {
 		EVAL(reference[2])
 	}
 }
