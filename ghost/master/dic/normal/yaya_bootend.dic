@@ -7,8 +7,8 @@
 // ロードとアンロードの時に何かする
 //******************************************************************************
 
-// OnSystemLoad.Umechan
-// OnSystemUnload.Umechan
+// OnSystemLoad.UgmUmechan
+// OnSystemUnload.UgmUmechan
 
 //******************************************************************************
 //初回起動 OnFirstBoot
@@ -19,7 +19,7 @@
 	send_SenderId = 'うめちゃん'
 	send_SenderName = 'うめちゃん@UGMナビ'
 	send_SenderIcon = 'img\\umechan_icon.png'
-	send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerのナビキャラだよ～'
+	send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerのナビキャラです。'
 	send_MessageId = 'test01'
 	send_Enable = 1
 	send_Text = 'ほにゃらら'
@@ -76,8 +76,8 @@
 	// ＠スクリプト：%(一体化)
 	<<"
 	＠スクリプト：\0\s[0]\1\s[10]
-	い：UkagakaGhostMessengerのナビ、うめちゃんだよ！
-	改行多めい：なにか用事のときは、うめちゃんをつついてね～★
+	い：UkagakaGhostMessengerのナビ、うめちゃんです。
+	改行多めい：なにか用事のときは、うめちゃんをつついてください。
 	＠スクリプト：%(OnBalloonInfoRequest)
 	">>
 }
@@ -100,7 +100,7 @@
 終了
 {
 	<<"
-	い：UkagakaGhostMessengerをよろしくね～！
+	い：UkagakaGhostMessengerをよろしくです。
 	">>
 }
 
@@ -111,9 +111,6 @@
 OnWindowStateRestore
 {
 	<<"
-	い：もう出てきてもいいの？
-	">>
-	<<"
-	い：うめちゃんのかわいさを堪能しなおしてね～★
+	い：もう出てきてもいいですか？
 	">>
 }

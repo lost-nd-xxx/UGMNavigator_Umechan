@@ -1227,7 +1227,7 @@ OnMenu_Trigger
 OnMenu_Trigger_Exec
 {
 	_script = MakeScript_Trigger
-	MenuCommentForce = '問い合わせるよ～' + _script
+	MenuCommentForce = '問い合わせます。' + _script
 	OnMenu_Trigger
 }
 

@@ -2,6 +2,11 @@
 // メニュー処理辞書
 //******************************************************************************
 
+ダブルクリック0
+{
+	OnMenu
+}
+
 MenuComment
 {
 	_script = ''
@@ -98,7 +103,7 @@ OnMenu
 	＠スクリプト：%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]
 	＠スクリプト：%(MenuHr('ＵＧＭ補助機能'))\n
 	＠スクリプト：%(MenuItem(1,'スクリプト作成＆イベント試行','OnMenu_UgmTools'))\n
-	＠スクリプト：%(MenuItem(1,'きっとわかる！うめちゃん解説','OnMenu_UgmNavi'))\n
+	＠スクリプト：%(MenuItem(1,'うめちゃんによるＵＧＭ解説','OnMenu_UgmNavi'))\n
 	＠スクリプト【isUgm==1】：%(MenuItem(1,'ＵＧＭの受信履歴を開く',_script))\n
 	＠スクリプト【それ以外】：\![*]\f[strike,1]\f[color,disable]ＵＧＭの受信履歴を開く\f[default]\n
 	＠スクリプト：\n[50]%(MenuHr('おしゃべり'))\n
@@ -107,7 +112,7 @@ OnMenu
 	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[strike,1]さっきの話は？\f[default]\n
 	＠スクリプト：%(MenuItem(1,'おしゃべりの頻度','Menu_TALKINTERVAL'))
 	＠スクリプト：\![quicksection,0]\_n
-	い：%(MenuComment('メニューだよ～'))
+	い：%(MenuComment('メニューです。'))
 	">>
 }
 
@@ -124,7 +129,7 @@ OnMenu
 Menu_AITALK
 {
 	<<"
-	い：（えっと｜ええっと｜ううんと）ね～……
+	い：（えっと｜ええっと｜ううんと）ですね～……
 	＠スクリプト：\w9\w9\![raise,OnAITalk]
 	">>
 }
@@ -137,7 +142,7 @@ Menu_LASTTALK
 		SHIORI3FW.LastAITalk
 	}
 	else {
-		MenuCommentForce = 'まだ何も喋ってないよ～'
+		MenuCommentForce = 'まだ何も喋っていない気がします……。'
 		OnMenu
 	}
 }
@@ -159,10 +164,10 @@ Menu_TALKINTERVAL
 	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]ふつう\f[default]\n
 	＠スクリプト【aitalkinterval!=300】：%(MenuItem(1,'ひそやか','OnMenu_TALKINTERVAL_Set','300'))\n
 	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]ひそやか\f[default]\n
-	＠スクリプト【aitalkinterval!=0】：%(MenuItem(1,'し～','OnMenu_TALKINTERVAL_Set','0'))
-	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]し～\f[default]
+	＠スクリプト【aitalkinterval!=0】：%(MenuItem(1,'しずかに','OnMenu_TALKINTERVAL_Set','0'))
+	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]しずかに\f[default]
 	＠スクリプト：\![quicksection,0]\_n
-	い：%(MenuComment('どのくらいがいいのかな？'))
+	い：%(MenuComment('どのくらいがいいですか？'))
 	">>
 }
 
@@ -170,7 +175,7 @@ Menu_TALKINTERVAL
 Menu_CANCEL
 {
 	<<"
-	う：キャンセル～
+	う：キャンセルですね。
 	">>
 }
 
@@ -180,21 +185,21 @@ OnMenu_TALKINTERVAL_Set
 	aitalkinterval = TOINT(reference[0])
 	case aitalkinterval {
 		when 15 {
-			MenuCommentForce = '15秒間隔で放たれるましんがん・とーく！'
+			MenuCommentForce = '１５秒間隔で喋ります。'
 		}
 		when 180 {
-			MenuCommentForce = '３分間隔くらいで喋ってみるね～'
+			MenuCommentForce = '３分間隔くらいで喋ります。'
 		}
 		when 300 {
-			MenuCommentForce = '５分間隔くらいで喋ってみるね～'
+			MenuCommentForce = '５分間隔くらいで喋ります。'
 		}
 		when 0 {
-			MenuCommentForce = 'し～、だね。'
+			MenuCommentForce = 'しずかに、ですね。'
 		}
 		others {
 			// なにかがおかしいのでとりあえず0をセット
 			aitalkinterval = 0
-			MenuCommentForce = 'し～、だね。'
+			MenuCommentForce = 'しずかに、ですね。'
 		}
 	}
 	Menu_TALKINTERVAL
@@ -205,6 +210,6 @@ Menu_HEADLINECANCEL
 {
 	//---- キャンセルされた
 	<<"
-	い：ヘッドライン、キャンセルしたよ～
+	い：ヘッドライン、キャンセルしました。
 	">>
 }

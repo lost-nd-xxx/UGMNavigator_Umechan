@@ -11,10 +11,10 @@ OnMenu_UgmNavi
     _BreadCrumbs = ('OnMenu|メニュー', 'OnMenu_UgmNavi|UGM 解説', 'dummy|ここ')
     _curt = OnMenu_UgmNavi_List(reference[0])
     case reference[0] {
-      when 'メッセージ内容' {MenuCommentForce='送信するメッセージの内容についての項目だよ'}
+      when 'メッセージ内容' {MenuCommentForce='送信するメッセージの内容についての項目です。'}
       when 'メッセージ発動条件' {MenuCommentForce=OnExplanationCall('Condition')}
-      when 'プラグイン独自の記法' {MenuCommentForce='メッセージの本文と、\nプロフィールの文章などについての\n項目だよ\n[150]タグの中にタグを含めることはできないよ'}
-      when 'イベント' {MenuCommentForce='プラグインが起こしたり、\nプラグインに起こしたりするイベントについての\n項目だよ'}
+      when 'プラグイン独自の記法' {MenuCommentForce='メッセージの本文と、\nプロフィールの文章などについての\n項目です。\n[150]タグの中にタグを含めることはできません。'}
+      when 'イベント' {MenuCommentForce='プラグインが起こしたり、\nプラグインに起こしたりするイベントについての\n項目です。'}
     }
   	_items += MenuHr(reference[0])
     for _i=0; _i<ARRAYSIZE(_curt); _i++ {
