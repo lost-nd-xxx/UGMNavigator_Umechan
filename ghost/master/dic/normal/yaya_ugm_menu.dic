@@ -302,7 +302,7 @@ MakeScript_Request
 GenerateTextLabel
 {
 	if (STRLEN(_argv[0]) <= 0) {
-		'※未設定※'
+		'\f[color,disable]※未設定※\f[color,default]'
 	}
 	else {
 		_argv[0]
@@ -467,7 +467,7 @@ OnMenu_Send
 			_loop += "Reference%(_i+3): \![*]\__q[OnMenu_Send_Edit_EventReference,%(_count)]%(SHIORI3FW.MakeJustText(send_EventReference[_count],BalloonCharCnt-16))\__q\n[150]"
 			_count = _i + 1
 		}
-		_loop += "Reference%(_i+3): \![*]\__q[OnMenu_Send_Edit_EventReference,%(_count)]%(SHIORI3FW.MakeJustText('新規追加',BalloonCharCnt-16))\__q"
+		_loop += "Reference%(_i+3): \![*]\__q[OnMenu_Send_Edit_EventReference,%(_count)]\f[color,disable]%(SHIORI3FW.MakeJustText('※未設定※',BalloonCharCnt-16))\f[color,default]\__q"
 		<<"
 		\__q[OnMenu_Send_PageTurn,info]［情報］\__q　\f[underline,1]【追加情報】\f[underline,0]　\__q[OnMenu_Send_PageTurn,cond]［条件］\__q\n[150]
 
@@ -542,7 +542,7 @@ OnMenu_Send_SampleSet
 	send_SenderName = ''
 	send_SenderIcon = ''
 	send_SenderProfile = ''
-	send_MessageId = ''
+	send_MessageId = 'test01'
 	send_Enable = 1
 	send_Text = ''
 	send_RunCount = 1
@@ -611,7 +611,6 @@ OnMenu_Send_SampleSet
 			「メッセージ識別子」が未設定のときは\n\_a[OnMenu_Cancel]一括取り消し\_aを使ってください。\n[150]/
 			他のゴーストの予約や、\n発動済みメッセージは取り消せません。'
 			send_SenderId = 'うめちゃん'
-			send_MessageId = 'test01'
 			send_Text = 'ほにゃらら'
 		}
 		others {
@@ -621,7 +620,6 @@ OnMenu_Send_SampleSet
 			send_SenderName = 'うめちゃん@UGMナビ'
 			send_SenderIcon = 'img\\umechan_icon.png'
 			send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerのナビキャラです。'
-			send_MessageId = 'test01'
 			send_Text = 'ほにゃらら'
 		}
 	}

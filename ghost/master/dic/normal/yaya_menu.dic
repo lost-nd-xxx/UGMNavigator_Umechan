@@ -82,8 +82,14 @@ MenuItem
 		_cnt++
 	}
 	_cnt = (BalloonCharCnt - _cnt * 2) / _cnt
-	_label = SHIORI3FW.MakeJustText(_argv[1], _cnt)
-
+	_label = _argv[1]
+	if (_label!='\f[color,disable]※未設定※\f[color,default]') {
+		_label = SHIORI3FW.MakeJustText(_label, _cnt)
+	} else {
+		_label = SHIORI3FW.MakeJustText('※未設定※', _cnt)
+		_label = '\f[color,disable]'+ _label +'\f[color,default]'
+	}
+	
 	'\![*]\__q[' + _ref + ']' + _label + '\__q'
 }
 
@@ -94,7 +100,7 @@ MenuItem
 OnMenu
 {
 	_BreadCrumbs = (IARRAY, 'OnMenu|メニュー')
-	_script = '"script:\C\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]\1\c開いたよ～"'
+	_script = '"script:\C\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]\1\c開きましたー。"'
 	<<"
 	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
 	＠スクリプト：\![quicksection,1]

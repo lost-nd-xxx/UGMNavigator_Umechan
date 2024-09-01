@@ -12,6 +12,6 @@ sakura.balloon.offsety,-110
 kero.balloon.offsetx,0
 kero.balloon.offsety,140
 
-sakura.defaultleft,0
-kero.defaultleft,0
+// sakura.defaultleft,0
+// kero.defaultleft,0
 seriko.sticky-window,1,0
