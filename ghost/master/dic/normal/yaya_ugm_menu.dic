@@ -657,7 +657,7 @@ OnMenu_Send_Initialize
 			send_SenderName = ''
 			send_SenderIcon = ''
 			send_SenderProfile = ''
-			send_MessageId = ''
+			send_MessageId = 'test01'
 			send_Enable = 1
 			send_Text = ''
 			send_RunCount = 1
@@ -737,6 +737,10 @@ OnMenu_Send_Edit_Entered
 		}
 		when 'send_MessageId' {
 			send_MessageId = SHIORI3FW.TranslateSystemChar(_r0)
+			if STRLEN(send_MessageId) <= 0 {
+				send_MessageId = 'test01'
+				MenuCommentForce = 'メッセージ識別子を初期値に戻しました。'
+			}
 		}
 		when 'send_Enable' {
 			if STRLEN(_r0) <= 0 {
