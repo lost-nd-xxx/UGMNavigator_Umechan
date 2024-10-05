@@ -6,11 +6,6 @@
 // アンカーイベント
 //------------------------------------------------------------------------------
 
-// OnAnchorHover
-// {
-// 	OnAnchorSelectEx
-// }
-
 OnAnchorSelectEx
 {
 	_title = reference[1] + '題名'

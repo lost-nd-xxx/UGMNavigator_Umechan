@@ -2,16 +2,27 @@
 // 種々のイベント辞書
 //******************************************************************************
 
+OnUserInput
+{
+	if ISFUNC(reference[0]) == 1 {
+		'\C\![quicksection,1]\1\c\0\c'
+		--
+		EVAL(reference[0])
+	}
+}
+
 //------------------------------------------------------------------------------
 // 選択肢決定後にちらつかないようにする
 //------------------------------------------------------------------------------
 
-// OnChoiceSelectEx
-// {
-// 	if ISFUNC(reference[1])==1 {
-// 		"\C\![quicksection,1]\1\c\0\c\![embed,%(reference[1])]"
-// 	}
-// }
+OnChoiceSelectEx
+{
+	if ISFUNC(reference[1]) == 1 {
+		'\C\![quicksection,1]\1\c\0\c'
+		--
+		EVAL(reference[1])
+	}
+}
 
 //------------------------------------------------------------------------------
 // バルーンのツールチップ
@@ -19,8 +30,8 @@
 
 On_balloon_tooltip
 {
-	_func = reference[1]+'_tooltip'
-	if ISFUNC(_func)==1 {
+	_func = reference[1] + '_tooltip'
+	if ISFUNC(_func) == 1 {
 		EVAL(_func)
 	}
 }
@@ -49,7 +60,7 @@ OnBalloonInfoResponce
 	BalloonValidWidth = TOINT(reference[1])
 	BalloonCharWidth = TOINT(reference[2])
 	// ピッタリすぎると溢れる場合があるので引いておく
-	BalloonCharCnt = (BalloonValidWidth/BalloonCharWidth)-2
+	BalloonCharCnt = (BalloonValidWidth / BalloonCharWidth) - 2
 }
 
 //******************************************************************************

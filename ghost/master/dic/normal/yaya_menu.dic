@@ -4,7 +4,7 @@
 
 ダブルクリック0
 {
-	OnMenu
+	Menu
 }
 
 MenuComment
@@ -97,29 +97,41 @@ MenuItem
 //メインメニュー展開
 //------------------------------------------------------------------------------
 
-OnMenu
+Menu
 {
-	_BreadCrumbs = (IARRAY, 'OnMenu|メニュー')
-	_script = '"script:\C\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]\1\c開きましたー。"'
-	<<"
-	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
-	＠スクリプト：\![quicksection,1]
-	＠スクリプト：\0\_n
-	＠スクリプト：%(CloseMenuButton)
-	＠スクリプト：%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]
-	＠スクリプト：%(MenuHr('ＵＧＭ補助機能'))\n
-	＠スクリプト：%(MenuItem(1,'スクリプト作成＆イベント試行','OnMenu_UgmTools'))\n
-	＠スクリプト：%(MenuItem(1,'うめちゃんによるＵＧＭ解説','OnMenu_UgmNavi'))\n
-	＠スクリプト【isUgm==1】：%(MenuItem(1,'ＵＧＭの受信履歴を開く',_script))\n
-	＠スクリプト【それ以外】：\![*]\f[strike,1]\f[color,disable]ＵＧＭの受信履歴を開く\f[default]\n
-	＠スクリプト：\n[50]%(MenuHr('おしゃべり'))\n
-	＠スクリプト：%(MenuItem(1,'何か話して','Menu_AITALK'))\n
-	＠スクリプト【STRLEN(SHIORI3FW.LastAITalk) > 0】：%(MenuItem(1,'さっきの話は？','Menu_LASTTALK'))\n
-	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[strike,1]さっきの話は？\f[default]\n
-	＠スクリプト：%(MenuItem(1,'おしゃべりの頻度','Menu_TALKINTERVAL'))
-	＠スクリプト：\![quicksection,0]\_n
-	い：%(MenuComment('メニューです。'))
-	">>
+	_BreadCrumbs = (IARRAY, 'Menu|メニュー')
+
+	_talk = ''
+	_talk += "\![close,inputbox,__SYSTEM_ALL_INPUT__]"
+	_talk += "\![quicksection,1]"
+	_talk += "\0\_n"
+	_talk += "%(CloseMenuButton)"
+	_talk += "%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]"
+	_talk += "%(MenuHr('ＵＧＭ補助機能'))\n"
+	_talk += "%(MenuItem(1,'スクリプト作成＆イベント試行','Menu_UgmTools'))\n"
+	_talk += "%(MenuItem(1,'うめちゃんによるＵＧＭ解説','Menu_UgmNavi'))\n"
+
+	if isUgm==1 {
+		_script = '"script:\C\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,MenuExec]\1\c開きましたー。"'
+		_talk += "%(MenuItem(1,'ＵＧＭの受信履歴を開く',_script))\n"
+	} else {
+		_talk += "\![*]\f[strike,1]\f[color,disable]ＵＧＭの受信履歴を開く\f[default]\n"
+	}
+	
+	_talk += "\n[50]%(MenuHr('おしゃべり'))\n"
+	_talk += "%(MenuItem(1,'何か話して','Menu_AITALK'))\n"
+
+	if STRLEN(SHIORI3FW.LastAITalk)>0 {
+		_talk += "%(MenuItem(1,'さっきの話は？','Menu_LASTTALK'))\n"
+	} else {
+		_talk += "\![*]\f[color,disable]\f[strike,1]さっきの話は？\f[default]\n"
+	}
+
+	_talk += "%(MenuItem(1,'おしゃべりの頻度','Menu_TALKINTERVAL'))"
+	_talk += "\![quicksection,0]\_n"
+	_talk += "\1%(MenuComment('メニューです。'))"
+
+	_talk
 }
 
 //------------------------------------------------------------------------------
@@ -134,10 +146,9 @@ OnMenu
 //---- 何か話して
 Menu_AITALK
 {
-	<<"
-	い：（えっと｜ええっと｜ううんと）ですね～……
-	＠スクリプト：\w9\w9\![raise,OnAITalk]
-	">>
+	SHIORI3FW.InitBalloons
+	--
+	"\1%(ANY('えっと','ええっと','ううんと'))ですね～……\w9\w9\![raise,OnAITalk]"
 }
 
 //---- さっきの話は
@@ -145,48 +156,69 @@ Menu_LASTTALK
 {
 	//前のトークになにかある(＝文字列の長さが0ではない）時はそれを喋る
 	if (STRLEN(SHIORI3FW.LastAITalk) > 0) {
+		SHIORI3FW.InitBalloons
+		--
 		SHIORI3FW.LastAITalk
 	}
 	else {
 		MenuCommentForce = 'まだ何も喋っていない気がします……。'
-		OnMenu
+		Menu
 	}
 }
 
 //---- トーク頻度の調整
 Menu_TALKINTERVAL
 {
-	_BreadCrumbs = ('OnMenu|メニュー', 'Menu_TALKINTERVAL|ここ')
-	<<"
-	＠スクリプト：\![close,inputbox,__SYSTEM_ALL_INPUT__]
-	＠スクリプト：\![quicksection,1]
-	＠スクリプト：\0\_n
-	＠スクリプト：%(CloseMenuButton)
-	＠スクリプト：%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]
-	＠スクリプト：%(MenuHr('おしゃべりの頻度'))\n
-	＠スクリプト【aitalkinterval!=15】：%(MenuItem(1,'にぎやか','OnMenu_TALKINTERVAL_Set','15'))\n
-	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]にぎやか\f[default]\n
-	＠スクリプト【aitalkinterval!=180】：%(MenuItem(1,'ふつう','OnMenu_TALKINTERVAL_Set','180'))\n
-	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]ふつう\f[default]\n
-	＠スクリプト【aitalkinterval!=300】：%(MenuItem(1,'ひそやか','OnMenu_TALKINTERVAL_Set','300'))\n
-	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]ひそやか\f[default]\n
-	＠スクリプト【aitalkinterval!=0】：%(MenuItem(1,'しずかに','OnMenu_TALKINTERVAL_Set','0'))
-	＠スクリプト【直前否定】：\![*]\f[color,disable]\f[underline,1]しずかに\f[default]
-	＠スクリプト：\![quicksection,0]\_n
-	い：%(MenuComment('どのくらいがいいですか？'))
-	">>
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_TALKINTERVAL|ここ')
+	_talk = ''
+
+	_talk += "\![close,inputbox,__SYSTEM_ALL_INPUT__]"
+	_talk += "\![quicksection,1]"
+	_talk += "\0\_n"
+	_talk += "%(CloseMenuButton)"
+	_talk += "%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]"
+	_talk += "%(MenuHr('おしゃべりの頻度'))\n"
+	
+	if aitalkinterval!=15 {
+		_talk += "%(MenuItem(1,'にぎやか','Menu_TALKINTERVAL_Set','15'))\n"
+	} else {
+		_talk += "\![*]\f[color,disable]\f[underline,1]にぎやか\f[default]\n"
+	}
+	
+	if aitalkinterval!=180 {
+		_talk += "%(MenuItem(1,'ふつう','Menu_TALKINTERVAL_Set','180'))\n"
+	} else {
+		_talk += "\![*]\f[color,disable]\f[underline,1]ふつう\f[default]\n"
+	}
+	
+	if aitalkinterval!=300 {
+		_talk += "%(MenuItem(1,'ひそやか','Menu_TALKINTERVAL_Set','300'))\n"
+	} else {
+		_talk += "\![*]\f[color,disable]\f[underline,1]ひそやか\f[default]\n"
+	}
+	
+	if aitalkinterval!=0 {
+		_talk += "%(MenuItem(1,'しずかに','Menu_TALKINTERVAL_Set','0'))"
+	} else {
+		_talk += "\![*]\f[color,disable]\f[underline,1]しずかに\f[default]"
+	}
+
+	_talk += "\![quicksection,0]\_n"
+	_talk += "\1%(MenuComment('どのくらいがいいですか？'))"
+
+	_talk
 }
 
 //---- キャンセルされた
 Menu_CANCEL
 {
 	<<"
-	う：キャンセルですね。
+	い：キャンセルですね。
 	">>
 }
 
 //---- トーク頻度
-OnMenu_TALKINTERVAL_Set
+Menu_TALKINTERVAL_Set
 {
 	aitalkinterval = TOINT(reference[0])
 	case aitalkinterval {
