@@ -169,7 +169,7 @@ Menu_LASTTALK
 //---- トーク頻度の調整
 Menu_TALKINTERVAL
 {
-	_BreadCrumbs = ('Menu|メニュー', 'Menu_TALKINTERVAL|ここ')
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_TALKINTERVAL|現在地')
 	_talk = ''
 
 	_talk += "\![close,inputbox,__SYSTEM_ALL_INPUT__]"
@@ -220,7 +220,7 @@ Menu_CANCEL
 //---- トーク頻度
 Menu_TALKINTERVAL_Set
 {
-	aitalkinterval = TOINT(reference[0])
+	aitalkinterval = TOINT(reference[2])
 	case aitalkinterval {
 		when 15 {
 			MenuCommentForce = '１５秒間隔で喋ります。'

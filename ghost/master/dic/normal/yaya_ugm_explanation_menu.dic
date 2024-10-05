@@ -8,7 +8,7 @@ Menu_UgmNavi
 	_items = ''
 
 	if STRLEN(reference[2]) > 0 {
-		_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmNavi|UGM 解説', 'dummy|ここ')
+		_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmNavi|UGM 解説', 'dummy|現在地')
 		_curt = Menu_UgmNavi_List(reference[2])
 		case reference[2] {
 			when 'メッセージ内容' {
@@ -33,7 +33,7 @@ Menu_UgmNavi
 		}
 	}
 	else {
-		_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmNavi|ここ')
+		_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmNavi|現在地')
 		_items += MenuHr('ＵＧＭ:うめちゃん解説') + '\n'
 		_items += "\![*]\__q[Menu_UgmNavi,メッセージ内容]%(SHIORI3FW.MakeJustText('メッセージ内容',BalloonCharCnt))\__q\n"
 		_items += "\![*]\__q[Menu_UgmNavi,メッセージ発動条件]%(SHIORI3FW.MakeJustText('メッセージ発動条件',BalloonCharCnt))\__q\n"
@@ -49,7 +49,7 @@ Menu_UgmNavi
 	_script += MenuBreadCrumbs(JOIN(_BreadCrumbs, ',')) + '\n[150]'
 	_script += _items
 	_script += '\_n'
-	_script += '\1' + MenuComment('どんどん聞いてね～')
+	_script += '\1' + MenuComment('何でも聞いてください。')
 
 	_script
 }
