@@ -1,0 +1,193 @@
+// Menu_UgmExample
+// 事例集
+//******************************************************************************
+
+Menu_UgmExample
+{
+	UgmExamplePlayingNow = '0'
+	Menu_UgmExample_02_Time = '0'
+
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmExample|現在地')
+	_talk = ''
+
+	_talk += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
+	_talk += '\![quicksection,1]'
+	_talk += '\0\_n'
+	_talk += "%(CloseMenuButton)"
+	_talk += "%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]"
+	_talk += "%(MenuHr('ＵＧＭ活用事例集'))\n"
+	_talk += "%(MenuItem(1,'前の文が読まれたら発動するメッセージ','Menu_UgmExample_01'))\n"
+	_talk += "%(MenuItem(1,'既読かどうかでゴーストが反応を変える','Menu_UgmExample_02'))\n"
+	_talk += '\_n'
+
+	_talk += "\1%(MenuComment('事例集です。'))"
+
+	_talk
+}
+
+//------------------------------------------------------------------------------
+// 既読後に発動するメッセージ
+//------------------------------------------------------------------------------
+
+Menu_UgmExample_01
+{
+	UgmExamplePlayingNow = '1'
+
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmExample|UGM:事例集', 'dummy|現在地')
+	_talk = ''
+
+	_talk += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
+	_talk += '\![quicksection,1]'
+	_talk += '\0\_n'
+	_talk += "%(CloseMenuButton)"
+	_talk += "%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]"
+	_talk += "%(MenuHr('既読後に発動するメッセージ'))\n[150]"
+
+	_talk += '[1] 前提となる、メッセージ１を送信\n'
+	_talk += "%(MenuItem(1,'メッセージ１を送信する','Menu_UgmExample_01_01'))\n[150]"
+
+	_talk += '[2] \_a[Message_IsRead]メッセージ１の既読\_aを\_a[Condition]条件\_aとした\n    メッセージ２を送信する\n'
+	_talk += "%(MenuItem(1,'メッセージ２を送信する','Menu_UgmExample_01_02'))\n[150]"
+
+	_talk += '[3] ユーザがメッセージ１を読む\n'
+	_talk += "%(MenuItem(1,'受信履歴を開く','Menu_UgmExample_01_03'))\n[150]"
+
+	_talk += '[4] メッセージ２が発動する'
+	_talk += '\_n'
+
+	_talk += "\1%(MenuComment('連続したメッセージなどにいいかもしれません。'))"
+
+	_talk
+}
+
+Menu_UgmExample_01_01
+{
+	_script = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnUkagakaGhostMessenger_Send,/
+	"--SenderId=うめちゃん",/
+	"--SenderName=うめちゃん@UGMナビ",/
+	"--SenderIcon=img\\umechan_icon.png",/
+	"--SenderProfile=うめちゃんはUkagakaGhostMessengerのナビキャラです。",/
+	"--MessageId=UgmExample_01_msg01",/
+	--Enable=1,/
+	"--Text=事例集１のメッセージ１です。:nl:この後にメッセージ２が来る予定です。",/
+	--RunCount=1,/
+	--Late=10/
+	]'
+	MenuCommentForce = _script + 'メッセージ１は１０秒後に発動します。'
+	Menu_UgmExample_01
+}
+
+Menu_UgmExample_01_02
+{
+	_script = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnUkagakaGhostMessenger_Send,/
+	"--SenderId=うめちゃん",/
+	"--SenderName=うめちゃん@UGMナビ",/
+	"--SenderIcon=img\\umechan_icon.png",/
+	"--SenderProfile=うめちゃんはUkagakaGhostMessengerのナビキャラです。",/
+	"--MessageId=UgmExample_01_msg02",/
+	--Enable=1,/
+	"--Text=事例集１のメッセージ２です。:nl:このメッセージは、メッセージ１が既読されたら発動します。",/
+	--RunCount=1,/
+	--Late=0,/
+	"--Condition=Message_IsRead:UkagakaGhostMessengerナビゲーターうめちゃん/うめちゃん/UgmExample_01_msg01"/
+	]'
+	MenuCommentForce = _script + 'メッセージ２は現時点では発動しません。'
+	Menu_UgmExample_01
+}
+
+Menu_UgmExample_01_03
+{
+	_script = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]'
+	MenuCommentForce = _script + 'メッセージ１を読むとメッセージ２が発動します。'
+	Menu_UgmExample_01
+}
+
+//------------------------------------------------------------------------------
+// 既読かどうかでゴーストが反応を変える
+//------------------------------------------------------------------------------
+
+Menu_UgmExample_02
+{
+	UgmExamplePlayingNow = '2'
+
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmExample|UGM:事例集', 'dummy|現在地')
+	_talk = ''
+
+	_talk += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
+	_talk += '\![quicksection,1]'
+	_talk += '\0\_n'
+	_talk += "%(CloseMenuButton)"
+	_talk += "%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]"
+	_talk += "%(MenuHr('既読かどうかで反応を変える'))\n[150]"
+
+	_talk += '[1] 前提となるメッセージを送信\n'
+	_talk += "%(MenuItem(1,'メッセージ１を送信する','Menu_UgmExample_02_01'))\n[150]"
+
+	_talk += '[2] メッセージの既読状態を確認\n'
+	_talk += "%(MenuItem(1,'確認する','Menu_UgmExample_02_02'))\n[150]"
+
+	_talk += '[3] ゴーストが反応する\n'
+	_talk += "%(MenuItem(1,'うめちゃんを反応させる','Menu_UgmExample_02_03'))\n[150]"
+
+	_talk += '[4] ユーザがメッセージを読む\n'
+	_talk += "%(MenuItem(1,'受信履歴を開く','Menu_UgmExample_02_04'))\n[150]"
+
+	_talk += '[5] メッセージの既読状態を確認\n'
+	_talk += "%(MenuItem(1,'確認する','Menu_UgmExample_02_02'))\n[150]"
+
+	_talk += '[6] ゴーストが反応する\n'
+	_talk += "%(MenuItem(1,'うめちゃんを反応させる','Menu_UgmExample_02_03'))\n[150]"
+
+	_talk += '\_n'
+
+	_talk += "\1%(MenuComment('反応を変えてみます。'))"
+
+	_talk
+}
+
+Menu_UgmExample_02_01
+{
+	_script = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnUkagakaGhostMessenger_Send,/
+	"--SenderId=うめちゃん",/
+	"--SenderName=うめちゃん@UGMナビ",/
+	"--SenderIcon=img\\umechan_icon.png",/
+	"--SenderProfile=うめちゃんはUkagakaGhostMessengerのナビキャラです。",/
+	"--MessageId=UgmExample_02_msg01",/
+	--Enable=1,/
+	"--Text=事例集２のメッセージ１です。:nl:このメッセージに既読を付けると、うめちゃんの反応が変わります。",/
+	--RunCount=1,/
+	--Late=0/
+	]'
+	MenuCommentForce = _script + '前提となるメッセージを送信しました。'
+	Menu_UgmExample_02
+}
+
+Menu_UgmExample_02_02
+{
+	_script = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnUkagakaGhostMessenger_Request,/
+	"UkagakaGhostMessengerナビゲーターうめちゃん",/
+	"うめちゃん",/
+	"UgmExample_02_msg01"/
+	]'
+	MenuCommentForce = _script + 'メッセージの状態を問い合わせます。'
+	Menu_UgmExample_02
+}
+
+Menu_UgmExample_02_03
+{
+	if Menu_UgmExample_02_Time != '0' {
+		MenuCommentForce = "メッセージは\n%(Menu_UgmExample_02_Time)に既読になりました。"
+	}
+	else {
+		MenuCommentForce = 'メッセージはまだ既読になっていません。'
+	}
+	Menu_UgmExample_02
+}
+
+Menu_UgmExample_02_04
+{
+	_script = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]'
+	MenuCommentForce = _script + 'メッセージ履歴を開きます。'
+	Menu_UgmExample_02
+}
+

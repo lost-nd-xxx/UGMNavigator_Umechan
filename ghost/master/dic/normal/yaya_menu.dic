@@ -111,6 +111,7 @@ Menu
 	_talk += "%(MenuHr('ＵＧＭ補助機能'))\n"
 	_talk += "%(MenuItem(1,'スクリプト作成＆イベント試行','Menu_UgmTools'))\n"
 	_talk += "%(MenuItem(1,'うめちゃんによるＵＧＭ解説','Menu_UgmNavi'))\n"
+	_talk += "%(MenuItem(1,'ＵＧＭ事例集','Menu_UgmExample'))\n"
 
 	if isUgm == 1 {
 		_talk += "%(MenuItem(1,'ＵＧＭの受信履歴を開く','Menu_UgmLogOpen'))\n"
