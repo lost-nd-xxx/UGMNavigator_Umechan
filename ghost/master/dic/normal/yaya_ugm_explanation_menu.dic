@@ -8,7 +8,7 @@ Menu_UgmNavi
 	_items = ''
 
 	if STRLEN(reference[2]) > 0 {
-		_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmNavi|UGM 解説', 'dummy|現在地')
+		_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmNavi|UGM:解説', 'dummy|現在地')
 		_curt = Menu_UgmNavi_List(reference[2])
 		case reference[2] {
 			when 'メッセージ内容' {

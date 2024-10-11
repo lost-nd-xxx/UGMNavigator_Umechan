@@ -347,7 +347,7 @@ GenerateTextLabel
 
 Menu_Request
 {
-	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM 作成&試行', 'Menu_Request|現在地')
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM:作成&試行', 'Menu_Request|現在地')
 	_talk = ''
 
 	_talk += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
@@ -432,7 +432,7 @@ Menu_Request_Edit_Entered
 Menu_Send
 {
 	_right = "\_l[%(BalloonValidWidth/2),]"
-	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM 作成&試行', 'Menu_Send|現在地')
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM:作成&試行', 'Menu_Send|現在地')
 	_talk = ''
 
 	_talk += '\![quicksection,1]'
@@ -541,7 +541,7 @@ Menu_Send
 
 Menu_Send_SampleSelect
 {
-	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM 作成&試行', 'Menu_Send|送信', 'Menu_Send_SampleSelect|現在地')
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM:作成&試行', 'Menu_Send|送信', 'Menu_Send_SampleSelect|現在地')
 	_script = '\1\s[10]\0\s[0]'
 	_script += '\![quicksection,1]'
 	_script += '\0'
@@ -1168,7 +1168,7 @@ Menu_Send_Edit_Entered_EventReference
 
 Menu_Cancel
 {
-	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM 作成&試行', 'Menu_Cancel|現在地')
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM:作成&試行', 'Menu_Cancel|現在地')
 	_talk = ''
 
 	_talk += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
@@ -1234,7 +1234,7 @@ Menu_Cancel_Edit_Entered
 
 Menu_Trigger
 {
-	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM 作成&試行', 'Menu_Trigger|ここ')
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM:作成&試行', 'Menu_Trigger|ここ')
 	_talk = ''
 
 	_talk += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
