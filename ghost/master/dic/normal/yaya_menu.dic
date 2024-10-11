@@ -83,13 +83,14 @@ MenuItem
 	}
 	_cnt = (BalloonCharCnt - _cnt * 2) / _cnt
 	_label = _argv[1]
-	if (_label!='\f[color,disable]※未設定※\f[color,default]') {
+	if (_label != '\f[color,disable]※未設定※\f[color,default]') {
 		_label = SHIORI3FW.MakeJustText(_label, _cnt)
-	} else {
-		_label = SHIORI3FW.MakeJustText('※未設定※', _cnt)
-		_label = '\f[color,disable]'+ _label +'\f[color,default]'
 	}
-	
+	else {
+		_label = SHIORI3FW.MakeJustText('※未設定※', _cnt)
+		_label = '\f[color,disable]' + _label + '\f[color,default]'
+	}
+
 	'\![*]\__q[' + _ref + ']' + _label + '\__q'
 }
 
@@ -102,42 +103,44 @@ Menu
 	_BreadCrumbs = (IARRAY, 'Menu|メニュー')
 
 	_talk = ''
-	_talk += "\![close,inputbox,__SYSTEM_ALL_INPUT__]"
-	_talk += "\![quicksection,1]"
-	_talk += "\0\_n"
+	_talk += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
+	_talk += '\![quicksection,1]'
+	_talk += '\0\_n'
 	_talk += "%(CloseMenuButton)"
 	_talk += "%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]"
 	_talk += "%(MenuHr('ＵＧＭ補助機能'))\n"
 	_talk += "%(MenuItem(1,'スクリプト作成＆イベント試行','Menu_UgmTools'))\n"
 	_talk += "%(MenuItem(1,'うめちゃんによるＵＧＭ解説','Menu_UgmNavi'))\n"
 
-	if isUgm==1 {
-		_script = '"script:\C\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,MenuExec]\1\c開きましたー。"'
-		_talk += "%(MenuItem(1,'ＵＧＭの受信履歴を開く',_script))\n"
-	} else {
-		_talk += "\![*]\f[strike,1]\f[color,disable]ＵＧＭの受信履歴を開く\f[default]\n"
+	if isUgm == 1 {
+		_talk += "%(MenuItem(1,'ＵＧＭの受信履歴を開く','Menu_UgmLogOpen'))\n"
 	}
-	
+	else {
+		_talk += '\![*]\f[strike,1]\f[color,disable]ＵＧＭの受信履歴を開く\f[default]\n'
+	}
+
 	_talk += "\n[50]%(MenuHr('おしゃべり'))\n"
 	_talk += "%(MenuItem(1,'何か話して','Menu_AITALK'))\n"
 
-	if STRLEN(SHIORI3FW.LastAITalk)>0 {
+	if STRLEN(SHIORI3FW.LastAITalk) > 0 {
 		_talk += "%(MenuItem(1,'さっきの話は？','Menu_LASTTALK'))\n"
-	} else {
-		_talk += "\![*]\f[color,disable]\f[strike,1]さっきの話は？\f[default]\n"
+	}
+	else {
+		_talk += '\![*]\f[color,disable]\f[strike,1]さっきの話は？\f[default]\n'
 	}
 
 	_talk += "%(MenuItem(1,'おしゃべりの頻度','Menu_TALKINTERVAL'))"
-	_talk += "\![quicksection,0]\_n"
+	_talk += '\![quicksection,0]\_n'
 	_talk += "\1%(MenuComment('メニューです。'))"
 
 	_talk
 }
 
-//------------------------------------------------------------------------------
-//メニュー選択タイムアウト
-//------------------------------------------------------------------------------
-// OnChoiceTimeout
+Menu_UgmLogOpen
+{
+	MenuCommentForce = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]開きましたー。'
+	Menu
+}
 
 //******************************************************************************
 //各項目の処理内容
@@ -172,38 +175,42 @@ Menu_TALKINTERVAL
 	_BreadCrumbs = ('Menu|メニュー', 'Menu_TALKINTERVAL|現在地')
 	_talk = ''
 
-	_talk += "\![close,inputbox,__SYSTEM_ALL_INPUT__]"
-	_talk += "\![quicksection,1]"
-	_talk += "\0\_n"
+	_talk += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
+	_talk += '\![quicksection,1]'
+	_talk += '\0\_n'
 	_talk += "%(CloseMenuButton)"
 	_talk += "%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]"
 	_talk += "%(MenuHr('おしゃべりの頻度'))\n"
-	
-	if aitalkinterval!=15 {
+
+	if aitalkinterval != 15 {
 		_talk += "%(MenuItem(1,'にぎやか','Menu_TALKINTERVAL_Set','15'))\n"
-	} else {
-		_talk += "\![*]\f[color,disable]\f[underline,1]にぎやか\f[default]\n"
 	}
-	
-	if aitalkinterval!=180 {
-		_talk += "%(MenuItem(1,'ふつう','Menu_TALKINTERVAL_Set','180'))\n"
-	} else {
-		_talk += "\![*]\f[color,disable]\f[underline,1]ふつう\f[default]\n"
-	}
-	
-	if aitalkinterval!=300 {
-		_talk += "%(MenuItem(1,'ひそやか','Menu_TALKINTERVAL_Set','300'))\n"
-	} else {
-		_talk += "\![*]\f[color,disable]\f[underline,1]ひそやか\f[default]\n"
-	}
-	
-	if aitalkinterval!=0 {
-		_talk += "%(MenuItem(1,'しずかに','Menu_TALKINTERVAL_Set','0'))"
-	} else {
-		_talk += "\![*]\f[color,disable]\f[underline,1]しずかに\f[default]"
+	else {
+		_talk += '\![*]\f[color,disable]\f[underline,1]にぎやか\f[default]\n'
 	}
 
-	_talk += "\![quicksection,0]\_n"
+	if aitalkinterval != 180 {
+		_talk += "%(MenuItem(1,'ふつう','Menu_TALKINTERVAL_Set','180'))\n"
+	}
+	else {
+		_talk += '\![*]\f[color,disable]\f[underline,1]ふつう\f[default]\n'
+	}
+
+	if aitalkinterval != 300 {
+		_talk += "%(MenuItem(1,'ひそやか','Menu_TALKINTERVAL_Set','300'))\n"
+	}
+	else {
+		_talk += '\![*]\f[color,disable]\f[underline,1]ひそやか\f[default]\n'
+	}
+
+	if aitalkinterval != 0 {
+		_talk += "%(MenuItem(1,'しずかに','Menu_TALKINTERVAL_Set','0'))"
+	}
+	else {
+		_talk += '\![*]\f[color,disable]\f[underline,1]しずかに\f[default]'
+	}
+
+	_talk += '\![quicksection,0]\_n'
 	_talk += "\1%(MenuComment('どのくらいがいいですか？'))"
 
 	_talk
