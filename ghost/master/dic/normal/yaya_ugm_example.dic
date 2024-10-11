@@ -20,7 +20,11 @@ Menu_UgmExample
 	_talk += "%(MenuItem(1,'既読かどうかでゴーストが反応を変える','Menu_UgmExample_02'))\n"
 	_talk += '\_n'
 
-	_talk += "\1%(MenuComment('事例集です。'))"
+	_comment = '事例集です。'
+	if isUgm == 0 {
+		_comment += '\n[150]プラグインが動作していない状態のため、\n動作は不完全な状態で行われます。'
+	}
+	_talk += "\1%(MenuComment(_comment))"
 
 	_talk
 }
@@ -123,10 +127,10 @@ Menu_UgmExample_02
 	_talk += '[1] 前提となるメッセージを送信\n'
 	_talk += "%(MenuItem(1,'メッセージ１を送信する','Menu_UgmExample_02_01'))\n[150]"
 
-	_talk += '[2] メッセージの既読状態を確認\n'
+	_talk += '[2] \_a[Request]メッセージの既読状態を確認\_a\n'
 	_talk += "%(MenuItem(1,'確認する','Menu_UgmExample_02_02'))\n[150]"
 
-	_talk += '[3] ゴーストが反応する\n'
+	_talk += '[3] ゴーストを反応させる\n'
 	_talk += "%(MenuItem(1,'うめちゃんを反応させる','Menu_UgmExample_02_03'))\n[150]"
 
 	_talk += '[4] ユーザがメッセージを読む\n'
@@ -135,7 +139,7 @@ Menu_UgmExample_02
 	_talk += '[5] メッセージの既読状態を確認\n'
 	_talk += "%(MenuItem(1,'確認する','Menu_UgmExample_02_02'))\n[150]"
 
-	_talk += '[6] ゴーストが反応する\n'
+	_talk += '[6] ゴーストを反応させる\n'
 	_talk += "%(MenuItem(1,'うめちゃんを反応させる','Menu_UgmExample_02_03'))\n[150]"
 
 	_talk += '\_n'
@@ -175,11 +179,12 @@ Menu_UgmExample_02_02
 
 Menu_UgmExample_02_03
 {
+	MenuCommentForce = '\_a[Response]問い合わせの結果\_aに応じて、反応を変えます。\n[150]'
 	if Menu_UgmExample_02_Time != '0' {
-		MenuCommentForce = "メッセージは\n%(Menu_UgmExample_02_Time)に既読になりました。"
+		MenuCommentForce += "メッセージは\n%(Menu_UgmExample_02_Time)に既読になりました。"
 	}
 	else {
-		MenuCommentForce = 'メッセージはまだ既読になっていません。'
+		MenuCommentForce += 'メッセージはまだ既読になっていません。'
 	}
 	Menu_UgmExample_02
 }
