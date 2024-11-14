@@ -3,6 +3,9 @@ UkagakaGhostMessengerナビゲーターうめちゃん
 UkagakaGhostMessengerのナビゲートをするゴーストです。
 スクリプトの作成補助、プラグインの内容の簡易解説などをします。
 
+制作者: ろすえん(lost_nd_xxx)
+連絡先: http://lnx.flop.jp/
+
 ～～～～
 ＃利用モジュール等
 
