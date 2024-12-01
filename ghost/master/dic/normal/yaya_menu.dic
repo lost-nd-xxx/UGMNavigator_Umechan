@@ -115,9 +115,11 @@ Menu
 
 	if isUgm == 1 {
 		_talk += "%(MenuItem(1,'ＵＧＭの受信履歴を開く','Menu_UgmLogOpen'))\n"
+		_talk += "%(MenuItem(1,'ＵＧＭのポート設定を変更する','Menu_UgmConfigOpen'))\n"
 	}
 	else {
 		_talk += '\![*]\f[strike,1]\f[color,disable]ＵＧＭの受信履歴を開く\f[default]\n'
+		_talk += '\![*]\f[strike,1]\f[color,disable]ＵＧＭのポート設定を変更する\f[default]\n'
 	}
 
 	_talk += "\n[50]%(MenuHr('おしゃべり'))\n"
@@ -139,7 +141,17 @@ Menu
 
 Menu_UgmLogOpen
 {
-	MenuCommentForce = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]開きましたー。'
+	MenuCommentForce = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]開きました～。'
+	Menu
+}
+
+Menu_UgmConfigOpen
+{
+	MenuCommentForce = '\![open,editor,"'
+	MenuCommentForce += REPLACE( UgmPath , '\' , '/' ) + 'localweb/config.txt'
+	MenuCommentForce += '",0]開きました～。\_q\n[150]'
+	MenuCommentForce += '「localhost_number,」の右の数字を書き換えて、\nファイルを保存してください。\n[150]'
+	MenuCommentForce += '以下の場合はデフォルトの8000番が使用されます。\n・SSP等が使っている9801番\n・範囲外の数字\n・数字以外\n・なんかおかしい\_q'
 	Menu
 }
 

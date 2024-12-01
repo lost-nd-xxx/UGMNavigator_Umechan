@@ -53,18 +53,20 @@ isUgm
 // バルーン最下行
 //------------------------------------------------------------------------------
 
-OnBalloonInfoRequest
+OnInfoRequest
 {
-	'\0\b[2]\__w[1]\![get,property,OnBalloonInfoResponce,currentghost.balloon.scope(0).lines.initial,currentghost.balloon.scope(0).validwidth.initial,currentghost.balloon.scope(0).char_width]'
+	'\0\__w[1]\![get,property,OnInfoResponce,currentghost.balloon.scope(0).lines.initial,currentghost.balloon.scope(0).validwidth.initial,currentghost.balloon.scope(0).char_width,pluginlist(6f0415e0-3c00-11ef-9a9c-0800200c9a66).path]'
 }
 
-OnBalloonInfoResponce
+OnInfoResponce
 {
 	BalloonLines = TOINT(reference[0])
 	BalloonValidWidth = TOINT(reference[1])
 	BalloonCharWidth = TOINT(reference[2])
 	// ピッタリすぎると溢れる場合があるので引いておく
 	BalloonCharCnt = (BalloonValidWidth / BalloonCharWidth) - 2
+
+	UgmPath = TOSTR(reference[3])
 }
 
 //******************************************************************************
