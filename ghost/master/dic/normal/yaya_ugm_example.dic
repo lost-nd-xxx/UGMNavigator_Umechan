@@ -70,7 +70,7 @@ Menu_UgmExample_01_01
 	"--SenderId=うめちゃん",/
 	"--SenderName=うめちゃん@UGMナビ",/
 	"--SenderIcon=img\\umechan_icon.png",/
-	"--SenderProfile=うめちゃんはUkagakaGhostMessengerのナビキャラです。",/
+	"--SenderProfile=うめちゃんはUkagakaGhostMessengerの:nl:ナビキャラです。",/
 	"--MessageId=UgmExample_01_msg01",/
 	--Enable=1,/
 	"--Text=事例集１のメッセージ１です。:nl:この後にメッセージ２が来る予定です。",/
@@ -87,7 +87,7 @@ Menu_UgmExample_01_02
 	"--SenderId=うめちゃん",/
 	"--SenderName=うめちゃん@UGMナビ",/
 	"--SenderIcon=img\\umechan_icon.png",/
-	"--SenderProfile=うめちゃんはUkagakaGhostMessengerのナビキャラです。",/
+	"--SenderProfile=うめちゃんはUkagakaGhostMessengerの:nl:ナビキャラです。",/
 	"--MessageId=UgmExample_01_msg02",/
 	--Enable=1,/
 	"--Text=事例集１のメッセージ２です。:nl:このメッセージは、メッセージ１が既読されたら発動します。",/
@@ -155,7 +155,7 @@ Menu_UgmExample_02_01
 	"--SenderId=うめちゃん",/
 	"--SenderName=うめちゃん@UGMナビ",/
 	"--SenderIcon=img\\umechan_icon.png",/
-	"--SenderProfile=うめちゃんはUkagakaGhostMessengerのナビキャラです。",/
+	"--SenderProfile=うめちゃんはUkagakaGhostMessengerの:nl:ナビキャラです。",/
 	"--MessageId=UgmExample_02_msg01",/
 	--Enable=1,/
 	"--Text=事例集２のメッセージ１です。:nl:このメッセージに既読を付けると、うめちゃんの反応が変わります。",/

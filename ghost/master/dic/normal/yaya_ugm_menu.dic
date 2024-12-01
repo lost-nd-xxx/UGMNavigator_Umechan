@@ -663,7 +663,7 @@ Menu_Send_SampleSet
 			send_SenderId = 'うめちゃん'
 			send_SenderName = 'うめちゃん@UGMナビ'
 			send_SenderIcon = 'img\\umechan_icon.png'
-			send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerのナビキャラです。'
+			send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerの:nl:ナビキャラです。'
 			send_Text = 'ほにゃらら'
 		}
 	}

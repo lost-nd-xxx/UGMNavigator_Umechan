@@ -23,7 +23,7 @@ OnSystemLoad.UgmUmechan
 	send_SenderId = 'うめちゃん'
 	send_SenderName = 'うめちゃん@UGMナビ'
 	send_SenderIcon = 'img\\umechan_icon.png'
-	send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerのナビキャラです。'
+	send_SenderProfile = 'うめちゃんはUkagakaGhostMessengerの:nl:ナビキャラです。'
 	send_MessageId = 'test01'
 	send_Enable = 1
 	send_Text = 'ほにゃらら'
