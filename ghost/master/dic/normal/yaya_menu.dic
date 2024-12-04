@@ -148,7 +148,7 @@ Menu_UgmLogOpen
 Menu_UgmConfigOpen
 {
 	MenuCommentForce = '\![open,editor,"'
-	MenuCommentForce += REPLACE( UgmPath , '\' , '/' ) + 'localweb/config.txt'
+	MenuCommentForce += REPLACE( UgmPath , '\' , '/' ) + 'ugm_config.txt'
 	MenuCommentForce += '",0]開きました～。\_q\n[150]'
 	MenuCommentForce += '「localhost_number,」の右の数字を書き換えて、\nファイルを保存し、ＵＧＭを再起動してください。\n[150]'
 	MenuCommentForce += '以下の場合はデフォルトの8000番が使用されます。\n・SSP等が使っている9801番\n・範囲外の数字\n・数字以外\n・なんかおかしい\_q'

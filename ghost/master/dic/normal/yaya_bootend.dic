@@ -9,7 +9,8 @@
 
 OnSystemLoad.UgmUmechan
 {
-	UgmExamplePlayingNow = "0"
+	UgmExamplePlayingNow = '0'
+	UgmPath = ''
 }
 
 // OnSystemUnload.UgmUmechan

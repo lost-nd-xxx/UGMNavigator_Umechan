@@ -540,13 +540,24 @@ Message_IsNotRead説明
 }
 スタンプ貼り付け説明
 {
-	'/
+	_path = '「localweb\\html\\res\\stamp」'
+	if STRLEN(UgmPath)>0 {
+		_path = '\__q[OnOpenStampDir]「localweb\\html\\res\\stamp」\__q'
+	}
+	"/
 	\_?[反映される枠]\_?メッセージ本文\n[150]/
 	\_?[書き方]\_?\n/
 	:stamp番号:\n[150]/
-	・「localweb\\html\\res\\stamp」内の画像を\nメッセージ内に貼り付けられます\n[150]/
+	・%(_path)内の画像を\nメッセージ内に貼り付けられます\n[150]/
 	・番号はファイル名の番号をそのまま\nstamp001.pngなら:stamp001:/
-	'
+	"
+}
+OnOpenStampDir
+{
+	_script = '\C\![open,explorer,"'
+	_script += REPLACE( UgmPath , '\' , '/' ) + 'localweb/html/res/stamp/'
+	_script += '"]'
+	_script
 }
 画像コピーの仕様題名
 {
