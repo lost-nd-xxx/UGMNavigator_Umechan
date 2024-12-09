@@ -18,8 +18,13 @@ OnAnchorSelectEx
 	if (ISFUNC(_text) == 1) {
 		_script += EVAL(_text)
 	}
-	if (ISFUNC(_title) == 1||ISFUNC(_text) == 1) {
+	if (ISFUNC(_title) == 1 || ISFUNC(_text) == 1) {
 		_script
+	}
+	elseif (ISFUNC(reference[1]) == 1) {
+		'\C\![quicksection,1]\0\c\1\c\![set,autoscroll,disable]'
+		--
+		EVAL(reference[1])
 	}
 }
 
@@ -35,7 +40,7 @@ OnExplanationCall
 	if (ISFUNC(_text) == 1) {
 		_script += EVAL(_text)
 	}
-	if (ISFUNC(_title) == 1||ISFUNC(_text) == 1) {
+	if (ISFUNC(_title) == 1 || ISFUNC(_text) == 1) {
 		_script
 	}
 }
@@ -89,7 +94,7 @@ SenderIcon説明
 	'/
 	・アイコン用画像の、\nghost\\masterからの相対パスを入れてください\n[150]/
 	・初期状態に戻したい時は「default」だけを入れてください\n[150]/
-	・画像中央が正円に切り抜かれて表示されるます\n[150]/
+	・画像中央が正円に切り抜かれて表示されます\n[150]/
 	・5MB以上のファイルサイズは受け付けません\n[150]/
 	・\_a[画像コピーの仕様]演出で画像変更をするなら、\nファイル名を変えるのがおすすめです\_a/
 	'
@@ -130,8 +135,8 @@ Enable題名
 Enable説明
 {
 	'/
-	・1で有効、0で無効だよ\n[150]/
-	・設定済みの\_a[MessageId]MessageId\_aで、\nEnableを0にして再送信すると、\n送信予約が取り消されますn[150]/
+	・1で有効、0で無効です\n[150]/
+	・設定済みの\_a[MessageId]MessageId\_aで、\nEnableを0にして再送信すると、\n送信予約が取り消されます\n[150]/
 	・メッセージ発動済みの場合は消せません/
 	'
 }
@@ -417,7 +422,7 @@ Message_IsNotRun説明
 	・予約の状況は問いません\n[150]/
 	・他ゴーストのメッセージ識別子も指定可/
 
-			'
+				'
 }
 Message_Read題名
 {
@@ -457,7 +462,7 @@ Message_IsNotRead説明
 	・予約および発生の状況は問いません\n[150]/
 	・他ゴーストのメッセージ識別子も指定可/
 
-			'
+				'
 }
 プラグイン独自の記法題名
 {
@@ -541,7 +546,7 @@ Message_IsNotRead説明
 スタンプ貼り付け説明
 {
 	_path = '「localweb\\html\\res\\stamp」'
-	if STRLEN(UgmPath)>0 {
+	if STRLEN(UgmPath) > 0 {
 		_path = '\__q[OnOpenStampDir]「localweb\\html\\res\\stamp」\__q'
 	}
 	"/
@@ -555,7 +560,7 @@ Message_IsNotRead説明
 OnOpenStampDir
 {
 	_script = '\C\![open,explorer,"'
-	_script += REPLACE( UgmPath , '\' , '/' ) + 'localweb/html/res/stamp/'
+	_script += REPLACE(UgmPath, '\', '/') + 'localweb/html/res/stamp/'
 	_script += '"]'
 	_script
 }
@@ -627,7 +632,7 @@ Response_r5説明
 {
 	'/
 	・2024年7月1日13時1分0秒なら「2024/07/01 13:01:00」\n[150]/
-	・0なら未読だよ(未発生含む)/
+	・0なら未読です(未発生含む)/
 	'
 }
 SendComplete題名
@@ -709,7 +714,7 @@ Cancel説明
 	そのゴーストに属する送信者のメッセージが\n/
 	全て取り消されます\n[150]/
 	・メッセージを個別に取り消したい時は、\n/
-	\_a[OnMenu_Send]有効状態を0にして再送信してください\_a～/
+	\_a[Menu_Send]有効状態を0にして再送信してください\_a～/
 	'
 }
 Send題名
