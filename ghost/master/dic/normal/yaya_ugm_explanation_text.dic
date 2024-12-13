@@ -547,7 +547,7 @@ Message_IsNotRead説明
 {
 	_path = '「localweb\\html\\res\\stamp」'
 	if STRLEN(UgmPath) > 0 {
-		_path = '\__q[OnOpenStampDir]「localweb\\html\\res\\stamp」\__q'
+		_path = '\_a[OnOpenStampDir]「localweb\\html\\res\\stamp」\_a'
 	}
 	"/
 	\_?[反映される枠]\_?メッセージ本文\n[150]/
