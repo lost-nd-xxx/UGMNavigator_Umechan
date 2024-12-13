@@ -10,7 +10,6 @@
 OnSystemLoad.UgmUmechan
 {
 	UgmExamplePlayingNow = '0'
-	UgmPath = ''
 }
 
 // OnSystemUnload.UgmUmechan
@@ -63,13 +62,10 @@ OnSystemLoad.UgmUmechan
 	BalloonValidWidth = 312
 	BalloonCharWidth = 6
 
+	UgmPath = ''
+
 	起動
 }
-
-// Vanish後初回起動
-// {
-// 	_vanish_count = TOINT(reference[0])
-// }
 
 //******************************************************************************
 //通常の起動 OnBoot
@@ -80,23 +76,11 @@ OnSystemLoad.UgmUmechan
 {
 	// ＠スクリプト：%(一体化)
 	<<"
-	＠スクリプト：\0\s[0]\1\s[10]
+	＠スクリプト：\0\s[0]\1\s[10]%(OnInfoRequest)
 	い：UkagakaGhostMessengerのナビ、うめちゃんです。
 	改行多めい：なにか用事のときは、うめちゃんをつついてください。
-	＠スクリプト：%(OnInfoRequest)
 	">>
 }
-
-// 10月上旬に起動
-// 10月13日に起動
-// 10月第2週土曜に起動
-// 平日の朝に起動
-// 土曜に起動
-// 秋に起動
-// 秋の朝に起動
-// 朝に起動
-// 昼食時に起動
-// 夜に起動
 
 //******************************************************************************
 //終了 OnClose

@@ -55,7 +55,7 @@ isUgm
 
 OnInfoRequest
 {
-	'\0\__w[1]\![get,property,OnInfoResponce,currentghost.balloon.scope(0).lines.initial,currentghost.balloon.scope(0).validwidth.initial,currentghost.balloon.scope(0).char_width,pluginlist(6f0415e0-3c00-11ef-9a9c-0800200c9a66).path]'
+	'\0\b[2]\__w[1]\![get,property,OnInfoResponce,currentghost.balloon.scope(0).lines.initial,currentghost.balloon.scope(0).validwidth.initial,currentghost.balloon.scope(0).char_width,pluginlist(6f0415e0-3c00-11ef-9a9c-0800200c9a66).path]'
 }
 
 OnInfoResponce

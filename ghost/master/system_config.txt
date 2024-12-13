@@ -10,4 +10,3 @@ dicdir, dic/system		// YAYA:システム辞書。必ず最初に指定するこ�
 // log, ayame.log
 ignoreiolog, ID: OnSecondChange //OnSecondChange無視
 iolog.filter.keyword, ID: OnMouse //OnMouse系無視
-

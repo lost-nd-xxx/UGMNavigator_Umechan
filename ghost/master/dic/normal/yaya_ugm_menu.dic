@@ -35,7 +35,7 @@ Menu_UgmTools
 
 OnUkagakaGhostMessenger_SendComplete
 {
-	if UgmExamplePlayingNow != "0" {
+	if UgmExamplePlayingNow != '0' {
 		return
 	}
 
@@ -87,14 +87,14 @@ OnUkagakaGhostMessenger_SendFailure
 
 OnUkagakaGhostMessenger_Response
 {
-	if UgmExamplePlayingNow == "0" {
+	if UgmExamplePlayingNow == '0' {
 		return
 	}
-	elseif UgmExamplePlayingNow == "2" {
+	elseif UgmExamplePlayingNow == '2' {
 		Menu_UgmExample_02_Time = reference[5]
 		return
 	}
-	
+
 	_loop = ''
 	for _i=6; _i<ARRAYSIZE(reference); _i++ {
 		_loop += "\n[150]\f[bold,1]文字列ランダム結果%(HAN2ZEN(_i-5))\f[bold,0]\n\_?%(reference[_i])\_?"
@@ -134,10 +134,10 @@ OnUkagakaGhostMessenger_Response
 
 OnUkagakaGhostMessenger_Ringing
 {
-	if UgmExamplePlayingNow != "0" {
+	if UgmExamplePlayingNow != '0' {
 		return
 	}
-	
+
 	_loop = ''
 	for _i=3; _i<ARRAYSIZE(reference); _i++ {
 		_loop += "\n[150]\f[bold,1]追加情報%(HAN2ZEN(_i-2))\f[bold,0]\n%(reference[_i])"
@@ -1328,4 +1328,3 @@ Menu_Trigger_Edit_Entered
 	LETTONAME(reference[3], _entered)
 	Menu_Trigger
 }
-
