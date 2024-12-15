@@ -32,7 +32,10 @@ OnExplanationCall
 {
 	_title = _argv[0] + '題名'
 	_text = _argv[0] + '説明'
-	_script = '\C\![quicksection,1]\1\c\![set,autoscroll,disable]'
+	_script = ''
+	if _argc <= 1 {
+		_script = '\C\![quicksection,1]\1\c\![set,autoscroll,disable]'
+	}
 	if (ISFUNC(_title) == 1) {
 		_title = EVAL(_title)
 		_script += "\f[bold,1]%(_title)\f[bold,0]\n[150]"
@@ -422,7 +425,7 @@ Message_IsNotRun説明
 	・予約の状況は問いません\n[150]/
 	・他ゴーストのメッセージ識別子も指定可/
 
-					'
+						'
 }
 Message_Read題名
 {
@@ -462,7 +465,7 @@ Message_IsNotRead説明
 	・予約および発生の状況は問いません\n[150]/
 	・他ゴーストのメッセージ識別子も指定可/
 
-					'
+						'
 }
 プラグイン独自の記法題名
 {
