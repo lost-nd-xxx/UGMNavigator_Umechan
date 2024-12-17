@@ -116,10 +116,12 @@ Menu
 	if isUgm == 1 {
 		_talk += "%(MenuItem(1,'ＵＧＭの受信履歴を開く','Menu_UgmLogOpen'))\n"
 		_talk += "%(MenuItem(1,'ＵＧＭのポート設定を変更する','Menu_UgmConfigOpen'))\n"
+		_talk += '\![*]\f[strike,1]\f[color,disable]ＵＧＭをインストールする\f[default]\n'
 	}
 	else {
 		_talk += '\![*]\f[strike,1]\f[color,disable]ＵＧＭの受信履歴を開く\f[default]\n'
 		_talk += '\![*]\f[strike,1]\f[color,disable]ＵＧＭのポート設定を変更する\f[default]\n'
+		_talk += "%(MenuItem(1,'ＵＧＭをインストールする','Menu_UgmDownload'))\n"
 	}
 
 	_talk += "\n[50]%(MenuHr('おしゃべり'))\n"
@@ -137,23 +139,6 @@ Menu
 	_talk += "\1%(MenuComment('メニューです。'))"
 
 	_talk
-}
-
-Menu_UgmLogOpen
-{
-	MenuCommentForce = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]開きました～。'
-	Menu
-}
-
-Menu_UgmConfigOpen
-{
-	MenuCommentForce = '\![open,editor,"'
-	MenuCommentForce += REPLACE(UgmPath, '\', '/') + 'ugm_config.txt'
-	MenuCommentForce += '",0]\_q開きました～。\n[150]'
-	MenuCommentForce += '「localhost_number,」の右の数字を書き換えて、\nファイルを保存し、ＵＧＭを再起動してください。\n'
-	MenuCommentForce += '(\_a[script:"\C\![open,pluginexplorer]"]エクスプローラ\_aからＵＧＭを右クリック、\n 無効にしたあと有効に戻す)\n[150]'
-	MenuCommentForce += '以下の場合はデフォルトの8000番が使用されます。\n・SSP等が使っている9801・9821番\n・なんかおかしい\_q'
-	Menu
 }
 
 //******************************************************************************
@@ -271,4 +256,32 @@ Menu_HEADLINECANCEL
 	<<"
 	い：ヘッドライン、キャンセルしました。
 	">>
+}
+
+//---- ＵＧＭの受信履歴を開く
+Menu_UgmLogOpen
+{
+	MenuCommentForce = '\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnMenuExec]開きました～。'
+	Menu
+}
+
+//---- ＵＧＭのポート設定を変更する
+Menu_UgmConfigOpen
+{
+	MenuCommentForce = '\![open,editor,"'
+	MenuCommentForce += REPLACE(UgmPath, '\', '/') + 'ugm_config.txt'
+	MenuCommentForce += '",0]\_q開きました～。\n[150]'
+	MenuCommentForce += '「localhost_number,」の右の数字を書き換えて、\nファイルを保存し、ＵＧＭを再起動してください。\n'
+	MenuCommentForce += '(\_a[script:"\C\![open,pluginexplorer]"]エクスプローラ\_aからＵＧＭを右クリック、\n 無効にしたあと有効に戻す)\n[150]'
+	MenuCommentForce += '以下の場合はデフォルトの8000番が使用されます。\n・SSP等が使っている9801・9821番\n・なんかおかしい\_q'
+	Menu
+}
+
+//---- ＵＧＭをインストールする
+Menu_UgmDownload
+{
+	// 【公開直前要差し替え】
+	// MenuCommentForce = '\![execute,install,url,【narのURL】,nar]インストールを始めます～。'
+	MenuCommentForce = 'プラグインの公開URLが確定したら、\nここの動作を差し替えます。'
+	Menu
 }
