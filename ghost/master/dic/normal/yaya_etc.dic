@@ -193,7 +193,7 @@ OnAYATEMPLATE.InstallChange
 OnInstallFailure
 {
 	<<"
-	い：インストールに失敗しました。
+	い：インストールに失敗しました……
 	い：理由は「%(reference[0])」だそうです。
 	">>
 }
@@ -205,7 +205,7 @@ OnInstallRefuse
 {
 	<<"
 	い：これは「%(SHIORI3FW.EscapeDangerousTags(reference[0]))」用のアーカイブだそうです。
-	い：処理を中断します。
+	い：処理を中断しますー。
 	">>
 }
 
@@ -220,7 +220,7 @@ OnInstallRefuse
 OnBIFFBegin
 {
 	<<"
-	い：メールチェックします。
+	い：メールチェックしますねー。
 	い：(UGMとは関係ありません)
 	">>
 }
@@ -234,13 +234,13 @@ OnBIFFComplete
 	if reference[0] == 0 {
 		//---- メールは無かった
 		<<"
-		い：新着メールは無かったようです。
+		い：新着メールは無かったようですー。
 		">>
 	}
 	else {
 		//---- メールが届いていた
 		<<"
-		い：%(reference[0])通のメールがあったようです。
+		い：%(reference[0])通のメールがあったようですよー。
 		">>
 	}
 }
@@ -251,19 +251,19 @@ OnBIFFComplete
 OnBIFFFailure
 {
 	<<"
-	い：メールチェックに失敗しました。
+	い：メールチェックに失敗しました……
 	">>
 	--
 	if reference[0] == 'timeout' {
 		//---- タイムアウト
 		<<"
-		い：接続の時間切れです。
+		い：接続の時間切れですー。
 		">>
 	}
 	elseif reference[0] == 'kick' {
 		//---- 蹴られた
 		<<"
-		い：サーバーにキックされました。
+		い：サーバーにキックされましたー……
 		">>
 	}
 	elseif reference[0] == 'defect' {
@@ -275,7 +275,7 @@ OnBIFFFailure
 	else {
 		//---- 原因不明
 		<<"
-		い：原因不明です。
+		い：原因不明ですー……
 		">>
 	}
 }
@@ -313,13 +313,13 @@ OnUpdateComplete
 		//---- 更新すべきファイルが無かった
 		<<"
 		い：チェック完了しました。
-		い：新着はありませんでした。
+		い：新着はありませんでしたー。
 		">>
 	}
 	else {
 		//---- 実際に更新が完了した
 		<<"
-		い：更新完了しました。
+		い：更新完了しましたよー。
 		">>
 	}
 }
@@ -330,11 +330,11 @@ OnUpdateComplete
 OnUpdateFailure
 {
 	<<"
-	い：更新失敗。
+	い：更新失敗……
 	い：理由は
-	改無い【R0 == 'timeout'】：「時間切れ」です。
-	改無い【R0 == 'md5 miss'】：「ファイル破損」です。
-	改無い【それ以外】：「%(reference[0])」です。
+	改無い【R0 == 'timeout'】：「時間切れ」ですー。
+	改無い【R0 == 'md5 miss'】：「ファイル破損」ですー。
+	改無い【それ以外】：「%(reference[0])」ですー。
 	">>
 }
 
@@ -377,7 +377,7 @@ OnHeadlinesense.OnFind
 OnHeadlinesenseComplete
 {
 	<<"
-	い：%(SHIORI3FW.EscapeDangerousTags(reference[0]))の更新は無いようです。
+	い：%(SHIORI3FW.EscapeDangerousTags(reference[0]))の更新は無いようですー。
 	">>
 }
 
@@ -405,7 +405,7 @@ OnHeadlinesenseFailure
 OnUpdatedataCreating
 {
 	<<"
-	い：updates2.dauを作ります。
+	い：updates2.dauを作りますー。
 	">>
 }
 
@@ -415,7 +415,7 @@ OnUpdatedataCreating
 OnUpdatedataCreated
 {
 	<<"
-	い：updates2.dau作成完了です。
+	い：updates2.dauができましたよー。
 	">>
 }
 
@@ -425,7 +425,7 @@ OnUpdatedataCreated
 OnNarCreating
 {
 	<<"
-	い：NARファイルを作ります。
+	い：narファイルを作りますー。
 	">>
 }
 
@@ -436,7 +436,7 @@ OnNarCreated
 {
 	<<"
 	い：「%(SHIORI3FW.EscapeDangerousTags(reference[0]))」のnarファイル、
-	い：「%(SHIORI3FW.EscapeDangerousTags(reference[1]))」を作成完了しました。
+	い：「%(SHIORI3FW.EscapeDangerousTags(reference[1]))」ができましたー。
 	">>
 }
 
@@ -452,7 +452,7 @@ OnSNTPBegin
 {
 	<<"
 	い：時計合わせですね。
-	い：%(reference[0])に接続します。
+	い：%(reference[0])に接続しますー。
 	">>
 }
 
@@ -472,13 +472,13 @@ SNTPCompare_StrForm
 OnSNTPCompare
 {
 	<<"
-	い：時計合わせ、完了しました。
+	い：時計合わせ、完了です。
 	＠設定：クイックセクション
 	い：修正前 %(SNTPCompare_StrForm(reference[2]))
 	い：修正後 %(SNTPCompare_StrForm(reference[1]))
 	＠設定：クイックセクション
-	い【TOINT(R3) == 0】：ぴったりでした。
-	い【それ以外】：%(reference[3])秒のずれを修正しました。
+	い【TOINT(R3) == 0】：ぴったりでした！
+	い【それ以外】：%(reference[3])秒のずれを修正しました！
 	">>
 }
 
@@ -488,7 +488,7 @@ OnSNTPCompare
 OnSNTPFailure
 {
 	<<"
-	い：時計合わせに失敗しました。
+	い：時計合わせに失敗しましたー……
 	">>
 }
 

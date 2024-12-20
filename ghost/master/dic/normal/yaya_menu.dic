@@ -136,7 +136,7 @@ Menu
 
 	_talk += "%(MenuItem(1,'おしゃべりの頻度','Menu_TALKINTERVAL'))"
 	_talk += '\![quicksection,0]\_n'
-	_talk += "\1%(MenuComment('メニューです。'))"
+	_talk += "\1%(MenuComment('メニューですー。'))"
 
 	_talk
 }
@@ -163,7 +163,7 @@ Menu_LASTTALK
 		SHIORI3FW.LastAITalk
 	}
 	else {
-		MenuCommentForce = 'まだ何も喋っていない気がします……。'
+		MenuCommentForce = 'まだ何も喋っていない気がしますー……。'
 		Menu
 	}
 }
@@ -219,7 +219,7 @@ Menu_TALKINTERVAL
 Menu_CANCEL
 {
 	<<"
-	い：キャンセルですね。
+	い：キャンセルですねー。
 	">>
 }
 
@@ -229,16 +229,16 @@ Menu_TALKINTERVAL_Set
 	aitalkinterval = TOINT(reference[2])
 	case aitalkinterval {
 		when 15 {
-			MenuCommentForce = '１５秒間隔で喋ります。'
+			MenuCommentForce = '１５秒間隔で喋りますー。'
 		}
 		when 180 {
-			MenuCommentForce = '３分間隔くらいで喋ります。'
+			MenuCommentForce = '３分間隔くらいで喋りますー。'
 		}
 		when 300 {
-			MenuCommentForce = '５分間隔くらいで喋ります。'
+			MenuCommentForce = '５分間隔くらいで喋りますー。'
 		}
 		when 0 {
-			MenuCommentForce = 'しずかに、ですね。'
+			MenuCommentForce = 'しずかにしますー。'
 		}
 		others {
 			// なにかがおかしいのでとりあえず0をセット
@@ -254,7 +254,7 @@ Menu_HEADLINECANCEL
 {
 	//---- キャンセルされた
 	<<"
-	い：ヘッドライン、キャンセルしました。
+	い：ヘッドライン、キャンセルしましたー。
 	">>
 }
 
@@ -271,7 +271,7 @@ Menu_UgmConfigOpen
 	MenuCommentForce = '\![open,editor,"'
 	MenuCommentForce += REPLACE(UgmPath, '\', '/') + 'ugm_config.txt'
 	MenuCommentForce += '",0]\_q開きました～。\n[150]'
-	MenuCommentForce += '「localhost_number,」の右の数字を書き換えて、\nファイルを保存し、ＵＧＭを再起動してください。\n'
+	MenuCommentForce += '「localhost_number,」の右の数字を書き換えて、\nファイルを保存したら、ＵＧＭを再起動してくださいね。\n'
 	MenuCommentForce += '(\_a[script:"\C\![open,pluginexplorer]"]エクスプローラ\_aからＵＧＭを右クリック、\n 無効にしたあと有効に戻す)\n[150]'
 	MenuCommentForce += '以下の場合はデフォルトの8000番が使用されます。\n・SSP等が使っている9801・9821番\n・なんかおかしい\_q'
 	Menu

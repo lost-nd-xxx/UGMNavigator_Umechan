@@ -49,7 +49,7 @@ Menu_UgmNavi
 	_script += MenuBreadCrumbs(JOIN(_BreadCrumbs, ',')) + '\n[150]'
 	_script += _items
 	_script += '\_n'
-	_script += '\1' + MenuComment('何でも聞いてください。')
+	_script += '\1' + MenuComment('なんでも聞いてくださいねー。')
 
 	_script
 }
