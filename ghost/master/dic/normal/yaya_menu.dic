@@ -243,7 +243,7 @@ Menu_TALKINTERVAL_Set
 		others {
 			// なにかがおかしいのでとりあえず0をセット
 			aitalkinterval = 0
-			MenuCommentForce = 'しずかに、ですね。'
+			MenuCommentForce = 'しずかにしますー。'
 		}
 	}
 	Menu_TALKINTERVAL
