@@ -66,8 +66,10 @@
 	'>>
 
 	<<'
-	い：\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnUkagakaGhostMessenger_Send,"--SenderId=うめちゃん","--SenderName=うめちゃん@UGMナビ","--MessageId=ume_talk01",--Enable=1,"--Text=うめちゃん:choice_start:ですよ～:で～す:だよ～:choice_end:",--RunCount=1,--Late=0]\_w[3000]えへへ～。\_w[5000]
+	＠スクリプト：\![embed,OnUgmSendNonResponseSet,1]
+	＠スクリプト：\![raiseplugin,6f0415e0-3c00-11ef-9a9c-0800200c9a66,OnUkagakaGhostMessenger_Send,"--SenderId=うめちゃん","--SenderName=うめちゃん@UGMナビ","--SenderIcon=img\\umechan_icon.png","--SenderProfile=うめちゃんはUkagakaGhostMessengerの:nl:ナビキャラです。","--MessageId=ume_talk01",--Enable=1,"--Text=うめちゃん:choice_start:ですよ～:で～す:だよ～:choice_end:",--RunCount=1,--Late=0]
 	'>>
+	// OnUkagakaGhostMessenger_Ringingで「えへへ～。」を返す＆送信完了イベント系無反応を解除
 
 	<<'
 	い：実はちょっと手がつかれています！
@@ -218,6 +220,17 @@
 	い：うめちゃんうぇーぶ！
 	い：……おててふりふり、です。
 	'>>
+}
+
+// 送信完了を出さない
+OnUgmSendNonResponseSet
+{
+	if reference[0] == '1' {
+		UgmExamplePlayingNow = '1'
+	}
+	else {
+		UgmExamplePlayingNow = '0'
+	}
 }
 
 //******************************************************************************

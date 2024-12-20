@@ -134,6 +134,15 @@ OnUkagakaGhostMessenger_Response
 
 OnUkagakaGhostMessenger_Ringing
 {
+	if reference[0]=='UkagakaGhostMessengerナビゲーターうめちゃん' && reference[1]=='うめちゃん' && reference[2]=='ume_talk01' {
+		// ランダムトークからうめちゃんがメッセージを送った
+		<<'
+		い：えへへ～。
+		'>>
+		UgmExamplePlayingNow = '0'
+		return
+	}
+	
 	if UgmExamplePlayingNow != '0' {
 		return
 	}
