@@ -181,7 +181,8 @@
 
 	<<'
 	い：UGMのアドレスを手に入れたらフレンドです！
-	い：ユーザさんはうめちゃんのおともだちでいてくれますか？
+	い：ユーザさんはうめちゃんの
+	い：おともだちでいてくれますか？
 	'>>
 
 	<<'
@@ -240,10 +241,16 @@ OnUgmSendNonResponseSet
 用語トーク
 {
 	_genre = ANY('メッセージ内容', 'メッセージ発動条件', 'プラグイン独自の記法', 'イベント')
+	_item = 用語選出(_genre)
 
 	'\0\s[0]\1\s[10]\![quicksection,1]\![set,autoscroll,disable]'
 	--
 	"\_a[Menu_UgmNavi,%(_genre)]\f[bold,1]%(_genre)\f[bold,0]\_a/"
 	--
-	OnExplanationCall(Menu_UgmNavi_List(_genre), 1)
+	OnExplanationCall(_item, 1)
+}
+
+用語選出 : nonoverlap
+{
+	parallel Menu_UgmNavi_List(_argv[0])
 }
