@@ -509,7 +509,7 @@ Message_IsNotRead説明
 	\_?[反映される枠]\_?\n/
 	メッセージ本文/送信者プロフィール文\n/
 	\_?[書き方]\_?\n/
-	choice_start:単語１:単語２～～:choice_end:\n[150]/
+	:choice_start:単語１:単語２～～:choice_end:\n[150]/
 	・メッセージ本文に使った時のランダム結果は、\n　\_a[Request]Request\_aで取得できます/
 	'
 }
