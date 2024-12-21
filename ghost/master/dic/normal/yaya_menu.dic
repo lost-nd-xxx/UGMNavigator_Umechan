@@ -150,7 +150,7 @@ Menu_AITALK
 {
 	SHIORI3FW.InitBalloons
 	--
-	"\1%(ANY('えっと','ええっと','ううんと'))ですね～……\w9\w9\![raise,OnAITalk]"
+	"\![quicksection,0]\1%(ANY('えっと','ええっと','ううんと'))ですね～……\w9\w9\![raise,OnAITalk]"
 }
 
 //---- さっきの話は
@@ -159,6 +159,8 @@ Menu_LASTTALK
 	//前のトークになにかある(＝文字列の長さが0ではない）時はそれを喋る
 	if (STRLEN(SHIORI3FW.LastAITalk) > 0) {
 		SHIORI3FW.InitBalloons
+		--
+		'\![quicksection,0]'
 		--
 		SHIORI3FW.LastAITalk
 	}
