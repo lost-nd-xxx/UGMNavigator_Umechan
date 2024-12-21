@@ -579,7 +579,9 @@ Menu_Send_SampleSelect
 	_script += MenuItem(1, '時刻を本文に反映', 'Menu_Send_SampleSet', '3') + '\n'
 	_script += MenuItem(1, '定期的に無限繰り返し', 'Menu_Send_SampleSet', '4') + '\n'
 	_script += MenuItem(1, '自分がいないときだけメッセージを発動', 'Menu_Send_SampleSet', '5') + '\n'
-	_script += MenuItem(1, 'メッセージ単体取り消し', 'Menu_Send_SampleSet', '6')
+	_script += MenuItem(1, 'メッセージ単体取り消し', 'Menu_Send_SampleSet', '6') + '\n'
+	_script += MenuItem(1, 'スタンプを添付する', 'Menu_Send_SampleSet', '7') + '\n'
+	_script += MenuItem(1, '画像を添付する', 'Menu_Send_SampleSet', '8')
 	_script += '\1'
 	_script += MenuComment('いま入力済みの状態は全部消えてしまうので、\n気を付けてくださいね。')
 
@@ -646,7 +648,7 @@ Menu_Send_SampleSet
 			この設定だと、最初のメッセージ発動も\n送信から24時間後になります。'
 			send_Time_Seconds = 86400
 			send_RunCount = 0
-			send_Text = ':month:月:day:日ですね:nl::choice_start:うめちゃんは今日も元気です:ユーザさんは調子どうですか？:choice_end:'
+			send_Text = ':month:月:day:日ですね:nl:うめちゃんは今日も元気です'
 		}
 		when '5' {
 			// 自分がいないときだけメッセージを発動
@@ -659,10 +661,20 @@ Menu_Send_SampleSet
 		when '6' {
 			// メッセージ単体取り消し
 			MenuCommentForce = '情報「送信者識別子」と「メッセージ識別子」の\n一致する、予約済みのメッセージを取り消せます。\n[150]/
-			「メッセージ識別子」が未設定のときは\n\_a[Menu_Cancel]一括取り消し\_aを使ってください。\n[150]/
+			予約中のメッセージを全て取り消したい時は、\n\_a[Menu_Cancel]一括取り消し\_aを使ってください。\n[150]/
 			他のゴーストの予約や、\n発動済みメッセージは取り消せません。'
-			send_SenderId = 'うめちゃん'
-			send_Text = 'ほにゃらら'
+			send_Enable = 0
+		}
+		when '7' {
+			// スタンプを添付する
+			MenuCommentForce = 'メッセージ本文に、\_a[スタンプ貼り付け]スタンプ\_aを\n添付することができます。'
+			send_Text = 'ユーザさん、こんにちは！:stamp026:うめちゃんは今日も元気です～'
+		}
+		when '8' {
+			// 画像を添付する
+			MenuCommentForce = 'メッセージ本文に、\_a[画像貼り付け]画像を添付する\_aことができます。\n[150]/
+			\_a[スタンプとしての画像貼り付け]オリジナルのスタンプ風にも貼り付けられます\_a。'
+			send_Text = ':image:img\\wagashi.png:alt=和菓子:うめちゃんは今、この和菓子を食べています～:image:nozoom=img\\stamp_onpu.png:alt=音符:とってもおいしいです！'
 		}
 		others {
 			// 初期設定に戻す
