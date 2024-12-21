@@ -173,7 +173,7 @@ Menu_UgmExample_02_02
 	"うめちゃん",/
 	"UgmExample_02_msg01"/
 	]'
-	MenuCommentForce = _script + 'メッセージの状態を問い合わせます。'
+	MenuCommentForce = _script + 'メッセージの状態を問い合わせます...'
 	Menu_UgmExample_02
 }
 

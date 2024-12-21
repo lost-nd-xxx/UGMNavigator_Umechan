@@ -87,11 +87,9 @@ OnUkagakaGhostMessenger_SendFailure
 
 OnUkagakaGhostMessenger_Response
 {
-	if UgmExamplePlayingNow == '0' {
-		return
-	}
-	elseif UgmExamplePlayingNow == '2' {
+	if UgmExamplePlayingNow == '2' {
 		Menu_UgmExample_02_Time = reference[5]
+		'\C\![quicksection,1]\w9\1\n完了しました。'
 		return
 	}
 
