@@ -27,3 +27,6 @@ https://code.google.com/archive/p/csaori/
 https://nijijourney.com/ja/
 ・にじジャーニー利用規約
 https://docs.midjourney.com/docs/terms-of-service
+
+＊活用例プリセットに入っている和菓子
+ろすえんが描いたものです。
