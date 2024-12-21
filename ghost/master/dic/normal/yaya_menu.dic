@@ -271,7 +271,7 @@ Menu_UgmConfigOpen
 	MenuCommentForce = '\![open,editor,"'
 	MenuCommentForce += REPLACE(UgmPath, '\', '/') + 'ugm_config.txt'
 	MenuCommentForce += '",0]\_q開きました～。\n[150]'
-	MenuCommentForce += '「localhost_number,」の右の数字を書き換えて、\nファイルを保存したら、ＵＧＭを再起動してくださいね。\n'
+	MenuCommentForce += '「localhost_number,」の右の数字を書き換えて、\nファイルを保存したら、\nＵＧＭを再起動してくださいね。\n'
 	MenuCommentForce += '(\_a[script:"\C\![open,pluginexplorer]"]エクスプローラ\_aからＵＧＭを右クリック、\n 無効にしたあと有効に戻す)\n[150]'
 	MenuCommentForce += '以下の場合はデフォルトの8000番が使用されます。\n・SSP等が使っている9801・9821番\n・なんかおかしい\_q'
 	Menu
