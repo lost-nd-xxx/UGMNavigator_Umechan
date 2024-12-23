@@ -1295,7 +1295,7 @@ Menu_Trigger
 Menu_Trigger_Exec
 {
 	_script = MakeScript_Trigger
-	MenuCommentForce = '問い合わせます。' + _script
+	MenuCommentForce = 'トリガーを引きました。' + _script
 	Menu_Trigger
 }
 
