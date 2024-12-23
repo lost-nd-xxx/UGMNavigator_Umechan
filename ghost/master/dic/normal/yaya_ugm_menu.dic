@@ -132,7 +132,8 @@ OnUkagakaGhostMessenger_Response
 
 OnUkagakaGhostMessenger_Ringing
 {
-	if reference[0]=='UkagakaGhostMessengerナビゲーターうめちゃん' && reference[1]=='うめちゃん' && reference[2]=='ume_talk01' {
+	_from_umechan_talk = 'UkagakaGhostMessengerナビゲーターうめちゃん' + CHR(1) + 'うめちゃん' + CHR(1) + 'ume_talk01'
+	if RE_ASEARCH( _from_umechan_talk , reference ) >= 0 {
 		// ランダムトークからうめちゃんがメッセージを送った
 		<<'
 		い：\_w[1500]えへへ～。
@@ -145,31 +146,36 @@ OnUkagakaGhostMessenger_Ringing
 		return
 	}
 
-	_loop = ''
-	for _i=3; _i<ARRAYSIZE(reference); _i++ {
-		_loop += "\n[150]\f[bold,1]追加情報%(HAN2ZEN(_i-2))\f[bold,0]\n%(reference[_i])"
-	}
-
 	_talk = ''
 
 	_talk += '\![quicksection,1]'
 	_talk += '\0\_n'
 
-	_talk += '\f[bold,1]\_a[Ringing]OnUkagakaGhostMessenger_Ringing\_a\f[bold,0]\n[150]'
+	_talk += '\f[bold,1]\_a[Ringing]OnUkagakaGhostMessenger_Ringing\_a\f[bold,0]'
 
-	_talk += '\f[bold,1]送信元ゴースト名\f[bold,0]\n'
-	_talk += "\_?%(reference[0])\_?\n[150]"
+	for _i0=0; _i0<ARRAYSIZE(reference); _i0++ {
+		_cond = reference[i0]
+		SETDELIM(_cond, CHR(1))
 
-	_talk += '\f[bold,1]送信者識別子\f[bold,0]\n'
-	_talk += "\_?%(reference[1])\_?\n[150]"
+		_talk += "\n[150]\f[bold,1]＊メッセージ%(HAN2ZEN(_i0+1))件め＊\f[bold,0]\n[150]"
+		
+		_talk += '\f[bold,1]送信元ゴースト名\f[bold,0]\n'
+		_talk += "\_?%(_cond[0])\_?\n[150]"
 
-	_talk += '\f[bold,1]メッセージ識別子\f[bold,0]\n'
-	_talk += "\_?%(reference[2])\_?"
+		_talk += '\f[bold,1]送信者識別子\f[bold,0]\n'
+		_talk += "\_?%(_cond[1])\_?\n[150]"
 
-	_talk += _loop
-	_talk += '\![quicksection,0]\_n'
+		_talk += '\f[bold,1]メッセージ識別子\f[bold,0]\n'
+		_talk += "\_?%(_cond[2])\_?"
 
-	_talk += '\1メッセージが発動しました。'
+		_ev_refs = ''
+		for _i1=3; _i1<ARRAYSIZE(_cond); _i1++ {
+			_ev_refs += "\n[150]\f[bold,1]追加情報%(HAN2ZEN(_i1-2))\f[bold,0]\n%(_cond[_i1])"
+		}
+		_talk += _ev_refs
+	}
+
+	_talk += '\![quicksection,0]\_n\1メッセージが発動しました。'
 
 	_talk
 }
