@@ -48,6 +48,7 @@ OnSystemLoad.UgmUmechan
 	send_Message_Read = ''
 	send_Message_IsRead = ''
 	send_Message_IsNotRead = ''
+	send_Ugm_IsRunning = ''
 	request_Sender = 'UkagakaGhostMessengerナビゲーターうめちゃん'
 	request_SenderId = 'うめちゃん'
 	request_MessageId = 'test01'

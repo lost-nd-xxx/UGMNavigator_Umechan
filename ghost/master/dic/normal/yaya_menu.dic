@@ -282,8 +282,6 @@ Menu_UgmConfigOpen
 //---- ＵＧＭをインストールする
 Menu_UgmDownload
 {
-	// 【公開直前要差し替え】
-	// MenuCommentForce = '\![execute,install,url,【narのURL】,nar]インストールを始めます～。'
-	MenuCommentForce = 'プラグインの公開URLが確定したら、\nここの動作を差し替えます。'
+	MenuCommentForce = 'ＵＧＭのインストールを始めます～。\![execute,install,url,https://github.com/lost-nd-xxx/UkagakaGhostMessenger/releases/latest/download/UkagakaGhostMessenger.nar,nar]'
 	Menu
 }

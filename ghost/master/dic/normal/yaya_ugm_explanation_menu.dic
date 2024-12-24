@@ -89,6 +89,7 @@ Menu_UgmNavi_List : array
 			'Message_Read'
 			'Message_IsRead'
 			'Message_IsNotRead'
+			'Ugm_IsRunning'
 		}
 		when 'プラグイン独自の記法' {
 			'任意改行'

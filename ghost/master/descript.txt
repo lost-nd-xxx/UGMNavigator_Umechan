@@ -17,3 +17,5 @@ shiori,yaya.dll
 balloon.defaultsurface,2
 sakura.balloon.defaultsurface,2
 kero.balloon.defaultsurface,2
+
+homeurl,https://raw.githubusercontent.com/lost-nd-xxx/UGMNavigator_Umechan/main/

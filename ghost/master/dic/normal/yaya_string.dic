@@ -31,9 +31,7 @@ On_portalrootbutton.caption
 // 	">>
 // }
 
-//空白や+-*/などの演算子等をアンダースコアに置き換えた文字列
-//Disc-2+Sidebar は Disc_2_Sidebar になる
-
+// 空白や+-*/などの演算子等をアンダースコアに置き換えた文字列
 // ポータルサイトhogehgoe
 // {
 // 	<<"
@@ -56,15 +54,15 @@ On_recommendrootbutton.caption
 
 おすすめ0
 {
-	// 【公開直前要差し替え】
 	<<"
 	＊ＵＧＭプラグイン | |
-	配布所 | https://lnx.flop.jp/ |
-	利用者向けマニュアル | https://lnx.flop.jp/ |
-	仕様書 | https://lnx.flop.jp/ |
+	配布所 | https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki |
+	説明書(ユーザ向け) | https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/HowToUse#ゴースト使用者向け |
+	説明書(デベ向け) | https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/HowToUse#ゴースト制作者向け |
+	仕様書 | https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification |
 	- | |
 	＊うめちゃん | |
-	配布所 | https://lnx.flop.jp/ |
+	配布所 | https://github.com/lost-nd-xxx/UGMNavigator_Umechan/wiki |
 	- | |
 	＊何かあったとき | |
 	連絡先 | https://lnx.flop.jp/form/postmail.html |
