@@ -8,44 +8,58 @@
 
 OnAnchorSelectEx
 {
-	_title = reference[1] + '題名'
-	_text = reference[1] + '説明'
-	_script = '\C\![quicksection,1]\1\c\![set,autoscroll,disable]'
-	if (ISFUNC(_title) == 1) {
-		_title = EVAL(_title)
-		_script += "\f[bold,1]%(_title)\f[bold,0]\n[150]"
+	if STRSTR(reference[1], 'http', 0) == 0 {
+		// webを開いて終わる
+		'\C\![open,browser,"' + reference[1] + '"]'
+		return
 	}
-	if (ISFUNC(_text) == 1) {
-		_script += EVAL(_text)
+	elseif STRSTR(reference[1], 'Menu_UgmNavi', 0) == 0 {
+		Menu_UgmNavi
+		return
 	}
-	if (ISFUNC(_title) == 1 || ISFUNC(_text) == 1) {
-		_script
-	}
-	elseif (ISFUNC(reference[1]) == 1) {
-		'\C\![quicksection,1]\0\c\1\c\![set,autoscroll,disable]'
-		--
-		EVAL(reference[1])
-	}
+
+	'\C\![quicksection,1]\1\c\![set,autoscroll,disable]'
+	--
+	ExplanationCall_Core(reference[1])
 }
 
 OnExplanationCall
 {
-	_title = _argv[0] + '題名'
-	_text = _argv[0] + '説明'
+	if STRSTR(_argv[0], 'http', 0) == 0 {
+		// webを開いて終わる
+		'\C\![open,browser,"' + _argv[0] + '"]'
+		return
+	}
+
+	'\C\![quicksection,1]\1\c\![set,autoscroll,disable]'
+	--
+	ExplanationCall_Core(_argv[0])
+}
+
+ExplanationCall_Core
+{
+	_title = ''
+	_text = ''
+	_address = ''
+	_a_pre = ''
+	_a_suf = ''
 	_script = ''
-	if _argc <= 1 {
-		_script = '\C\![quicksection,1]\1\c\![set,autoscroll,disable]'
+
+	if (ISFUNC(_argv[0]+'アドレス') == 1) {
+		_a_pre = '\_a[' + EVAL(_argv[0]+'アドレス') + ']'
+		_a_suf = '\f[name,"Meiryo","Yu Gothic"]' + OpenExtMark + '\f[default]\_a'
 	}
-	if (ISFUNC(_title) == 1) {
-		_title = EVAL(_title)
-		_script += "\f[bold,1]%(_title)\f[bold,0]\n[150]"
+
+	if (ISFUNC(_argv[0]+'題名') == 1) {
+		_title = EVAL(_argv[0]+'題名')
+		_title = _a_pre + '\f[bold,1]' + _title + '\f[bold,0]' + _a_suf + '\n[150]'
 	}
-	if (ISFUNC(_text) == 1) {
-		_script += EVAL(_text)
+
+	if (ISFUNC(_argv[0]+'説明') == 1) {
+		_text = EVAL(_argv[0]+'説明')
 	}
-	if (ISFUNC(_title) == 1 || ISFUNC(_text) == 1) {
-		_script
-	}
+
+	_title + _text
 }
 
 //------------------------------------------------------------------------------
@@ -56,7 +70,10 @@ Sender題名
 {
 	'ゴースト名'
 }
-
+Senderアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#%E5%B7%AE%E3%81%97%E6%9B%BF%E3%81%88%E5%AF%BE%E8%B1%A1%E3%81%AE%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E4%BA%88%E7%B4%84%E5%AD%97'
+}
 Sender説明
 {
 	'/
@@ -67,6 +84,11 @@ Sender説明
 SenderId題名
 {
 	'送信者識別子'
+}
+
+SenderIdアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#senderid'
 }
 
 SenderId説明
@@ -83,6 +105,11 @@ SenderName題名
 	'表示用送信者名'
 }
 
+SenderNameアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#sendername'
+}
+
 SenderName説明
 {
 	'・いろんなところで表示されるとき用の名前です'
@@ -92,10 +119,16 @@ SenderIcon題名
 {
 	'アイコン画像'
 }
+
+SenderIconアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#sendericon'
+}
+
 SenderIcon説明
 {
 	'/
-	・アイコン用画像の、\n　ghost\\masterからの相対パスを入れてください\n[150]/
+	・アイコン用画像の、\n　ghost\\master\\からの相対パスを入れてください\n[150]/
 	・初期状態に戻したい時は\n　「default」だけを入れてください\n[150]/
 	・画像中央が正円に切り抜かれて表示されます\n[150]/
 	・5MB以上のファイルサイズは受け付けません\n[150]/
@@ -106,6 +139,11 @@ SenderIcon説明
 SenderProfile題名
 {
 	'プロフィール文章'
+}
+
+SenderProfileアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#senderprofile'
 }
 
 SenderProfile説明
@@ -122,6 +160,11 @@ MessageId題名
 	'メッセージ識別子'
 }
 
+MessageIdアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#messageid'
+}
+
 MessageId説明
 {
 	'/
@@ -133,6 +176,11 @@ MessageId説明
 Enable題名
 {
 	'メッセージを有効にするかどうか'
+}
+
+Enableアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#enable'
 }
 
 Enable説明
@@ -149,6 +197,11 @@ Text題名
 	'メッセージ本文'
 }
 
+Textアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#text'
+}
+
 Text説明
 {
 	'/
@@ -162,11 +215,16 @@ EventReference題名
 	'発生時に起動中のゴーストへ送信する情報'
 }
 
+EventReferenceアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#eventreference'
+}
+
 EventReference説明
 {
 	'/
-	・\_a[Ringing]Ringing\_aのReference3～に\n　追加の情報を入れることができます\n[150]/
-	・通し番号は先に書いた順から自動で振られます/
+	・\_a[Ringing]Ringing\_aの末尾に\n　追加の情報を入れることができます\n[150]/
+	・Ringingで通知されるときの順序は、\n　この項目の記述順と同じです/
 	'
 }
 
@@ -175,10 +233,15 @@ RunCount題名
 	'メッセージ実行回数'
 }
 
+RunCountアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#runcount'
+}
+
 RunCount説明
 {
 	'/
-	・1で1回　2～で2回～　0で無限に繰り返しです\n[150]/
+	・1で1回　2～で2回～\n　0で無限に繰り返しです\n[150]/
 	・同じ\_a[MessageId]MessageId\_aに対して再度\_a[Send]Send\_aを送ると、\n　実行済み回数は0に戻ります/
 	'
 }
@@ -186,6 +249,11 @@ RunCount説明
 Late題名
 {
 	'遅延表示秒数'
+}
+
+Lateアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#late'
 }
 
 Late説明
@@ -202,11 +270,16 @@ Condition題名
 	'メッセージ発動条件'
 }
 
+Conditionアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#condition'
+}
+
 Condition説明
 {
 	'/
 	・予約したメッセージは、\n　設定されている条件を満たしたときに発動します\n[150]/
-	・条件なしなら送信後すぐ発動します/
+	・条件なし＆\_a[Late]遅延\_aなしなら、\n　送信後すぐ発動します/
 	'
 }
 
@@ -215,12 +288,17 @@ Time_After題名
 	'条件:指定時刻以降'
 }
 
+Time_Afterアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#time_after%E5%B9%B44%E6%A1%81%E6%9C%882%E6%A1%81%E6%97%A52%E6%A1%81%E6%99%822%E6%A1%81%E5%88%862%E6%A1%81'
+}
+
 Time_After説明
 {
 	'/
 	・「年4桁/月2桁/日2桁/時2桁/分2桁」が基本形です\n[150]/
 	・年～時は左から順に省略可です\n[150]/
-	・省略した場合、毎年の6月、など繰り返し使われます\n[150]/
+	・省略のある場合、省略された箇所は常時達成となります\n[150]/
 	・2024年6月の20時、などのように\n　途中を省略することはできません/
 	'
 }
@@ -230,9 +308,18 @@ Time_Seconds題名
 	'条件:今から??秒後'
 }
 
+Time_Secondsアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#time_seconds%E7%A7%92%E6%95%B0'
+}
+
 Time_Seconds説明
 {
-	'・秒数を数字で指定します'
+	'/
+	・秒数を数字で指定します\n[150]/
+	・予約受付時刻から指定秒数経過するまでの間は、\n　この条件は未達成となります\n[150]/
+	・それ以降は常時、条件達成となります/
+	'
 }
 
 Time_DayOfWeek題名
@@ -240,10 +327,15 @@ Time_DayOfWeek題名
 	'条件:特定の曜日'
 }
 
+Time_DayOfWeekアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#time_dayofweek%E6%95%B0%E5%AD%97'
+}
+
 Time_DayOfWeek説明
 {
 	'/
-	・現在が特定の曜日のとき、この条件は達成されます\n[150]/
+	・現在が特定の曜日である間のみ、この条件は達成となります\n[150]/
 	・1～7の数字で指定します\n　1＝日、7＝土　です/
 	'
 }
@@ -253,9 +345,15 @@ Time_During題名
 	'条件:特定の時間帯'
 }
 
+Time_Duringアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#time_during%E6%95%B0%E5%AD%974%E6%A1%81%E6%95%B0%E5%AD%974%E6%A1%81'
+}
+
 Time_During説明
 {
 	'/
+	・現在時刻が設定された時間帯である間のみ、この条件は達成となります\n[150]/
 	・0時0分～23時59分を\n　数字4桁/数字4桁で指定します\n[150]/
 	・2200/0300などの0時またぎも設定可能です\n[150]/
 	・複数設定時は「0600/0800:1800/1900」などのように\n　半角の「:」で区切ってください/
@@ -267,9 +365,15 @@ Ghost_Booted題名
 	'条件:特定ゴーストが起動された瞬間'
 }
 
+Ghost_Bootedアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ghost_booted%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D'
+}
+
 Ghost_Booted説明
 {
 	'/
+	・特定ゴーストが起動された瞬間にのみ、\n　この条件は達成となります\n[150]/
 	・\_a[差し替え対象の文字]ゴースト名に特定の文字が含まれていると、\n　半角アンダーバーに差し替えられます\_a/
 	'
 }
@@ -279,21 +383,33 @@ Ghost_Closed題名
 	'条件:特定ゴーストが終了された瞬間'
 }
 
+Ghost_Closedアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ghost_closed%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D'
+}
+
 Ghost_Closed説明
 {
 	'/
+	・特定ゴーストが終了された瞬間にのみ、\n　この条件は達成となります\n[150]/
 	・\_a[差し替え対象の文字]ゴースト名に特定の文字が含まれていると、\n　半角アンダーバーに差し替えられます\_a/
 	'
 }
 
 Ghost_IsBooting題名
 {
-	'条件:特定ゴーストが起動している時'
+	'条件:特定ゴーストが起動している間'
+}
+
+Ghost_IsBootingアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ghost_isbooting%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D'
 }
 
 Ghost_IsBooting説明
 {
 	'/
+	・特定ゴーストが起動している間にのみ、\n　この条件は達成となります\n[150]/
 	・\_a[差し替え対象の文字]ゴースト名に特定の文字が含まれていると、\n　半角アンダーバーに差し替えられます\_a\n[150]/
 	・複数体指定するときは\n　半角の「:」で区切ってください/
 	'
@@ -301,12 +417,18 @@ Ghost_IsBooting説明
 
 Ghost_IsNotBooting題名
 {
-	'条件:特定ゴーストが起動していない時'
+	'条件:特定ゴーストが起動していない間'
+}
+
+Ghost_IsNotBootingアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ghost_isnotbooting%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D'
 }
 
 Ghost_IsNotBooting説明
 {
 	'/
+	・特定ゴーストが起動していない間にのみ、\n　この条件は達成となります\n[150]/
 	・\_a[差し替え対象の文字]ゴースト名に特定の文字が含まれていると、\n　半角アンダーバーに差し替えられます\_a\n[150]/
 	・複数体指定するときは\n　半角の「:」で区切ってください/
 	'
@@ -315,6 +437,11 @@ Ghost_IsNotBooting説明
 Ghost_Exists題名
 {
 	'条件:特定ゴーストがインストールされている'
+}
+
+Ghost_Existsアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ghost_exists%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D'
 }
 
 Ghost_Exists説明
@@ -330,6 +457,11 @@ Ghost_NotExists題名
 	'条件:特定ゴーストがインストールされていない'
 }
 
+Ghost_NotExistsアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ghost_notexists%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D'
+}
+
 Ghost_NotExists説明
 {
 	'/
@@ -341,6 +473,11 @@ Ghost_NotExists説明
 Ghost_IsInAddressBook題名
 {
 	'条件:特定ゴーストがアドレス帳に登録されている'
+}
+
+Ghost_IsInAddressBookアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ghost_isinaddressbook%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D'
 }
 
 Ghost_IsInAddressBook説明
@@ -358,13 +495,18 @@ Ghost_Triggered題名
 	'条件:トリガーを引かれた'
 }
 
+Ghost_Triggeredアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ghost_triggered%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%AD%98%E5%88%A5%E5%AD%90%E3%83%88%E3%83%AA%E3%82%AC%E3%83%BC%E3%82%92%E7%AB%8B%E3%81%A6%E3%81%A6%E3%81%8D%E3%81%9F%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D'
+}
+
 Ghost_Triggered説明
 {
 	'/
 	[書き方]\n/
 	イベント識別子/トリガーを立ててきたゴースト名\n/
 	ゴースト名は省略可能\n[150]/
-	・\_a[Trigger]Trigger\_aでトリガーを引かれたとき、\n　この条件は達成されます\n[150]/
+	・\_a[Trigger]Trigger\_aでトリガーを引かれた瞬間のみ、\n　この条件は達成されます\n[150]/
 	・ゴースト名を省略すると、\n　全てのゴーストの立てたトリガーを見ます/
 	'
 }
@@ -372,11 +514,16 @@ Message_Run題名
 {
 	'条件:メッセージが発動した瞬間'
 }
+Message_Runアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#message_run%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D%E9%80%81%E4%BF%A1%E8%80%85%E8%AD%98%E5%88%A5%E5%AD%90%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E8%AD%98%E5%88%A5%E5%AD%90'
+}
 Message_Run説明
 {
 	'/
 	[書き方]\n/
 	ゴースト名/送信者識別子/メッセージ識別子\n[150]/
+	・指定した識別子のメッセージが発生した瞬間にのみ、\n　この条件は達成となる\n[150]/
 	・既読の状況は問いません\n[150]/
 	・他ゴーストのメッセージ識別子も指定可/
 	'
@@ -385,12 +532,17 @@ Message_IsRun題名
 {
 	'条件:メッセージが発動済み'
 }
+Message_IsRunアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#message_isrun%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D%E9%80%81%E4%BF%A1%E8%80%85%E8%AD%98%E5%88%A5%E5%AD%90%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E8%AD%98%E5%88%A5%E5%AD%90'
+}
 Message_IsRun説明
 {
 	'/
 	[書き方]\n/
 	ゴースト名/送信者識別子/メッセージ識別子\n/
 	複数対象を指定するときは:で区切ります\n[150]/
+	・指定した識別子のメッセージが発生済みである間にのみ、\n　この条件は達成となる\n[150]/
 	・既読の状況は問いません\n[150]/
 	・他ゴーストのメッセージ識別子も指定可/
 	'
@@ -399,12 +551,17 @@ Message_IsNotRun題名
 {
 	'条件:メッセージが未発動'
 }
+Message_IsNotRunアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#message_isnotrun%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D%E9%80%81%E4%BF%A1%E8%80%85%E8%AD%98%E5%88%A5%E5%AD%90%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E8%AD%98%E5%88%A5%E5%AD%90'
+}
 Message_IsNotRun説明
 {
 	'/
 	[書き方]\n/
 	ゴースト名/送信者識別子/メッセージ識別子\n/
 	複数対象を指定するときは:で区切ります\n[150]/
+	・指定した識別子のメッセージが未発生である間にのみ、\n　この条件は達成となる\n[150]/
 	・予約の状況は問いません\n[150]/
 	・他ゴーストのメッセージ識別子も指定可/
 	'
@@ -413,11 +570,16 @@ Message_Read題名
 {
 	'条件:メッセージが既読になった瞬間'
 }
+Message_Readアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#message_read%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D%E9%80%81%E4%BF%A1%E8%80%85%E8%AD%98%E5%88%A5%E5%AD%90%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E8%AD%98%E5%88%A5%E5%AD%90'
+}
 Message_Read説明
 {
 	'/
 	[書き方]\n/
 	ゴースト名/送信者識別子/メッセージ識別子\n[150]/
+	・指定した識別子のメッセージが既読になった瞬間にのみ、\n　この条件は達成となる\n[150]/
 	・他ゴーストのメッセージ識別子も指定可/
 	'
 }
@@ -425,18 +587,27 @@ Message_IsRead題名
 {
 	'条件:メッセージが既読である'
 }
+Message_IsReadアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#message_isread%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D%E9%80%81%E4%BF%A1%E8%80%85%E8%AD%98%E5%88%A5%E5%AD%90%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E8%AD%98%E5%88%A5%E5%AD%90'
+}
 Message_IsRead説明
 {
 	'/
 	[書き方]\n/
 	ゴースト名/送信者識別子/メッセージ識別子\n/
 	複数対象を指定するときは:で区切ります\n[150]/
+	・指定した識別子のメッセージが既読である間にのみ、\n　この条件は達成となる\n[150]/
 	・他ゴーストのメッセージ識別子も指定可/
 	'
 }
 Message_IsNotRead題名
 {
 	'条件:メッセージが未読である'
+}
+Message_IsNotReadアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#message_isnotread%E3%82%B4%E3%83%BC%E3%82%B9%E3%83%88%E5%90%8D%E9%80%81%E4%BF%A1%E8%80%85%E8%AD%98%E5%88%A5%E5%AD%90%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E8%AD%98%E5%88%A5%E5%AD%90'
 }
 Message_IsNotRead説明
 {
@@ -452,6 +623,10 @@ Ugm_IsRunning題名
 {
 	'条件:プラグインが起動中'
 }
+Ugm_IsRunningアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ugm_isrunning1%E3%81%BE%E3%81%9F%E3%81%AF0'
+}
 Ugm_IsRunning説明
 {
 	'/
@@ -464,6 +639,10 @@ Ugm_IsRunning説明
 プラグイン独自の記法題名
 {
 	'プラグイン独自の記法'
+}
+プラグイン独自の記法アドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E7%8B%AC%E8%87%AA%E3%81%AE%E8%A8%98%E6%B3%95'
 }
 プラグイン独自の記法説明
 {
@@ -483,6 +662,10 @@ Ugm_IsRunning説明
 {
 	'任意改行'
 }
+任意改行アドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E4%BB%BB%E6%84%8F%E6%94%B9%E8%A1%8C'
+}
 任意改行説明
 {
 	'/
@@ -496,6 +679,10 @@ Ugm_IsRunning説明
 文字列ランダム題名
 {
 	'文字列ランダム'
+}
+文字列ランダムアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#%E6%96%87%E5%AD%97%E5%88%97%E3%83%A9%E3%83%B3%E3%83%80%E3%83%A0%E9%81%B8%E6%8A%9E'
 }
 文字列ランダム説明
 {
@@ -511,6 +698,10 @@ Ugm_IsRunning説明
 {
 	'条件達成時の時間類差し替え'
 }
+条件達成時の時間類アドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#%E6%9D%A1%E4%BB%B6%E9%81%94%E6%88%90%E6%99%82%E3%81%AE%E6%99%82%E9%96%93%E9%A1%9E'
+}
 条件達成時の時間類説明
 {
 	'/
@@ -523,6 +714,10 @@ Ugm_IsRunning説明
 画像貼り付け題名
 {
 	'画像貼り付け'
+}
+画像貼り付けアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#%E7%94%BB%E5%83%8F%E8%B2%BC%E3%82%8A%E4%BB%98%E3%81%91'
 }
 画像貼り付け説明
 {
@@ -542,7 +737,10 @@ Ugm_IsRunning説明
 {
 	'スタンプとしての画像貼り付け'
 }
-
+スタンプとしての画像貼り付けアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%81%A8%E3%81%97%E3%81%A6%E3%81%AE%E7%94%BB%E5%83%8F%E8%B2%BC%E3%82%8A%E4%BB%98%E3%81%91'
+}
 スタンプとしての画像貼り付け説明
 {
 	'/
@@ -558,6 +756,10 @@ Ugm_IsRunning説明
 スタンプ貼り付け題名
 {
 	'スタンプ貼り付け'
+}
+スタンプ貼り付けアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E8%B2%BC%E3%82%8A%E4%BB%98%E3%81%91'
 }
 スタンプ貼り付け説明
 {
@@ -584,6 +786,10 @@ OnOpenStampDir
 {
 	'画像コピーの仕様'
 }
+画像コピーの仕様アドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#%E7%94%BB%E5%83%8F%E3%82%B3%E3%83%94%E3%83%BC%E3%81%AE%E4%BB%95%E6%A7%98'
+}
 画像コピーの仕様説明
 {
 	'/
@@ -596,6 +802,10 @@ OnOpenStampDir
 差し替え対象の文字題名
 {
 	'差し替え対象の文字'
+}
+差し替え対象の文字アドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#%E5%B7%AE%E3%81%97%E6%9B%BF%E3%81%88%E5%AF%BE%E8%B1%A1%E3%81%AE%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E4%BA%88%E7%B4%84%E5%AD%97'
 }
 差し替え対象の文字説明
 {
@@ -610,6 +820,10 @@ Ringing題名
 {
 	'OnUkagakaGhostMessenger_Ringing'
 }
+Ringingアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#onukagakaghostmessenger_ringing'
+}
 Ringing説明
 {
 	'/
@@ -621,6 +835,10 @@ Ringing説明
 Response題名
 {
 	'OnUkagakaGhostMessenger_Response'
+}
+Responseアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#onukagakaghostmessenger_response'
 }
 Response説明
 {
@@ -651,6 +869,10 @@ SendComplete題名
 {
 	'OnUkagakaGhostMessenger_SendComplete'
 }
+SendCompleteアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#onukagakaghostmessenger_sendcomplete'
+}
 SendComplete説明
 {
 	'/
@@ -668,6 +890,10 @@ SendComplete_r0説明
 SendFailure題名
 {
 	'OnUkagakaGhostMessenger_SendFailure'
+}
+SendFailureアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#onukagakaghostmessenger_sendfailure'
 }
 SendFailure説明
 {
@@ -688,6 +914,10 @@ Trigger題名
 {
 	'OnUkagakaGhostMessenger_Trigger'
 }
+Triggerアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#onukagakaghostmessenger_trigger'
+}
 Trigger説明
 {
 	'・メッセージ発動条件の\_a[Ghost_Triggered]Ghost_Triggered\_aに関わる\n　トリガーを引けます'
@@ -695,6 +925,10 @@ Trigger説明
 Request題名
 {
 	'OnUkagakaGhostMessenger_Request'
+}
+Requestアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#onukagakaghostmessenger_request'
 }
 Request説明
 {
@@ -715,6 +949,10 @@ Cancel題名
 {
 	'OnUkagakaGhostMessenger_Cancel'
 }
+Cancelアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#onukagakaghostmessenger_cancel'
+}
 Cancel説明
 {
 	'/
@@ -726,6 +964,10 @@ Cancel説明
 Send題名
 {
 	'OnUkagakaGhostMessenger_Send'
+}
+Sendアドレス
+{
+	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#onukagakaghostmessenger_send'
 }
 Send説明
 {
