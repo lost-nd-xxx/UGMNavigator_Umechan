@@ -249,9 +249,9 @@ OnUgmSendNonResponseSet
 
 	'\0\s[0]\1\s[10]\![quicksection,1]\![set,autoscroll,disable]'
 	--
-	"\_a[Menu_UgmNavi,%(_genre)]\f[bold,1]%(_genre)\f[bold,0]\_a/"
+	"\_a[Menu_UgmNavi,%(_genre)]\f[bold,1]%(_genre)\f[bold,0]\_a / \n"
 	--
-	OnExplanationCall(_item, 1)
+	ExplanationCall_Core(_item)
 }
 
 用語選出 : nonoverlap

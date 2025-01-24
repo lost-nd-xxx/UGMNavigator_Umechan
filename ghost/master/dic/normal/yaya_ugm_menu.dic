@@ -527,12 +527,10 @@ Menu_Send
 	}
 	elseif (_argv[0] == 'reference') {
 		_loop = ''
-		_count = 0
 		for _i=0; _i<ARRAYSIZE(send_EventReference); _i++ {
-			_loop += "Reference%(_i+3): \![*]\__q[Menu_Send_Edit_EventReference,%(_count)]%(SHIORI3FW.MakeJustText(send_EventReference[_count],BalloonCharCnt-16))\__q\n[150]"
-			_count = _i + 1
+			_loop += "その%(_i+1): \![*]\__q[Menu_Send_Edit_EventReference,%(_i)]%(SHIORI3FW.MakeJustText(send_EventReference[_i],BalloonCharCnt-16))\__q\n[150]"
 		}
-		_loop += "Reference%(_i+3): \![*]\__q[Menu_Send_Edit_EventReference,%(_count)]\f[color,disable]%(SHIORI3FW.MakeJustText('※未設定※',BalloonCharCnt-16))\f[color,default]\__q"
+		_loop += "その%(_i+1): \![*]\__q[Menu_Send_Edit_EventReference,%(_i)]\f[color,disable]%(SHIORI3FW.MakeJustText('※未設定※',BalloonCharCnt-16))\f[color,default]\__q"
 
 		_talk += '\__q[Menu_Send_PageTurn,info]［情報］\__q　\f[underline,1]【追加情報】\f[underline,0]　\__q[Menu_Send_PageTurn,cond]［条件］\__q\n[150]'
 		_talk += '\f[bold,1]\_a[EventReference]イベントリファレンス\_a\f[bold,0]\n[150]'
