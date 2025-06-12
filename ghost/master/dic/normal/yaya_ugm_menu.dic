@@ -520,10 +520,10 @@ Menu_Send
 		_talk += '\f[bold,1]\_a[Message_IsRead]メッセージが既読\_a\f[bold,0]\n'
 		_talk += "%(MenuItem(2,GenerateTextLabel(send_Message_IsRead),'Menu_Send_Edit','send_Message_IsRead'))\n[-100]"
 		_talk += "%(_right)\f[bold,1]\_a[Message_IsNotRead]メッセージが未読\_a\f[bold,0]\n"
-		_talk += "%(_right)%(MenuItem(2,GenerateTextLabel(send_Message_IsNotRead),'Menu_Send_Edit','send_Message_IsNotRead'))\n[150]"
+		_talk += "%(_right)%(MenuItem(2,GenerateTextLabel(send_Message_IsNotRead),'Menu_Send_Edit','send_Message_IsNotRead'))"
 
-		_talk += '\f[bold,1]\_a[Ugm_IsRunning]プラグインが起動中\_a\f[bold,0]\n'
-		_talk += "%(MenuItem(2,GenerateTextLabel(send_Ugm_IsRunning),'Menu_Send_Edit','send_Ugm_IsRunning'))"
+		// _talk += '\f[bold,1]\_a[Ugm_IsRunning]プラグインが起動中\_a\f[bold,0]\n'
+		// _talk += "%(MenuItem(2,GenerateTextLabel(send_Ugm_IsRunning),'Menu_Send_Edit','send_Ugm_IsRunning'))"
 	}
 	elseif (_argv[0] == 'reference') {
 		_loop = ''

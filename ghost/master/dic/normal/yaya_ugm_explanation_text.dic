@@ -619,23 +619,23 @@ Message_IsNotRead説明
 	・他ゴーストのメッセージ識別子も指定可/
 	'
 }
-Ugm_IsRunning題名
-{
-	'条件:プラグインが起動中'
-}
-Ugm_IsRunningアドレス
-{
-	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ugm_isrunning1%E3%81%BE%E3%81%9F%E3%81%AF0'
-}
-Ugm_IsRunning説明
-{
-	'/
-	\f[bold,1]※未実装につき影響を及ぼしません\f[bold,0]\n[150]/
-	・この条件が1なら、プラグイン起動中は\n　この条件を達成していることになります\n[150]/
-	・条件が0なら、プラグイン起動中でない時は\n　この条件が未達成になります\n[150]/
-	・他の条件と組み合わせて使うことを\n　想定しています/
+	・他ゴーストのメッセージ識別子も指定可です/
 	'
 }
+// Ugm_IsRunning題名// {
+// 	'条件:プラグインが起動中'
+// }
+// Ugm_IsRunningアドレス
+// {
+// 	'https://github.com/lost-nd-xxx/UkagakaGhostMessenger/wiki/Specification#ugm_isrunning1%E3%81%BE%E3%81%9F%E3%81%AF0'
+// }
+// Ugm_IsRunning説明
+// {
+// 	'/
+// 	\f[bold,1]※未実装につき、動作は一律になります\f[bold,0]\n/
+// 	詳しくは上のリンク先の文書をお読みください/
+// 	'
+// }
 プラグイン独自の記法題名
 {
 	'プラグイン独自の記法'
