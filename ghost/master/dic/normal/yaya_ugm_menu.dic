@@ -1065,7 +1065,7 @@ Menu_Send_Edit_Entered
 				send_Ghost_Triggered = JOIN(_result, '/')
 				MenuCommentForce = "%(_title)を設定しました。"
 				if (STRLEN(send_Ghost_Triggered) <= 0) {
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
+					MenuCommentForce = "%(_title)を未設定に戻しました。"
 				}
 			}
 		}
@@ -1083,7 +1083,7 @@ Menu_Send_Edit_Entered
 				send_Message_Run = JOIN(_result, '/')
 				MenuCommentForce = "%(_title)を設定しました。"
 				if (STRLEN(send_Message_Run) <= 0) {
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
+					MenuCommentForce = "%(_title)を未設定に戻しました。"
 				}
 			}
 		}
@@ -1104,7 +1104,7 @@ Menu_Send_Edit_Entered
 				send_Message_IsRun = JOIN(_result, ':')
 				MenuCommentForce = "%(_title)を設定しました。"
 				if (STRLEN(send_Message_IsRun) <= 0) {
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
+					MenuCommentForce = "%(_title)を未設定に戻しました。"
 				}
 			}
 		}
@@ -1125,7 +1125,7 @@ Menu_Send_Edit_Entered
 				send_Message_IsNotRun = JOIN(_result, ':')
 				MenuCommentForce = "%(_title)を設定しました。"
 				if (STRLEN(send_Message_IsNotRun) <= 0) {
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
+					MenuCommentForce = "%(_title)を未設定に戻しました。"
 				}
 			}
 		}
@@ -1143,7 +1143,7 @@ Menu_Send_Edit_Entered
 				send_Message_Read = JOIN(_result, '/')
 				MenuCommentForce = "%(_title)を設定しました。"
 				if (STRLEN(send_Message_Read) <= 0) {
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
+					MenuCommentForce = "%(_title)を未設定に戻しました。"
 				}
 			}
 		}
@@ -1164,7 +1164,7 @@ Menu_Send_Edit_Entered
 				send_Message_IsRead = JOIN(_result, ':')
 				MenuCommentForce = "%(_title)を設定しました。"
 				if (STRLEN(send_Message_IsRead) <= 0) {
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
+					MenuCommentForce = "%(_title)を未設定に戻しました。"
 				}
 			}
 		}
@@ -1185,7 +1185,7 @@ Menu_Send_Edit_Entered
 				send_Message_IsNotRead = JOIN(_result, ':')
 				MenuCommentForce = "%(_title)を設定しました。"
 				if (STRLEN(send_Message_IsNotRead) <= 0) {
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
+					MenuCommentForce = "%(_title)を未設定に戻しました。"
 				}
 			}
 		}
@@ -1322,7 +1322,7 @@ Menu_Cancel_Edit_Entered
 
 Menu_Trigger
 {
-	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM:作成&試行', 'Menu_Trigger|ここ')
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmTools|UGM:作成&試行', 'Menu_Trigger|現在地')
 	_talk = ''
 
 	_talk += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
