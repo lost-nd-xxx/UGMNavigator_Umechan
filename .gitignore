@@ -1,5 +1,6 @@
-shell/master/profile
-ghost/master/profile
+shell/master/profile/
+ghost/master/profile/
+ghost/master/var/
 ghost/master/yaya_variable.cfg
 ghost/master/ssp_shiori_log.txt
 ghost/master/ayame.log
