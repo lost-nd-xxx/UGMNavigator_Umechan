@@ -416,8 +416,11 @@ Menu_Request_Edit
 	_r2 = EVAL(reference[2])
 	_script = '\![close,inputbox,__SYSTEM_ALL_INPUT__]\![open,inputbox,Menu_Request_Edit_Entered,0'
 	if (STRLEN(_r2) > 0) {
+		_default_text = _r2
+		_default_text = RE_REPLACE(_default_text, '"+', '""')
+		_default_text = SHIORI3FW.EscapeAllTags(_default_text)
 		_script += ',--text="'
-		_script += _r2
+		_script += _default_text
 		_script += '"'
 	}
 	_script += ',--reference='
@@ -768,8 +771,10 @@ Menu_Send_Edit
 	_r2 = EVAL(reference[2])
 	_script = '\![close,inputbox,__SYSTEM_ALL_INPUT__]\![open,inputbox,Menu_Send_Edit_Entered,0'
 	if (STRLEN(_r2) > 0) {
+		_default_text = _r2
+		_default_text = RE_REPLACE(_default_text, '"+', '""')
 		_script += ',--text="'
-		_script += _r2
+		_script += _default_text
 		_script += '"'
 	}
 	_script += ',--reference='
@@ -800,7 +805,6 @@ Menu_Send_Edit_Entered
 {
 	_r1 = reference[1]
 	_r1 = RE_REPLACE(_r1, '"+', '""')
-	_r1 = SHIORI3FW.EscapeAllTags(_r1)
 	_r3 = reference[3]
 	_title = RE_REPLACE(_r3, '^send_', '') + '題名'
 	_title = EVAL(_title)
@@ -840,7 +844,7 @@ Menu_Send_Edit_Entered
 			MenuCommentForce = "%(_title)を設定しました。"
 		}
 		when 'send_SenderIcon' {
-			send_SenderIcon = _r1
+			send_SenderIcon = SHIORI3FW.EscapeAllTags(_r1)
 			MenuCommentForce = "%(_title)を設定しました。"
 		}
 		when 'send_SenderProfile' {
@@ -1219,6 +1223,8 @@ Menu_Send_Edit_EventReference
 	_selected = send_EventReference[TOINT(reference[2])]
 	_script = '\![close,inputbox,__SYSTEM_ALL_INPUT__]\![open,inputbox,Menu_Send_Edit_Entered_EventReference,0'
 	if (STRLEN(_selected) > 0) {
+		_selected = RE_REPLACE(_selected, '"+', '""')
+		_selected = SHIORI3FW.EscapeAllTags(_selected)
 		_script += ',--text="'
 		_script += _selected
 		_script += '"'
@@ -1287,8 +1293,11 @@ Menu_Cancel_Edit
 	_r2 = EVAL(reference[2])
 	_script = '\![close,inputbox,__SYSTEM_ALL_INPUT__]\![open,inputbox,Menu_Cancel_Edit_Entered,0'
 	if (STRLEN(_r2) > 0) {
+		_default_text = _r2
+		_default_text = RE_REPLACE(_default_text, '"+', '""')
+		_default_text = SHIORI3FW.EscapeAllTags(_default_text)
 		_script += ',--text="'
-		_script += _r2
+		_script += _default_text
 		_script += '"'
 	}
 	_script += ',--reference='
@@ -1357,8 +1366,11 @@ Menu_Trigger_Edit
 	_r2 = EVAL(reference[2])
 	_script = '\![close,inputbox,__SYSTEM_ALL_INPUT__]\![open,inputbox,Menu_Trigger_Edit_Entered,0'
 	if (STRLEN(_r2) > 0) {
+		_default_text = _r2
+		_default_text = RE_REPLACE(_default_text, '"+', '""')
+		_default_text = SHIORI3FW.EscapeAllTags(_default_text)
 		_script += ',--text="'
-		_script += _r2
+		_script += _default_text
 		_script += '"'
 	}
 	_script += ',--reference='
