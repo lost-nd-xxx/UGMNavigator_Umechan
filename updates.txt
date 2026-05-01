@@ -20,7 +20,7 @@ file,ghost/master/dic/normal/yaya_string.dic80714aea3c484493e5e23bdec6604ef8si
 file,ghost/master/dic/normal/yaya_ugm_example.dicd80839d8968d6885623f51d49bfd123dsize=7354date=2024-12-21T14:02:43
 file,ghost/master/dic/normal/yaya_ugm_explanation_menu.dicbba74d8a28b3bd34e7e7b9f549a190c1size=3541date=2025-06-12T18:30:21
 file,ghost/master/dic/normal/yaya_ugm_explanation_text.dic4adc49f7ad5f5fcaf3f73d23617841dcsize=30644date=2025-06-12T17:34:09
-file,ghost/master/dic/normal/yaya_ugm_menu.dic9593d7666beef1c5fed17a8189ae5646size=51090date=2025-06-12T18:35:21
+file,ghost/master/dic/normal/yaya_ugm_menu.dic1858d9f84489f8b248212286d70b80desize=51091date=2026-05-02T04:38:21
 file,ghost/master/dic/system/_loading_order.txt37303e384d52d750edbaa52dfa351112size=39date=2024-10-05T09:50:08
 file,ghost/master/dic/system/aya_lilith/_loading_order.txt137b170bd0b8b643a42ca539b463c87dsize=138date=2024-08-08T20:30:19
 file,ghost/master/dic/system/aya_lilith/aya_lilith.dic0425a7a470a7d9d6f0ac1a1b25a04efdsize=62775date=2024-08-08T20:22:01

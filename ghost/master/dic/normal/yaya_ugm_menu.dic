@@ -154,7 +154,7 @@ OnUkagakaGhostMessenger_Ringing
 	_talk += '\f[bold,1]\_a[Ringing]OnUkagakaGhostMessenger_Ringing\_a\f[bold,0]'
 
 	for _i0=0; _i0<ARRAYSIZE(reference); _i0++ {
-		_cond = reference[i0]
+		_cond = reference[_i0]
 		SETDELIM(_cond, CHR(1))
 
 		_talk += "\n[150]\f[bold,1]＊メッセージ%(HAN2ZEN(_i0+1))件め＊\f[bold,0]\n[150]"
