@@ -85,7 +85,7 @@ MenuItem
 	_label = _argv[1]
 	if (_label != '\f[color,disable]※未設定※\f[color,default]') {
 		_label = SHIORI3FW.MakeJustText(_label, _cnt)
-		_label = '\_?' + _label + '\_?'
+		_label = UgmDisplayText(_label)
 	}
 	else {
 		_label = SHIORI3FW.MakeJustText('※未設定※', _cnt)
@@ -116,12 +116,12 @@ Menu
 
 	if isUgm == 1 {
 		_talk += "%(MenuItem(1,'ＵＧＭの受信履歴を開く','Menu_UgmLogOpen'))\n"
-		_talk += "%(MenuItem(1,'ＵＧＭのポート設定を変更する','Menu_UgmConfigOpen'))\n"
+		_talk += "%(MenuItem(1,'ＵＧＭの設定を変更する','Menu_UgmConfig'))\n"
 		_talk += '\![*]\f[strike,1]\f[color,disable]ＵＧＭをインストールする\f[default]\n'
 	}
 	else {
 		_talk += '\![*]\f[strike,1]\f[color,disable]ＵＧＭの受信履歴を開く\f[default]\n'
-		_talk += '\![*]\f[strike,1]\f[color,disable]ＵＧＭのポート設定を変更する\f[default]\n'
+		_talk += '\![*]\f[strike,1]\f[color,disable]ＵＧＭの設定を変更する\f[default]\n'
 		_talk += "%(MenuItem(1,'ＵＧＭをインストールする','Menu_UgmDownload'))\n"
 	}
 
@@ -268,16 +268,91 @@ Menu_UgmLogOpen
 	Menu
 }
 
-//---- ＵＧＭのポート設定を変更する
+//---- ＵＧＭの設定を変更する
+Menu_UgmConfig
+{
+	_BreadCrumbs = ('Menu|メニュー', 'Menu_UgmConfig|現在地')
+	_talk = ''
+
+	_talk += '\![close,inputbox,__SYSTEM_ALL_INPUT__]'
+	_talk += '\![quicksection,1]'
+	_talk += '\0\_n'
+	_talk += "%(CloseMenuButton)"
+	_talk += "%(MenuBreadCrumbs(JOIN(_BreadCrumbs,',')))\n[150]"
+	_talk += "%(MenuHr('ＵＧＭの設定'))\n"
+	_talk += "%(MenuItem(1,'設定ファイル（ugm_config.txt）を開く','Menu_UgmConfigOpen'))\n"
+	_talk += "%(MenuItem(1,'プラグインのフォルダを開く','Menu_UgmFolderOpen'))\n"
+	_talk += "%(MenuItem(1,'プラグインを再起動する','Menu_UgmConfigHelp','restart'))\n[150]"
+	_talk += "%(MenuHr('変えられる項目'))\n"
+	_talk += "%(MenuItem(1,'ポート番号（localhost_number）','Menu_UgmConfigHelp','port'))\n"
+	_talk += "%(MenuItem(1,'条件照合の間隔（check_interval）','Menu_UgmConfigHelp','interval'))\n"
+	_talk += "%(MenuItem(1,'うまく動かないとき（server_log）','Menu_UgmConfigHelp','log'))"
+	_talk += '\![quicksection,0]\_n'
+	_talk += "\1%(MenuComment('ＵＧＭの設定ファイルで変えられる項目です。\n[150]書き換えたあとは、プラグインを\n再起動するまで反映されません。'))"
+
+	_talk
+}
+
+//---- プラグインを再起動する手順
+UgmRestartGuide
+{
+	'\_a[OnOpenPluginExplorer]プラグインエクスプローラ\_aから\nＵＧＭを右クリックして、\n無効にしたあと有効に戻してくださいね。'
+}
+
+//---- プラグインエクスプローラを開く（\_aはscript:を扱わないので、イベントで開く）
+OnOpenPluginExplorer
+{
+	'\C\![open,pluginexplorer]'
+}
+
+//---- 設定ファイルを開く
 Menu_UgmConfigOpen
 {
 	MenuCommentForce = '\![open,editor,"'
 	MenuCommentForce += REPLACE(UgmPath, '\', '/') + 'ugm_config.txt'
-	MenuCommentForce += '",0]\_q開きました～。\n[150]'
-	MenuCommentForce += '「localhost_number,」の右の数字を書き換えて、\nファイルを保存したら、\nＵＧＭを再起動してくださいね。\n'
-	MenuCommentForce += '(\_a[script:"\C\![open,pluginexplorer]"]エクスプローラ\_aからＵＧＭを右クリック、\n 無効にしたあと有効に戻す)\n[150]'
-	MenuCommentForce += '以下の場合はデフォルトの8000番が使用されます。\n・SSP等が使っている9801・9821番\n・なんかおかしい\_q'
-	Menu
+	MenuCommentForce += '",0]開きました～。\n[150]'
+	MenuCommentForce += '書き換えて保存したら、\nプラグインを再起動してくださいね。'
+	Menu_UgmConfig
+}
+
+//---- プラグインのフォルダを開く
+Menu_UgmFolderOpen
+{
+	MenuCommentForce = '\![open,explorer,"'
+	MenuCommentForce += REPLACE(UgmPath, '\', '/')
+	MenuCommentForce += '"]開きました～。\n[150]'
+	MenuCommentForce += '設定ファイルの「ugm_config.txt」や、\n動作ログの「server_log.txt」は\nここにあります。'
+	Menu_UgmConfig
+}
+
+//---- 各項目の説明
+Menu_UgmConfigHelp
+{
+	case reference[2] {
+		when 'restart' {
+			MenuCommentForce = '\![quicksection,1]設定を反映させるには、\nプラグインの再起動が必要です。\n[150]'
+			MenuCommentForce += UgmRestartGuide
+		}
+		when 'port' {
+			MenuCommentForce = '\_q「localhost_number,」の右の数字が、\nＵＧＭの使うポート番号です。\n初期値は8000番です。\n[150]'
+			MenuCommentForce += 'ＵＧＭのページを開こうとして\n関係ないツールのページが開いたときや、\nその逆のときに変えてみてください。\n[150]'
+			MenuCommentForce += '以下の場合は8000番が使われます。\n・SSP等が使っている9801・9821番\n・1024より小さい番号や、数字でないもの\_q'
+		}
+		when 'interval' {
+			MenuCommentForce = '\_q「//check_interval,1」の行頭の「//」を消して、\n右の数字を秒数に書き換えると、\nメッセージの受信条件を確かめる間隔を\n変えられます。\n[150]'
+			MenuCommentForce += '初期値は1秒で、1より小さくはできません。\n[150]'
+			MenuCommentForce += '対応ゴーストが多くて、\nメッセージがたくさん予約されているときに\n大きくすると、処理が軽くなります。\_q'
+		}
+		when 'log' {
+			MenuCommentForce = '\![set,autoscroll,disable]\_q受信履歴のページが開かない、\nポート番号を変えたのに反映されない、\nといったときは、ugm_server.exeの\n動作ログで原因を確かめられます。\n[150]'
+			MenuCommentForce += '1. 「//server_log,server_log.txt」の\n　行頭の「//」を消して、保存する\n'
+			MenuCommentForce += '2. プラグインを再起動する\n'
+			MenuCommentForce += '3. プラグインのフォルダにできる\n　「server_log.txt」を開く\n[150]'
+			MenuCommentForce += '記録されるのは、受信履歴のページを\n表示する部分の動作だけです。\n[150]'
+			MenuCommentForce += '調べ終わったら、行頭に「//」を戻して\nプラグインを再起動すると、\n書き出しが止まります。\_q'
+		}
+	}
+	Menu_UgmConfig
 }
 
 //---- ＵＧＭをインストールする

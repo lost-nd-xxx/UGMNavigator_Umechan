@@ -158,7 +158,7 @@ Menu_UgmExample_02_01
 	"--SenderProfile=うめちゃんはUkagakaGhostMessengerの:nl:ナビキャラです。",/
 	"--MessageId=UgmExample_02_msg01",/
 	--Enable=1,/
-	"--Text=事例集２のメッセージ１です。:nl:このメッセージに既読を付けると、うめちゃんの反応が変わります。",/
+	"--Text=事例集２のメッセージ１です。:nl:このメッセージに既読を付け、うめちゃんにメッセージの既読状態を確認させると、うめちゃんの反応が変わります。",/
 	--RunCount=1,/
 	--Late=0/
 	]'

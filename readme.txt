@@ -7,6 +7,17 @@ UkagakaGhostMessengerのナビゲートをするゴーストです。
 連絡先: http://lnx.flop.jp/
 
 ～～～～
+＃対応するUkagakaGhostMessenger
+
+UkagakaGhostMessenger 2.0.1 の仕様に合わせています。
+https://github.com/lost-nd-xxx/UkagakaGhostMessenger
+
+～～～～
+＃開発中のAI利用について
+
+このゴーストの開発の一部には、AIコーディングエージェント（Claude）を用いています。
+
+～～～～
 ＃利用モジュール等
 
 ＊YAYA

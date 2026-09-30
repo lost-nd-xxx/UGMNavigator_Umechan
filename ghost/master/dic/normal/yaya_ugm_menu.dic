@@ -47,16 +47,21 @@ OnUkagakaGhostMessenger_SendComplete
 	_talk += '\f[bold,1]\_a[SendComplete]OnUkagakaGhostMessenger_SendComplete\_a\f[bold,0]\n[150]'
 
 	_talk += '\f[bold,1]\_a[SendComplete_r0]成功種別\_a\f[bold,0]\n'
-	_talk += "%(reference[0])\n[150]"
+	_talk += "%(UgmDisplayText(reference[0]))\n[150]"
 
 	_talk += '\f[bold,1]送信者識別子\f[bold,0]\n'
-	_talk += "\_?%(reference[1])\_?\n[150]"
+	_talk += "%(MenuItemLabelOrEmpty(reference[1]))\n[150]"
 
-	_talk += '\f[bold,1]メッセージ識別子\f[bold,0]\n'
-	_talk += "\_?%(reference[2])\_?"
+	_talk += '\f[bold,1]\_a[SendComplete_r2]メッセージ識別子\_a\f[bold,0]\n'
+	_talk += "%(MenuItemLabelOrEmpty(reference[2]))"
 
 	_talk += '\![quicksection,0]\_n'
-	_talk += '\1メッセージの送信に成功しました。'
+	if reference[0] == 'cancel' {
+		_talk += '\1メッセージの取り消しに成功しました。'
+	}
+	else {
+		_talk += '\1メッセージの送信に成功しました。'
+	}
 
 	_talk
 }
@@ -71,13 +76,13 @@ OnUkagakaGhostMessenger_SendFailure
 	_talk += '\f[bold,1]\_a[SendFailure]OnUkagakaGhostMessenger_SendFailure\_a\f[bold,0]\n[150]'
 
 	_talk += '\f[bold,1]失敗理由\f[bold,0]\n'
-	_talk += "%(reference[0])\n[150]"
+	_talk += "%(UgmDisplayText(reference[0]))\n[150]"
 
-	_talk += '\f[bold,1]\_a[SendFailure_r2]送信者識別子\_a\f[bold,0]\n'
-	_talk += "\_?%(reference[1])\_?\n[150]"
+	_talk += '\f[bold,1]\_a[SendFailure_r1]送信者識別子\_a\f[bold,0]\n'
+	_talk += "%(UgmDisplayText(reference[1]))\n[150]"
 
-	_talk += '\f[bold,1]\_a[SendFailure_r1]メッセージ識別子\_a\f[bold,0]\n'
-	_talk += "\_?%(reference[2])\_?"
+	_talk += '\f[bold,1]\_a[SendFailure_r2]メッセージ識別子\_a\f[bold,0]\n'
+	_talk += "%(UgmDisplayText(reference[2]))"
 
 	_talk += '\![quicksection,0]\_n'
 	_talk += '\1メッセージの送信に失敗しました。'
@@ -95,7 +100,7 @@ OnUkagakaGhostMessenger_Response
 
 	_loop = ''
 	for _i=6; _i<ARRAYSIZE(reference); _i++ {
-		_loop += "\n[150]\f[bold,1]文字列ランダム結果%(HAN2ZEN(_i-5))\f[bold,0]\n\_?%(reference[_i])\_?"
+		_loop += "\n[150]\f[bold,1]文字列ランダム結果%(HAN2ZEN(_i-5))\f[bold,0]\n%(UgmDisplayText(reference[_i]))"
 	}
 
 	_talk = ''
@@ -106,22 +111,22 @@ OnUkagakaGhostMessenger_Response
 	_talk += '\f[bold,1]\_a[Response]OnUkagakaGhostMessenger_Response\_a\f[bold,0]\n[150]'
 
 	_talk += '\f[bold,1]ゴースト名\f[bold,0]\n'
-	_talk += "\_?%(reference[0])\_?\n[150]"
+	_talk += "%(UgmDisplayText(reference[0]))\n[150]"
 
 	_talk += '\f[bold,1]送信者識別子\f[bold,0]\n'
-	_talk += "\_?%(reference[1])\_?\n[150]"
+	_talk += "%(UgmDisplayText(reference[1]))\n[150]"
 
 	_talk += '\f[bold,1]メッセージ識別子\f[bold,0]\n'
-	_talk += "\_?%(reference[2])\_?\n[150]"
+	_talk += "%(UgmDisplayText(reference[2]))\n[150]"
 
 	_talk += '\f[bold,1]\_a[Response_r3]メッセージの発動済み回数\_a\f[bold,0]\n'
-	_talk += "%(reference[3])\n[150]"
+	_talk += "%(UgmDisplayText(reference[3]))\n[150]"
 
 	_talk += '\f[bold,1]\_a[Response_r4]メッセージ発動時刻\_a\f[bold,0]\n'
-	_talk += "%(reference[4])\n[150]"
+	_talk += "%(UgmDisplayText(reference[4]))\n[150]"
 
 	_talk += '\f[bold,1]\_a[Response_r5]メッセージ既読時刻\_a\f[bold,0]\n'
-	_talk += "%(reference[5])"
+	_talk += "%(UgmDisplayText(reference[5]))"
 
 	_talk += _loop
 	_talk += '\![quicksection,0]\_n'
@@ -160,17 +165,17 @@ OnUkagakaGhostMessenger_Ringing
 		_talk += "\n[150]\f[bold,1]＊メッセージ%(HAN2ZEN(_i0+1))件め＊\f[bold,0]\n[150]"
 		
 		_talk += '\f[bold,1]送信元ゴースト名\f[bold,0]\n'
-		_talk += "\_?%(_cond[0])\_?\n[150]"
+		_talk += "%(UgmDisplayText(_cond[0]))\n[150]"
 
 		_talk += '\f[bold,1]送信者識別子\f[bold,0]\n'
-		_talk += "\_?%(_cond[1])\_?\n[150]"
+		_talk += "%(UgmDisplayText(_cond[1]))\n[150]"
 
 		_talk += '\f[bold,1]メッセージ識別子\f[bold,0]\n'
-		_talk += "\_?%(_cond[2])\_?"
+		_talk += "%(UgmDisplayText(_cond[2]))"
 
 		_ev_refs = ''
 		for _i1=3; _i1<ARRAYSIZE(_cond); _i1++ {
-			_ev_refs += "\n[150]\f[bold,1]追加情報%(HAN2ZEN(_i1-2))\f[bold,0]\n%(_cond[_i1])"
+			_ev_refs += "\n[150]\f[bold,1]追加情報%(HAN2ZEN(_i1-2))\f[bold,0]\n%(UgmDisplayText(_cond[_i1]))"
 		}
 		_talk += _ev_refs
 	}
@@ -195,6 +200,9 @@ Menu_CopyScript
 		}
 	}
 	MenuCommentForce = 'クリップボードにコピーしました。'
+	if reference[2] == 'Send' {
+		MenuCommentForce += UgmActiveConditionWarning
+	}
 	if ISFUNC(_return_to) {
 		// 帰り先がある
 		EVAL(_return_to)
@@ -358,6 +366,149 @@ MakeScript_Request
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+// ゴースト名のシステム予約字を半角アンダーバーに差し替える
+// UGMのTranslateSystemCharと同じ文字の集合（%と'を含む。\は含まない）
+//------------------------------------------------------------------------------
+UgmTranslateGhostName
+{
+	RE_REPLACE(TOSTR(_argv[0]), '[ !%' + "'" + '"#$&()*+,\-/:;<=>?@\[\]`{|}~]', '_')
+}
+
+//------------------------------------------------------------------------------
+// 入力された値やプラグインから来た値を、バルーンに文字としてそのまま表示する形にする
+// \と%をエスケープするので、値の中にタグがあっても実行されない
+//------------------------------------------------------------------------------
+UgmDisplayText
+{
+	_text = REPLACE(TOSTR(_argv[0]), '\', '\\')
+	REPLACE(_text, '%', '\%')
+}
+
+//------------------------------------------------------------------------------
+// 入力に%が含まれていたら、注意の一言を返す
+// スクリプトの引数の中では、%monthなどの環境変数が展開されてしまうため
+//------------------------------------------------------------------------------
+UgmPercentWarning
+{
+	if (STRSTR(_argv[0], '%', 0) >= 0) {
+		'\n[150]「\%」が含まれています。\n\%monthなどの環境変数と同じ文字の並びは、\n送るときに別の文字に置き換わってしまうので、\n気を付けてください。'
+	}
+}
+
+//------------------------------------------------------------------------------
+// 送信者識別子・メッセージ識別子などを、そのままスクリプトの引数に入れられる形にする
+// UGMは識別子を差し替えずに比べるので、"..."で囲む引数用に"を重ねるだけにする
+//------------------------------------------------------------------------------
+UgmEscapeId
+{
+	REPLACE(TOSTR(_argv[0]), '"', '""')
+}
+
+//------------------------------------------------------------------------------
+// 識別子に条件の区切り（:や/）が含まれていたら、注意の一言を返す
+//------------------------------------------------------------------------------
+UgmIdDelimiterWarning
+{
+	if (STRSTR(_argv[0], ':', 0) >= 0 || STRSTR(_argv[0], '/', 0) >= 0) {
+		'\n[150]「:」か「/」が含まれているので、\nほかのメッセージの条件には書けません。'
+	}
+}
+
+//------------------------------------------------------------------------------
+// 条件の入力を、プラグインに送る形に整える
+// ゴースト名は差し替え、識別子は"を重ねるだけにする。形の合わない項目は捨てる
+//------------------------------------------------------------------------------
+
+// ゴースト名[:ゴースト名...]
+UgmMakeGhostNameList
+{
+	_result = IARRAY
+	_items = SPLITEX(TOSTR(_argv[0]), ':')
+	foreach _items; _item {
+		_result ,= UgmTranslateGhostName(_item)
+	}
+	JOIN(_result, ':')
+}
+
+// ゴースト名 または ゴースト名/送信者識別子 [:...]
+UgmMakeAddressBookList
+{
+	_result = IARRAY
+	_items = SPLITEX(TOSTR(_argv[0]), ':')
+	foreach _items; _item {
+		_arr = SPLITEX(_item, '/')
+		if (ARRAYSIZE(_arr) == 1) {
+			_result ,= UgmTranslateGhostName(_arr[0])
+		}
+		elseif (ARRAYSIZE(_arr) == 2) {
+			_result ,= UgmTranslateGhostName(_arr[0]) + '/' + UgmEscapeId(_arr[1])
+		}
+	}
+	JOIN(_result, ':')
+}
+
+// イベント識別子 または イベント識別子/ゴースト名
+UgmMakeTriggeredValue
+{
+	_arr = SPLITEX(TOSTR(_argv[0]), '/')
+	if (ARRAYSIZE(_arr) == 1) {
+		UgmEscapeId(_arr[0])
+	}
+	elseif (ARRAYSIZE(_arr) == 2) {
+		UgmEscapeId(_arr[0]) + '/' + UgmTranslateGhostName(_arr[1])
+	}
+	else {
+		''
+	}
+}
+
+// ゴースト名/送信者識別子/メッセージ識別子 [:...]
+UgmMakeMessageList
+{
+	_result = IARRAY
+	_items = SPLITEX(TOSTR(_argv[0]), ':')
+	foreach _items; _item {
+		_arr = SPLITEX(_item, '/')
+		if (ARRAYSIZE(_arr) == 3) {
+			_result ,= UgmTranslateGhostName(_arr[0]) + '/' + UgmEscapeId(_arr[1]) + '/' + UgmEscapeId(_arr[2])
+		}
+	}
+	JOIN(_result, ':')
+}
+
+// 条件を入力したあとの一言（引数：題名, 設定後の値）
+UgmCondSetComment
+{
+	if (STRLEN(_argv[1]) > 0) {
+		"%(_argv[0])を設定しました。"
+	}
+	else {
+		"%(_argv[0])を未設定に戻しました。"
+	}
+}
+
+//------------------------------------------------------------------------------
+// 能動条件（〜した瞬間）の入力数を数える
+//------------------------------------------------------------------------------
+UgmActiveConditionCount
+{
+	_count = 0
+	foreach (send_Ghost_Booted, send_Ghost_Closed, send_Ghost_Triggered, send_Message_Run, send_Message_Read); _cond {
+		if (STRLEN(TOSTR(_cond)) > 0) {
+			_count++
+		}
+	}
+	_count
+}
+
+UgmActiveConditionWarning
+{
+	if (UgmActiveConditionCount >= 2) {
+		'\n[150]\f[bold,1]※\_a[能動条件と受動条件]「〜した瞬間」の条件\_aが2つ以上あるので、\nこのメッセージは発動しません。\f[bold,0]'
+	}
+}
+
+//------------------------------------------------------------------------------
 // 引数の文字数がゼロなら未設定という文字列で返す
 //------------------------------------------------------------------------------
 GenerateTextLabel
@@ -367,6 +518,19 @@ GenerateTextLabel
 	}
 	else {
 		_argv[0]
+	}
+}
+
+//------------------------------------------------------------------------------
+// プラグインから来た値をそのまま表示する。空なら空欄と表示する
+//------------------------------------------------------------------------------
+MenuItemLabelOrEmpty
+{
+	if (STRLEN(_argv[0]) <= 0) {
+		'\f[color,disable]※空欄※\f[color,default]'
+	}
+	else {
+		UgmDisplayText(_argv[0])
 	}
 }
 
@@ -418,7 +582,6 @@ Menu_Request_Edit
 	if (STRLEN(_r2) > 0) {
 		_default_text = _r2
 		_default_text = RE_REPLACE(_default_text, '"+', '""')
-		_default_text = SHIORI3FW.EscapeAllTags(_default_text)
 		_script += ',--text="'
 		_script += _default_text
 		_script += '"'
@@ -450,10 +613,19 @@ Menu_Request_Edit_tooltip
 
 Menu_Request_Edit_Entered
 {
-	_entered = reference[1]
-	_entered = SHIORI3FW.TranslateSystemChar(_entered)
-	_entered = SHIORI3FW.EscapeAllTags(_entered)
+	// ゴースト名は差し替え、識別子はそのまま（"を重ねるだけ）
+	// ※ifの中で初めて代入するとブロックを出たときに消えるので、先に宣言しておく
+	_entered = ''
+	if reference[3] == 'request_Sender' {
+		_entered = UgmTranslateGhostName(reference[1])
+	}
+	else {
+		_entered = UgmEscapeId(reference[1])
+	}
 	LETTONAME(reference[3], _entered)
+	if (STRSTR(reference[1], '%', 0) >= 0) {
+		MenuCommentForce = '設定しました。' + UgmPercentWarning(reference[1])
+	}
 	Menu_Request
 }
 
@@ -523,15 +695,11 @@ Menu_Send
 		_talk += '\f[bold,1]\_a[Message_IsRead]メッセージが既読\_a\f[bold,0]\n'
 		_talk += "%(MenuItem(2,GenerateTextLabel(send_Message_IsRead),'Menu_Send_Edit','send_Message_IsRead'))\n[-100]"
 		_talk += "%(_right)\f[bold,1]\_a[Message_IsNotRead]メッセージが未読\_a\f[bold,0]\n"
-		_talk += "%(_right)%(MenuItem(2,GenerateTextLabel(send_Message_IsNotRead),'Menu_Send_Edit','send_Message_IsNotRead'))"
-
-		// _talk += '\f[bold,1]\_a[Ugm_IsRunning]プラグインが起動中\_a\f[bold,0]\n'
-		// _talk += "%(MenuItem(2,GenerateTextLabel(send_Ugm_IsRunning),'Menu_Send_Edit','send_Ugm_IsRunning'))"
-	}
+		_talk += "%(_right)%(MenuItem(2,GenerateTextLabel(send_Message_IsNotRead),'Menu_Send_Edit','send_Message_IsNotRead'))"	}
 	elseif (_argv[0] == 'reference') {
 		_loop = ''
 		for _i=0; _i<ARRAYSIZE(send_EventReference); _i++ {
-			_loop += "その%(_i+1): \![*]\__q[Menu_Send_Edit_EventReference,%(_i)]%(SHIORI3FW.MakeJustText(send_EventReference[_i],BalloonCharCnt-16))\__q\n[150]"
+			_loop += "その%(_i+1): \![*]\__q[Menu_Send_Edit_EventReference,%(_i)]%(UgmDisplayText(SHIORI3FW.MakeJustText(send_EventReference[_i],BalloonCharCnt-16)))\__q\n[150]"
 		}
 		_loop += "その%(_i+1): \![*]\__q[Menu_Send_Edit_EventReference,%(_i)]\f[color,disable]%(SHIORI3FW.MakeJustText('※未設定※',BalloonCharCnt-16))\f[color,default]\__q"
 
@@ -610,7 +778,7 @@ Menu_Send_SampleSet
 	send_Text = ''
 	send_RunCount = 1
 	send_Late = 0
-	end_EventReference = IARRAY
+	send_EventReference = IARRAY
 	send_Time_After = ''
 	send_Time_Seconds = ''
 	send_Time_DayOfWeek = ''
@@ -629,7 +797,6 @@ Menu_Send_SampleSet
 	send_Message_Read = ''
 	send_Message_IsRead = ''
 	send_Message_IsNotRead = ''
-	send_Ugm_IsRunning = ''
 
 	case reference[2] {
 		when '1' {
@@ -753,7 +920,8 @@ Menu_Send_PageTurn
 		when 'cond' {
 			MenuCommentForce = '条件を編集しますか？\n[150]未設定に戻すときは、空欄で決定してください。\n[150]/
 			設定済みの条件を全て達成した時だけ\nメッセージは発動します。\n[150]/
-			条件がひとつも無いなら、送信後すぐに\nメッセージが発動します。'
+			条件がひとつも無いなら、送信後すぐに\nメッセージが発動します。\n[150]/
+			「〜した瞬間」の条件は、\n1つのメッセージに1つまでです。'
 		}
 	}
 	Menu_Send(reference[2])
@@ -762,7 +930,7 @@ Menu_Send_PageTurn
 Menu_Send_Exec
 {
 	_script = MakeScript_Send
-	MenuCommentForce = '送信します。' + _script
+	MenuCommentForce = '送信します。' + UgmActiveConditionWarning + _script
 	Menu_Send(reference[2])
 }
 
@@ -786,7 +954,7 @@ Menu_Send_Edit
 
 	MenuCommentForce = _script
 
-	if (STRSTR(reference[2], 'send_Time_', 0) == 0 || STRSTR(reference[2], 'send_Ghost_', 0) == 0 || STRSTR(reference[2], 'send_Message_', 0) == 0 || STRSTR(reference[2], 'send_Ugm_', 0) == 0) {
+	if (STRSTR(reference[2], 'send_Time_', 0) == 0 || STRSTR(reference[2], 'send_Ghost_', 0) == 0 || STRSTR(reference[2], 'send_Message_', 0) == 0) {
 		Menu_Send('cond')
 	}
 	else {
@@ -803,6 +971,7 @@ Menu_Send_Edit_tooltip
 
 Menu_Send_Edit_Entered
 {
+	_raw = reference[1]
 	_r1 = reference[1]
 	_r1 = RE_REPLACE(_r1, '"+', '""')
 	_r3 = reference[3]
@@ -815,10 +984,13 @@ Menu_Send_Edit_Entered
 			MenuCommentForce = "%(_title)を設定しました。"
 		}
 		when 'send_MessageId' {
-			send_MessageId = SHIORI3FW.TranslateSystemChar(_r1)
+			send_MessageId = UgmEscapeId(_raw)
 			if STRLEN(send_MessageId) <= 0 {
 				send_MessageId = 'test01'
 				MenuCommentForce = "%(_title)を初期値に戻しました。"
+			}
+			else {
+				MenuCommentForce = "%(_title)を設定しました。" + UgmIdDelimiterWarning(_raw)
 			}
 		}
 		when 'send_Enable' {
@@ -836,15 +1008,15 @@ Menu_Send_Edit_Entered
 			}
 		}
 		when 'send_SenderId' {
-			send_SenderId = SHIORI3FW.TranslateSystemChar(_r1)
-			MenuCommentForce = "%(_title)を設定しました。"
+			send_SenderId = UgmEscapeId(_raw)
+			MenuCommentForce = "%(_title)を設定しました。" + UgmIdDelimiterWarning(_raw)
 		}
 		when 'send_SenderName' {
 			send_SenderName = _r1
 			MenuCommentForce = "%(_title)を設定しました。"
 		}
 		when 'send_SenderIcon' {
-			send_SenderIcon = SHIORI3FW.EscapeAllTags(_r1)
+			send_SenderIcon = _r1
 			MenuCommentForce = "%(_title)を設定しました。"
 		}
 		when 'send_SenderProfile' {
@@ -966,242 +1138,60 @@ Menu_Send_Edit_Entered
 			}
 		}
 		when 'send_Ghost_Booted' {
-			send_Ghost_Booted = SHIORI3FW.TranslateSystemChar(_r1)
-			MenuCommentForce = "%(_title)を設定しました。"
+			send_Ghost_Booted = UgmMakeGhostNameList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Ghost_Booted)
 		}
 		when 'send_Ghost_Closed' {
-			send_Ghost_Closed = SHIORI3FW.TranslateSystemChar(_r1)
-			MenuCommentForce = "%(_title)を設定しました。"
+			send_Ghost_Closed = UgmMakeGhostNameList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Ghost_Closed)
 		}
 		when 'send_Ghost_IsBooting' {
-			if (STRSTR(_r1, ':', 0) == -1) {
-				send_Ghost_IsBooting = SHIORI3FW.TranslateSystemChar(_r1)
-				MenuCommentForce = "%(_title)を設定しました。"
-			}
-			else {
-				_arr = SPLITEX(TOSTR(_r1), ':')
-				_result = IARRAY
-				foreach _arr; _ghost {
-					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
-				}
-				send_Ghost_IsBooting = JOIN(_result, ':')
-				MenuCommentForce = "%(_title)を設定しました。"
-			}
+			send_Ghost_IsBooting = UgmMakeGhostNameList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Ghost_IsBooting)
 		}
 		when 'send_Ghost_IsNotBooting' {
-			if (STRSTR(_r1, ':', 0) == -1) {
-				send_Ghost_IsNotBooting = SHIORI3FW.TranslateSystemChar(_r1)
-				MenuCommentForce = "%(_title)を設定しました。"
-			}
-			else {
-				_arr = SPLITEX(TOSTR(_r1), ':')
-				_result = IARRAY
-				foreach _arr; _ghost {
-					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
-				}
-				send_Ghost_IsNotBooting = JOIN(_result, ':')
-				MenuCommentForce = "%(_title)を設定しました。"
-			}
+			send_Ghost_IsNotBooting = UgmMakeGhostNameList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Ghost_IsNotBooting)
 		}
 		when 'send_Ghost_Exists' {
-			if (STRSTR(_r1, ':', 0) == -1) {
-				send_Ghost_Exists = SHIORI3FW.TranslateSystemChar(_r1)
-				MenuCommentForce = "%(_title)を設定しました。"
-			}
-			else {
-				_arr = SPLITEX(TOSTR(_r1), ':')
-				_result = IARRAY
-				foreach _arr; _ghost {
-					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
-				}
-				send_Ghost_Exists = JOIN(_result, ':')
-				MenuCommentForce = "%(_title)を設定しました。"
-			}
+			send_Ghost_Exists = UgmMakeGhostNameList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Ghost_Exists)
 		}
 		when 'send_Ghost_NotExists' {
-			if (STRSTR(_r1, ':', 0) == -1) {
-				send_Ghost_NotExists = SHIORI3FW.TranslateSystemChar(_r1)
-				MenuCommentForce = "%(_title)を設定しました。"
-			}
-			else {
-				_arr = SPLITEX(TOSTR(_r1), ':')
-				_result = IARRAY
-				foreach _arr; _ghost {
-					_result ,= SHIORI3FW.TranslateSystemChar(_ghost)
-				}
-				send_Ghost_NotExists = JOIN(_result, ':')
-				MenuCommentForce = "%(_title)を設定しました。"
-			}
+			send_Ghost_NotExists = UgmMakeGhostNameList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Ghost_NotExists)
 		}
 		when 'send_Ghost_IsInAddressBook' {
-			if (STRSTR(_r1, '/', 0) == -1) {
-				send_Ghost_IsInAddressBook = ''
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
-			}
-			else {
-				_result = IARRAY
-				_arr0 = SPLITEX(_r1, ':')
-				foreach _arr0; _curt {
-					_arr1 = SPLITEX(_curt, '/')
-					if (STRLEN(_arr1[0]) > 0 && STRLEN(_arr1[1]) > 0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[1])
-					}
-				}
-				send_Ghost_IsInAddressBook = JOIN(_result, ':')
-				MenuCommentForce = "%(_title)を設定しました。"
-				if (STRLEN(send_Ghost_IsInAddressBook) <= 0) {
-					MenuCommentForce = "%(_title)を未設定に戻しました。"
-				}
-			}
+			send_Ghost_IsInAddressBook = UgmMakeAddressBookList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Ghost_IsInAddressBook)
 		}
 		when 'send_Ghost_Triggered' {
-			if STRLEN(_r1) <= 0 {
-				send_Ghost_Triggered = ''
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
-			}
-			elseif (STRSTR(_r1, '/', 0) == -1) {
-				send_Ghost_Triggered = SHIORI3FW.TranslateSystemChar(_r1)
-				MenuCommentForce = "%(_title)を設定しました。"
-			}
-			else {
-				_arr = SPLITEX(_r1, '/')
-				_result = (SHIORI3FW.TranslateSystemChar(_arr[0]), SHIORI3FW.TranslateSystemChar(_arr[1]))
-				send_Ghost_Triggered = JOIN(_result, '/')
-				MenuCommentForce = "%(_title)を設定しました。"
-				if (STRLEN(send_Ghost_Triggered) <= 0) {
-					MenuCommentForce = "%(_title)を未設定に戻しました。"
-				}
-			}
+			send_Ghost_Triggered = UgmMakeTriggeredValue(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Ghost_Triggered)
 		}
 		when 'send_Message_Run' {
-			if (STRSTR(_r1, '/', 0) == -1) {
-				send_Message_Run = ''
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
-			}
-			else {
-				_result = IARRAY
-				_arr = SPLITEX(_r1, '/')
-				foreach _arr; _curt {
-					_result ,= SHIORI3FW.TranslateSystemChar(_curt)
-				}
-				send_Message_Run = JOIN(_result, '/')
-				MenuCommentForce = "%(_title)を設定しました。"
-				if (STRLEN(send_Message_Run) <= 0) {
-					MenuCommentForce = "%(_title)を未設定に戻しました。"
-				}
-			}
+			send_Message_Run = UgmMakeMessageList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Message_Run)
 		}
 		when 'send_Message_IsRun' {
-			if (STRSTR(_r1, '/', 0) == -1) {
-				send_Message_IsRun = ''
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
-			}
-			else {
-				_result = IARRAY
-				_arr0 = SPLITEX(_r1, ':')
-				foreach _arr0; _curt {
-					_arr1 = SPLITEX(_curt, '/')
-					if (STRLEN(_arr1[0]) > 0 && STRLEN(_arr1[1]) > 0 && STRLEN(_arr1[2]) > 0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[1]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[2])
-					}
-				}
-				send_Message_IsRun = JOIN(_result, ':')
-				MenuCommentForce = "%(_title)を設定しました。"
-				if (STRLEN(send_Message_IsRun) <= 0) {
-					MenuCommentForce = "%(_title)を未設定に戻しました。"
-				}
-			}
+			send_Message_IsRun = UgmMakeMessageList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Message_IsRun)
 		}
 		when 'send_Message_IsNotRun' {
-			if (STRSTR(_r1, '/', 0) == -1) {
-				send_Message_IsNotRun = ''
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
-			}
-			else {
-				_result = IARRAY
-				_arr0 = SPLITEX(_r1, ':')
-				foreach _arr0; _curt {
-					_arr1 = SPLITEX(_curt, '/')
-					if (STRLEN(_arr1[0]) > 0 && STRLEN(_arr1[1]) > 0 && STRLEN(_arr1[2]) > 0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[1]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[2])
-					}
-				}
-				send_Message_IsNotRun = JOIN(_result, ':')
-				MenuCommentForce = "%(_title)を設定しました。"
-				if (STRLEN(send_Message_IsNotRun) <= 0) {
-					MenuCommentForce = "%(_title)を未設定に戻しました。"
-				}
-			}
+			send_Message_IsNotRun = UgmMakeMessageList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Message_IsNotRun)
 		}
 		when 'send_Message_Read' {
-			if (STRSTR(_r1, '/', 0) == -1) {
-				send_Message_Read = ''
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
-			}
-			else {
-				_result = IARRAY
-				_arr = SPLITEX(_r1, '/')
-				foreach _arr; _curt {
-					_result ,= SHIORI3FW.TranslateSystemChar(_curt)
-				}
-				send_Message_Read = JOIN(_result, '/')
-				MenuCommentForce = "%(_title)を設定しました。"
-				if (STRLEN(send_Message_Read) <= 0) {
-					MenuCommentForce = "%(_title)を未設定に戻しました。"
-				}
-			}
+			send_Message_Read = UgmMakeMessageList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Message_Read)
 		}
 		when 'send_Message_IsRead' {
-			if (STRSTR(_r1, '/', 0) == -1) {
-				send_Message_IsRead = ''
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
-			}
-			else {
-				_result = IARRAY
-				_arr0 = SPLITEX(_r1, ':')
-				foreach _arr0; _curt {
-					_arr1 = SPLITEX(_curt, '/')
-					if (STRLEN(_arr1[0]) > 0 && STRLEN(_arr1[1]) > 0 && STRLEN(_arr1[2]) > 0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[1]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[2])
-					}
-				}
-				send_Message_IsRead = JOIN(_result, ':')
-				MenuCommentForce = "%(_title)を設定しました。"
-				if (STRLEN(send_Message_IsRead) <= 0) {
-					MenuCommentForce = "%(_title)を未設定に戻しました。"
-				}
-			}
+			send_Message_IsRead = UgmMakeMessageList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Message_IsRead)
 		}
 		when 'send_Message_IsNotRead' {
-			if (STRSTR(_r1, '/', 0) == -1) {
-				send_Message_IsNotRead = ''
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
-			}
-			else {
-				_result = IARRAY
-				_arr0 = SPLITEX(_r1, ':')
-				foreach _arr0; _curt {
-					_arr1 = SPLITEX(_curt, '/')
-					if (STRLEN(_arr1[0]) > 0 && STRLEN(_arr1[1]) > 0 && STRLEN(_arr1[2]) > 0) {
-						_result ,= SHIORI3FW.TranslateSystemChar(_arr1[0]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[1]) + '/' + SHIORI3FW.TranslateSystemChar(_arr1[2])
-					}
-				}
-				send_Message_IsNotRead = JOIN(_result, ':')
-				MenuCommentForce = "%(_title)を設定しました。"
-				if (STRLEN(send_Message_IsNotRead) <= 0) {
-					MenuCommentForce = "%(_title)を未設定に戻しました。"
-				}
-			}
-		}
-		when 'send_Ugm_IsRunning' {
-			if _r1=='0' || _r1=='1' {
-				send_Ugm_IsRunning = TOINT(_r1)
-				MenuCommentForce = "%(_title)を設定しました。"
-			}
-			else {
-				send_Ugm_IsRunning = ''
-				MenuCommentForce = "%(_title)を未設定に戻しました。"
-			}
+			send_Message_IsNotRead = UgmMakeMessageList(_raw)
+			MenuCommentForce = UgmCondSetComment(_title, send_Message_IsNotRead)
 		}
 		others {
 			_r1 = SHIORI3FW.TranslateSystemChar(_r1)
@@ -1209,8 +1199,9 @@ Menu_Send_Edit_Entered
 			LETTONAME(_r3, _r1)
 		}
 	}
+	MenuCommentForce += UgmPercentWarning(_raw)
 
-	if (STRSTR(reference[3], 'send_Time_', 0) == 0 || STRSTR(reference[3], 'send_Ghost_', 0) == 0 || STRSTR(reference[3], 'send_Message_', 0) == 0 || STRSTR(reference[3], 'send_Ugm_', 0) == 0) {
+	if (STRSTR(reference[3], 'send_Time_', 0) == 0 || STRSTR(reference[3], 'send_Ghost_', 0) == 0 || STRSTR(reference[3], 'send_Message_', 0) == 0) {
 		Menu_Send('cond')
 	}
 	else {
@@ -1224,7 +1215,6 @@ Menu_Send_Edit_EventReference
 	_script = '\![close,inputbox,__SYSTEM_ALL_INPUT__]\![open,inputbox,Menu_Send_Edit_Entered_EventReference,0'
 	if (STRLEN(_selected) > 0) {
 		_selected = RE_REPLACE(_selected, '"+', '""')
-		_selected = SHIORI3FW.EscapeAllTags(_selected)
 		_script += ',--text="'
 		_script += _selected
 		_script += '"'
@@ -1242,11 +1232,11 @@ Menu_Send_Edit_EventReference
 Menu_Send_Edit_Entered_EventReference
 {
 	if (STRLEN(reference[1]) > 0) {
-		_entered = reference[1]
-		_entered = SHIORI3FW.TranslateSystemChar(_entered)
-		_entered = SHIORI3FW.EscapeAllTags(_entered)
+		// "..."で囲んで送るので、"を重ねるだけにする
+		_entered = UgmEscapeId(reference[1])
 		_count = TOINT(reference[3])
 		send_EventReference[_count] = _entered
+		MenuCommentForce = 'イベントリファレンスを設定しました。' + UgmPercentWarning(reference[1])
 	}
 	else {
 		_count = TOINT(reference[3])
@@ -1295,7 +1285,6 @@ Menu_Cancel_Edit
 	if (STRLEN(_r2) > 0) {
 		_default_text = _r2
 		_default_text = RE_REPLACE(_default_text, '"+', '""')
-		_default_text = SHIORI3FW.EscapeAllTags(_default_text)
 		_script += ',--text="'
 		_script += _default_text
 		_script += '"'
@@ -1311,17 +1300,19 @@ Menu_Cancel_Edit
 
 Menu_Cancel_Edit_tooltip
 {
-	if ISEVALUABLE(reference[3]) == 1 {
-		EVAL(reference[3])
+	if ISEVALUABLE(reference[2]) == 1 {
+		EVAL(reference[2])
 	}
 }
 
 Menu_Cancel_Edit_Entered
 {
-	_entered = reference[1]
-	_entered = SHIORI3FW.TranslateSystemChar(_entered)
-	_entered = SHIORI3FW.EscapeAllTags(_entered)
+	// 識別子はそのまま（"を重ねるだけ）
+	_entered = UgmEscapeId(reference[1])
 	LETTONAME(reference[3], _entered)
+	if (STRSTR(reference[1], '%', 0) >= 0) {
+		MenuCommentForce = '設定しました。' + UgmPercentWarning(reference[1])
+	}
 	Menu_Cancel
 }
 
@@ -1368,7 +1359,6 @@ Menu_Trigger_Edit
 	if (STRLEN(_r2) > 0) {
 		_default_text = _r2
 		_default_text = RE_REPLACE(_default_text, '"+', '""')
-		_default_text = SHIORI3FW.EscapeAllTags(_default_text)
 		_script += ',--text="'
 		_script += _default_text
 		_script += '"'
@@ -1406,9 +1396,18 @@ Menu_Trigger_Edit_tooltip
 
 Menu_Trigger_Edit_Entered
 {
-	_entered = reference[1]
-	_entered = SHIORI3FW.TranslateSystemChar(_entered)
-	_entered = SHIORI3FW.EscapeAllTags(_entered)
+	// ゴースト名は差し替え、識別子はそのまま（"を重ねるだけ）
+	// ※ifの中で初めて代入するとブロックを出たときに消えるので、先に宣言しておく
+	_entered = ''
+	if reference[3] == 'trigger_TargerSender' {
+		_entered = UgmTranslateGhostName(reference[1])
+	}
+	else {
+		_entered = UgmEscapeId(reference[1])
+	}
 	LETTONAME(reference[3], _entered)
+	if (STRSTR(reference[1], '%', 0) >= 0) {
+		MenuCommentForce = '設定しました。' + UgmPercentWarning(reference[1])
+	}
 	Menu_Trigger
 }
