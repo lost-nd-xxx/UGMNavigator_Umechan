@@ -1,6 +1,0 @@
-.git/,nonar,noupdate
-.gitignore,nonar,noupdate
-ghost/master/yaya_variable.cfg,nonar,noupdate
-ghost/master/ssp_shiori_log.txt,nonar,noupdate
-ghost/master/ayame.log,nonar,noupdate
-ghost/master/yaya_ssp_debug.log,nonar,noupdate

@@ -1,7 +1,28 @@
-shell/master/profile/
-ghost/master/profile/
+# runtime data
+profile/
+yaya_variable.cfg
 ghost/master/var/
-ghost/master/yaya_variable.cfg
 ghost/master/ssp_shiori_log.txt
 ghost/master/ayame.log
 ghost/master/yaya_ssp_debug.log
+
+# files for developing the ghost with ukagaka-developer (local only)
+/AGENTS.md
+/CLAUDE.md
+/GHOST.md
+/.mcp.json
+/.claude/
+/.agents/
+/build/
+
+# files of the repository and the editor (local only)
+/.github/
+/.editorconfig
+/.narignore
+/.updateignore
+
+# balloon images of sstp.ps1 -Balloon, left only when the script was stopped midway
+/ghost/master/devkit-balloon-*/
+
+# new versions of the system dictionary waiting to be merged
+*.yaya-dic-new

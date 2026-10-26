@@ -1,5 +1,5 @@
 charset,UTF-8
-file,developer_options.txt8135ee35b6395e1cf5469df5d33cb0e6size=231date=2025-06-12T11:27:52
+file,delete.txtb6607c0d2fa9aeaf0e21f05521d6a251size=23date=2026-10-26T17:58:31
 file,install.txt7f1e2fd4f162d74c909dcf7839805232size=120date=2024-08-13T17:19:25
 file,readme.txtbcf364ac71ed8e2eda7ad5295fea5bddsize=1320date=2026-10-01T04:36:15
 file,thumbnail.pngead088603b0c68a66083b3def20653a1size=33807date=2024-12-17T21:54:05
